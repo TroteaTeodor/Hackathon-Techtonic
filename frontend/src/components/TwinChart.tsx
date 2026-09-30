@@ -161,6 +161,9 @@ export function TwinChart({
             <Area
               type="monotone"
               dataKey="balance"
+              // Fill from the line down to the bottom of the chart, not towards zero: a forecast that
+              // stays negative would otherwise be shaded above its line.
+              baseValue={yMin}
               stroke={hi < BUFFER ? CORAL : lo >= BUFFER ? c.line : `url(#stroke-${uid})`}
               strokeWidth={2.5}
               fill={`url(#fill-${uid})`}
