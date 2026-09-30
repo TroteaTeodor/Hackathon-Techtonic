@@ -32,7 +32,7 @@ def test_logout_clears_cookie(client):
     assert client.get("/me/overview").status_code == 401
 
 
-@pytest.mark.parametrize("path", ["/auth/me", "/me/overview", "/customers", "/customers/1", "/scale"])
+@pytest.mark.parametrize("path", ["/auth/me", "/me/overview", "/me/transactions", "/customers", "/customers/1", "/scale"])
 def test_no_cookie_is_401(client, path):
     client.cookies.clear()
     assert client.get(path).status_code == 401
@@ -277,3 +277,26 @@ def test_password_checks_are_bounded():
     finally:
         for slot in held:
             slot.__exit__(None, None, None)
+
+
+def test_transactions_are_the_customers_own_newest_first(client, db):
+    from app.models import Signal
+
+    login(client, "sara")
+    rows = client.get("/me/transactions").json()
+    assert rows and all(r["kind"] == "transaction" for r in rows)
+    assert [r["date"] for r in rows] == sorted((r["date"] for r in rows), reverse=True)
+    sara_id = customer_id(db, "Sara")
+    owners = set(db.scalars(select(Signal.customer_id).where(Signal.id.in_([r["id"] for r in rows]))))
+    assert owners == {sara_id}
+
+
+def test_transactions_limit_is_bounded(client):
+    login(client, "sara")
+    assert len(client.get("/me/transactions?limit=5").json()) <= 5
+    assert client.get("/me/transactions?limit=1000").status_code == 422
+
+
+def test_advisor_cannot_read_customer_transactions(client):
+    login(client, "advisor")
+    assert client.get("/me/transactions").status_code == 403
