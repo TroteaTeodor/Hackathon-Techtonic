@@ -6,31 +6,37 @@ import { money, moneyCents } from "@/lib/format";
 import type { CategorySpend, Subscription } from "@/lib/types";
 
 /** Where the money goes: average monthly spend per category, from the categorised transactions. */
-export function SpendingBreakdown({ spending, limit = 6, tone = "light" }: { spending: CategorySpend[]; limit?: number; tone?: "light" | "card" }) {
+export function SpendingBreakdown({
+  spending,
+  limit = 6,
+  tone = "light",
+  compact = false,
+}: {
+  spending: CategorySpend[];
+  limit?: number;
+  tone?: "light" | "card";
+  /** Narrow columns (the advisor sidebar): smaller heading, the note under it, no inner card. */
+  compact?: boolean;
+}) {
   if (spending.length === 0) return null;
   const rows = spending.slice(0, limit);
   const top = rows[0]?.monthly_average || 1;
   return (
     <section aria-labelledby="spending" className={clsx(tone === "card" && "rounded-[var(--radius-card)] border border-line bg-white p-4")}>
-      <div className="flex items-baseline justify-between px-1">
-        <h2 id="spending" className="font-display text-xl font-semibold tracking-tight text-navy-900">
-          Where your money goes
-        </h2>
-        <span className="text-sm text-muted">per month, last 3 months</span>
-      </div>
-      <ul className="mt-3 space-y-3 rounded-[var(--radius-card)] bg-white p-4">
+      <SectionHead id="spending" title="Where your money goes" meta="per month, last 3 months" compact={compact} />
+      <ul className={clsx("mt-3 space-y-3", compact ? "px-0" : "rounded-[var(--radius-card)] bg-white p-4")}>
         {rows.map((r) => (
           <li key={r.category}>
             <div className="flex items-baseline justify-between gap-3 text-sm">
-              <span className="font-medium text-navy-900">
+              <span className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 font-medium text-navy-900">
                 {r.label}
                 {r.recurring_share >= 0.6 && (
-                  <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-ice px-2 py-0.5 text-xs font-medium text-navy-700">
+                  <span className="inline-flex items-center gap-1 rounded-full bg-ice px-2 py-0.5 text-xs font-medium text-navy-700">
                     <Repeat className="size-3" aria-hidden /> recurring
                   </span>
                 )}
               </span>
-              <span className="tabular text-ink/80">
+              <span className="tabular shrink-0 whitespace-nowrap text-ink/80">
                 {money(r.monthly_average)} <span className="text-muted">· {Math.round(r.share * 100)}%</span>
               </span>
             </div>
@@ -46,22 +52,23 @@ export function SpendingBreakdown({ spending, limit = 6, tone = "light" }: { spe
 }
 
 /** Subscriptions detected from repeating fixed charges, with price rises called out. */
-export function SubscriptionList({ subscriptions }: { subscriptions: Subscription[] }) {
+export function SubscriptionList({ subscriptions, compact = false }: { subscriptions: Subscription[]; compact?: boolean }) {
   if (subscriptions.length === 0) return null;
   const total = subscriptions.reduce((sum, s) => sum + s.monthly_amount, 0);
   return (
     <section aria-labelledby="subscriptions">
-      <div className="flex items-baseline justify-between px-1">
-        <h2 id="subscriptions" className="font-display text-xl font-semibold tracking-tight text-navy-900">
-          Your subscriptions
-        </h2>
-        <span className="tabular text-sm text-muted">
-          {moneyCents(total)} / month · {money(total * 12)} / year
-        </span>
-      </div>
-      <ul className="mt-3 overflow-hidden rounded-[var(--radius-card)] bg-white">
+      <SectionHead
+        id="subscriptions"
+        title={compact ? "Subscriptions" : "Your subscriptions"}
+        meta={`${moneyCents(total)} a month, ${money(total * 12)} a year`}
+        compact={compact}
+      />
+      <ul className={clsx("mt-3 overflow-hidden", compact ? "-mx-1" : "rounded-[var(--radius-card)] bg-white")}>
         {subscriptions.map((s) => (
-          <li key={s.name} className="flex items-center justify-between gap-3 border-b border-line px-4 py-3 last:border-0">
+          <li
+            key={s.name}
+            className={clsx("flex items-center justify-between gap-3 border-b border-line py-3 last:border-0", compact ? "px-1" : "px-4")}
+          >
             <div className="min-w-0">
               <p className="truncate font-medium text-navy-900">{s.name}</p>
               <p className="text-xs text-muted">since {s.since}</p>
@@ -79,5 +86,27 @@ export function SubscriptionList({ subscriptions }: { subscriptions: Subscriptio
         ))}
       </ul>
     </section>
+  );
+}
+
+/** Section heading. Wide: title and note on one line. Compact: the note wraps under the title. */
+function SectionHead({ id, title, meta, compact }: { id: string; title: string; meta: string; compact: boolean }) {
+  if (compact) {
+    return (
+      <div className="px-1">
+        <h3 id={id} className="font-display text-base font-semibold tracking-tight text-navy-900">
+          {title}
+        </h3>
+        <p className="tabular mt-0.5 text-[13px] text-muted">{meta}</p>
+      </div>
+    );
+  }
+  return (
+    <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5 px-1">
+      <h2 id={id} className="font-display whitespace-nowrap text-xl font-semibold tracking-tight text-navy-900">
+        {title}
+      </h2>
+      <span className="tabular whitespace-nowrap text-sm text-muted">{meta}</span>
+    </div>
   );
 }
