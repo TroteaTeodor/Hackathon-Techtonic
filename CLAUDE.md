@@ -23,7 +23,9 @@ cd frontend && pnpm install && pnpm dev   # Next.js on :3000
 - Postgres isn't published to the host. Open a shell with `docker compose exec db psql -U app -d app`. The backend listens
   on 127.0.0.1:8000 only. Fresh start: `docker compose down -v`
   (also needed after changing `POSTGRES_PASSWORD`, because Postgres only sets it when the volume is created).
-- Frontend reads `NEXT_PUBLIC_API_URL` and `NEXT_PUBLIC_USE_MOCKS` from `frontend/.env.local`.
+- Frontend reads `NEXT_PUBLIC_API_URL` (default `/api`) and `NEXT_PUBLIC_USE_MOCKS` from `frontend/.env.local`. `/api/*` is proxied
+  by Next (`next.config.ts`, target `API_PROXY_TARGET`, default `http://127.0.0.1:8000`), so the browser stays same-origin: no CORS,
+  and a phone on the same Wi-Fi can open `http://<laptop-ip>:3000`.
 - Demo logins (password = `DEMO_PASSWORD`): `advisor`, and customers `sara` (moving home), `lien` (baby),
   `ahmed` (new job, no marketing consent), `marc` (retirement), `julie` (financial stress), `pieter` (car), `jan` (routine).
 
