@@ -12,4 +12,6 @@ class ItemRead(BaseModel):
 
     id: int
     name: str
+    category: str | None
+    category_confidence: float | None
     created_at: datetime

@@ -24,13 +24,26 @@ cd frontend && pnpm install && pnpm dev   # Next.js on :3000
 ## Backend conventions
 - Python deps go in `backend/requirements.txt`; rebuild with `docker compose up -d --build backend`.
 - Models in `app/models.py`, Pydantic schemas in `app/schemas.py`, routes in `app/main.py`.
-- Tables are created on startup via `create_all`; introduce Alembic before changing existing tables.
+- Schema changes go through Alembic (`backend/migrations/`); migrations run automatically on container start.
+  - New migration: `docker compose exec backend alembic revision --autogenerate -m "<message>"`, then review the generated file.
+
+## Jev categorization
+- Items are sorted into categories by Jev (`~typesafe/jev-latest`) through OpenRouter's Decisions API (`app/jev.py`).
+- Categories and their descriptions live in `app/categories.py`; edit them there.
+- Needs `OPENROUTER_API_KEY` in the root `.env` (copy `.env.example`). Without it, items are saved with no category.
+- Jev failures never block saving an item; `POST /items/{id}/categorize` re-runs it.
 
 ## Git
 - Do not add `Co-Authored-By`, "Generated with Claude Code", session links, or any other AI attribution to commit messages or PR descriptions.
 - Never commit or push directly to `main`. Do all work on a feature branch, push it, and open a pull request into `main`.
 - Open PRs with the GitHub MCP server (official `github/github-mcp-server`). If it isn't installed, install it first.
+  - It is configured in `.mcp.json` and needs `GITHUB_PERSONAL_ACCESS_TOKEN` exported in your shell (e.g. `export GITHUB_PERSONAL_ACCESS_TOKEN=$(gh auth token)` or a fine-grained PAT).
 
 ## Tools and integrations
 - This is a personal project. Do not use anything from Conveo: no Conveo MCP servers (e.g. `Conveo - Github`, `Conveo - BigQuery`), no `conveo-*` plugins or skills, no Conveo accounts, repos, or org resources.
 - Use only project-local or personal tooling (e.g. the MCP servers in `.mcp.json`).
+
+## Specs (OpenSpec)
+- Plans live in `openspec/changes/<change>/` (proposal, specs, design, tasks). The active change is `kbc-foresight`.
+- Implement with `/opsx:apply`, and tick tasks in `tasks.md` as they're done.
+- **When a change is completed** (all tasks ticked and merged into `main`), archive it right away with `/opsx:archive` (`openspec archive <change>`). That moves it into `openspec/changes/archive/` and merges its specs into `openspec/specs/`. Archive on a branch and merge via a PR like any other change.

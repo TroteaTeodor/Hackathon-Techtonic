@@ -30,3 +30,8 @@ schema: spec-driven
 #     archive:
 #       guidance:
 #         - Summarize the archive outcome before finishing
+
+operations:
+  archive:
+    guidance:
+      - Archive a change as soon as all its tasks are ticked and its work is merged into main; do not leave completed changes in openspec/changes/.
