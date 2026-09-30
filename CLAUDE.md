@@ -30,6 +30,7 @@ cd frontend && pnpm install && pnpm dev   # Next.js on :3000
 - Do not add `Co-Authored-By`, "Generated with Claude Code", session links, or any other AI attribution to commit messages or PR descriptions.
 - Never commit or push directly to `main`. Do all work on a feature branch, push it, and open a pull request into `main`.
 - Open PRs with the GitHub MCP server (official `github/github-mcp-server`). If it isn't installed, install it first.
+  - It is configured in `.mcp.json` and needs `GITHUB_PERSONAL_ACCESS_TOKEN` exported in your shell (e.g. `export GITHUB_PERSONAL_ACCESS_TOKEN=$(gh auth token)` or a fine-grained PAT).
 
 ## Tools and integrations
 - This is a personal project. Do not use anything from Conveo: no Conveo MCP servers (e.g. `Conveo - Github`, `Conveo - BigQuery`), no `conveo-*` plugins or skills, no Conveo accounts, repos, or org resources.
