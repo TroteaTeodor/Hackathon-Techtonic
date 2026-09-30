@@ -155,7 +155,7 @@ Fixtures (`frontend/src/mocks/`): `me-customer.json`, `me-advisor.json`, `overvi
 ## Decisions
 
 **1. Gemini for moment detection, with a rule-based fallback.**
-- *How:* use the `google-genai` SDK with structured output (a JSON response schema matching `Moment` minus the server-set fields). The model comes from `GEMINI_MODEL`. An AI Studio key (`GEMINI_API_KEY`) is the default. Vertex AI with the team's GCP credits is the alternative: `GOOGLE_GENAI_USE_VERTEXAI=true`, `GOOGLE_CLOUD_PROJECT`, `GOOGLE_CLOUD_LOCATION`.
+- *How:* use the `google-genai` SDK with structured output (a JSON response schema matching `Moment` minus the server-set fields). The model comes from `GEMINI_MODEL` (default `gemini-3.8-flash`, on Vertex location `global`). An AI Studio key (`GEMINI_API_KEY`) is the default. Vertex AI with the team's GCP credits is the alternative: `GOOGLE_GENAI_USE_VERTEXAI=true`, `GOOGLE_CLOUD_PROJECT`, `GOOGLE_CLOUD_LOCATION`.
 - *Why Gemini:* the team prefers it, credits are provided, and it understands free-text merchant descriptions well.
 - *Alternative:* Jev, which has calibrated probabilities and is cheaper. It was rejected because the team preferred Gemini, and a model that also generates text leaves room for message wording later.
 - *Fallback:* the keyword and amount rules are also what the generated population uses, so the scale view costs no API calls.
@@ -231,5 +231,4 @@ The twin is computed on read from signals plus the current moment, and is not st
 
 ## Open Questions
 
-- The exact default for `GEMINI_MODEL`: pick the current Flash model when implementing. It's configurable, so the choice doesn't affect the specs.
-- AI Studio key or Vertex: whichever credential the team gets working first. Both paths are supported by configuration.
+- None blocking. Resolved: Vertex AI on project `billem-499113`, location `global` (Gemini 3.x isn't served from `europe-west1`), model `gemini-3.8-flash`, authenticated with the service-account key at `secrets/gcp-sa.json`. It was verified with a live call. `GEMINI_API_KEY` (AI Studio) is the fallback when `GOOGLE_GENAI_USE_VERTEXAI` is not `true`.
