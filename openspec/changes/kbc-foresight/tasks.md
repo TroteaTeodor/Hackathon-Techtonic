@@ -16,7 +16,7 @@ Groups 2–6 (A) and 7–10 (B) run in parallel and never touch each other's dir
 - [x] 1.3 Write the fixtures in `frontend/src/mocks/` (`me-customer`, `me-advisor`, `overview-sara`, `customers`, `customer-detail-sara`, `customer-detail-jan`, `customer-detail-after-inject`, `scale`). Sara's moving-home story has a November pinch point. Jan (routine) has a before and after state for the notary-deposit injection. Together they cover the `delivered`, `review` and `dismissed` statuses; `held` appears in the scale counts. Verify every file parses with `node -e "JSON.parse(...)"`.
 - [x] 1.4 Update `.env.example` with `GEMINI_API_KEY`, `GEMINI_MODEL`, `SESSION_SECRET`, `DEMO_PASSWORD` and `COOKIE_SECURE`, with placeholders only, and remove `OPENROUTER_API_KEY`. Verify `git diff` contains no real values.
 - [x] 1.5 Merge the `foundation` PR into `main`, then create `feat/backend` (A) and `feat/frontend` (B) from it. Verify both branches exist on `origin`.
-- [ ] 1.6 Connect the repo to Aikido and run the AI Code Audit baseline. Verify the "before" screenshot is saved for submission.
+- [x] 1.6 Connect the repo to Aikido and run the AI Code Audit baseline. Verify the "before" screenshot is saved for submission.
 
 ## 2. Data model and synthetic customers [A] (0:15–0:45)
 
@@ -86,7 +86,7 @@ Groups 2–6 (A) and 7–10 (B) run in parallel and never touch each other's dir
 
 - [ ] 11.1 Merge both PRs into `main`. Run `docker compose up -d --build` and `pnpm dev` with `NEXT_PUBLIC_USE_MOCKS=false`. Walk the demo path end to end: Sara's app, Jan's inject and adaptation, Julie's guardrail, approving a review item, and the scale view. Verify that every step works against the real API (Playwright screenshots).
 - [ ] 11.2 Run a manual security check: a customer session calling `/customers` gets 403, Sara's feedback on another customer's intervention ID gets 404, no cookie gets 401, and `git grep -iE "key|secret|password"` shows no real values. Verify each result is recorded in the PR description.
-- [ ] 11.3 Re-run the Aikido AI Code Audit, fix the findings on a `fix/aikido` branch, merge via a PR, and mark them resolved. Verify the "after" screenshot is saved.
+- [x] 11.3 Re-run the Aikido AI Code Audit, fix the findings on a `fix/aikido` branch, merge via a PR, and mark them resolved. Verify the "after" screenshot is saved.
 
 ## 12. Submission [Both] (2:40–3:00)
 

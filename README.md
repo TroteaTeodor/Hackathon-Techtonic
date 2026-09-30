@@ -51,7 +51,7 @@ Full report: [`backend/evals/REPORT.md`](backend/evals/REPORT.md).
 
 ## Security
 
-The code was audited with **Aikido**, and every finding was fixed:
+The code was audited with **Aikido**. It went from 3 issues to **0 issues, 23 solved** ([before and after screenshots](docs/aikido/README.md)), and every finding was fixed:
 - the container runs as a non-root user
 - no hard-coded credentials
 - a request-body limit and a rate limit on write requests
