@@ -7,7 +7,8 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Button } from "@/components/Button";
 import { FluidBackdrop } from "@/components/FluidBackdrop";
 import { SmoothField } from "@/components/SmoothField";
-import { BrandMark, MockBadge } from "@/components/shell";
+import { CoBrand } from "@/components/Brand";
+import { MockBadge } from "@/components/shell";
 import { ApiError, login, USE_MOCKS } from "@/lib/api";
 
 const MOMENT_LINES = [
@@ -91,7 +92,10 @@ export default function LoginPage() {
         <FluidBackdrop photo="/moments/login_hero.webp" />
 
         <div className="flex items-center justify-between">
-          <BrandMark href={null} />
+          <div className="flex flex-col gap-2.5">
+            <CoBrand size="lg" intro />
+            <span className="cobrand-word text-xs text-ice/60">A proof of concept for KBC, built at the Tectonic hackathon</span>
+          </div>
           <MockBadge />
         </div>
 

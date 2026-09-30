@@ -4,7 +4,8 @@ import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CommandPalette } from "@/components/CommandPalette";
-import { BrandMark, LogoutButton, MockBadge, useSession } from "@/components/shell";
+import { CoBrand } from "@/components/Brand";
+import { LogoutButton, MockBadge, useSession } from "@/components/shell";
 import { CustomerDetailSkeleton, CustomerListSkeleton, ScaleSkeleton } from "@/components/skeletons";
 
 const TABS = [
@@ -30,8 +31,7 @@ export default function AdvisorLayout({ children }: LayoutProps<"/advisor">) {
       <header className="sticky top-0 z-20 bg-navy-900 pt-[env(safe-area-inset-top)] text-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
           <div className="flex items-center gap-3">
-            <BrandMark href="/advisor" />
-            <span className="hidden text-sm text-ice/60 sm:inline">Advisor console</span>
+            <CoBrand href="/advisor" label="Advisor console" />
           </div>
           <div className="flex items-center gap-2">
             <MockBadge />

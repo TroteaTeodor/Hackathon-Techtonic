@@ -6,11 +6,12 @@ import { Button } from "@/components/Button";
 import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
+import { CoBrand } from "@/components/Brand";
 import { FluidBackdrop } from "@/components/FluidBackdrop";
 import { RecentActivity } from "@/components/RecentActivity";
 import { TwinChart } from "@/components/TwinChart";
 import { Money, Skeleton, StreamText } from "@/components/motion";
-import { BrandMark, ErrorNote, errorMessage, LogoutButton, MockBadge, useSession } from "@/components/shell";
+import { ErrorNote, errorMessage, LogoutButton, MockBadge, useSession } from "@/components/shell";
 import { getOverview, rejectMoment, sendFeedback, setProactivity } from "@/lib/api";
 import {
   dayMonth,
@@ -73,7 +74,7 @@ function Overview({ data, onChange }: { data: CustomerOverview; onChange: (d: Cu
       >
         <FluidBackdrop calm />
         <div className="flex items-center justify-between">
-          <BrandMark href="/app" />
+          <CoBrand href="/app" />
           <div className="flex items-center gap-1">
             <MockBadge />
             <LogoutButton className="text-ice/80 hover:bg-white/10 hover:text-white" />
@@ -375,7 +376,7 @@ function OverviewSkeleton() {
   return (
     <div aria-busy="true" aria-label="Loading your overview">
       <div className="bg-navy-900 px-5 pb-12 pt-[max(1.25rem,env(safe-area-inset-top))]">
-        <BrandMark href={null} />
+        <CoBrand />
         <Skeleton className="skeleton-dark mt-7 h-4 w-44" />
         <Skeleton className="skeleton-dark mt-3 h-11 w-40" />
         <Skeleton className="skeleton-dark mt-4 h-7 w-52 rounded-full" />
