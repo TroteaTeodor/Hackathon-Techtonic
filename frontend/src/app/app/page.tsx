@@ -263,8 +263,8 @@ function InterventionCard({ item, onChange }: { item: Intervention; onChange: (d
       <p className="mt-1.5 text-[15px] leading-relaxed text-ink/80">{item.message}</p>
       {item.cta && (
         <Button
-          size="sm"
-          className="mt-3"
+          block
+          className="mt-4"
           loading={busy === "helpful"}
           disabled={busy !== null || item.feedback === "helpful"}
           onClick={() => {
@@ -280,7 +280,7 @@ function InterventionCard({ item, onChange }: { item: Intervention; onChange: (d
         type="button"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className="-mx-2 mt-2 inline-flex min-h-11 items-center gap-1 rounded-lg px-2 text-sm font-semibold text-navy-700 hover:bg-ice/70 hover:text-navy-900"
+        className="-mx-2 mt-2 flex min-h-11 w-fit items-center gap-1 rounded-lg px-2 text-sm font-semibold text-navy-700 hover:bg-ice/70 hover:text-navy-900"
       >
         Why am I seeing this?
         <ChevronDown className={clsx("size-4 transition-transform", open && "rotate-180")} aria-hidden />
