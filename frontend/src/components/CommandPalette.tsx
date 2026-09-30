@@ -79,7 +79,7 @@ export function CommandPalette() {
           />
           <kbd className="rounded-md border border-line px-1.5 py-0.5 text-[11px] text-muted">Esc</kbd>
         </div>
-        <Command.List className="max-h-[min(60vh,26rem)] overflow-y-auto overscroll-contain p-2">
+        <Command.List data-lenis-prevent className="thin-scroll max-h-[min(60vh,26rem)] overflow-y-auto overscroll-contain p-2">
           <Command.Empty className="px-4 py-10 text-center text-sm text-muted">
             No one matches that. Try a first name or a moment, like “moving”.
           </Command.Empty>

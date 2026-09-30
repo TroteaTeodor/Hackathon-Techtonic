@@ -70,6 +70,15 @@ export function TwinChart({
   const pinned = pin.twin === twin ? pin.month : defaultMonth;
   const shown = hover && hover !== "now" ? hover : pinned;
 
+  // Same horizontal margins as the chart below: 12px each side, points spread evenly across the rest.
+  const pickFromTouch = (el: HTMLElement, touch?: { clientX: number }) => {
+    if (!touch) return;
+    const r = el.getBoundingClientRect();
+    const t = (touch.clientX - r.left - 12) / Math.max(1, r.width - 24);
+    const key = data[Math.min(data.length - 1, Math.max(0, Math.round(t * (data.length - 1))))]?.key;
+    if (key && key !== "now") setPin({ twin, month: key });
+  };
+
   const values = data.map((d) => d.balance);
   const lo = Math.min(...values);
   const hi = Math.max(...values);
@@ -104,7 +113,14 @@ export function TwinChart({
 
   return (
     <div className={clsx("w-full select-none", className)}>
-      <div ref={viewRef} style={{ height }} className="touch-pan-y">
+      <div
+        ref={viewRef}
+        style={{ height }}
+        className="touch-pan-y"
+        // Phones: the month under the finger drives the details below, and stays chosen on release.
+        onTouchStart={(e) => pickFromTouch(e.currentTarget, e.touches[0])}
+        onTouchMove={(e) => pickFromTouch(e.currentTarget, e.touches[0])}
+      >
         {inView && (
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart

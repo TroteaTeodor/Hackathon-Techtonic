@@ -23,7 +23,8 @@ import meCustomerFixture from "@/mocks/me-customer.json";
 import overviewFixture from "@/mocks/overview-sara.json";
 import scaleFixture from "@/mocks/scale.json";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+// Same-origin by default: /api is proxied to the backend by next.config.ts (see API_PROXY_TARGET).
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "/api";
 export const USE_MOCKS = process.env.NEXT_PUBLIC_USE_MOCKS === "true";
 
 export class ApiError extends Error {
