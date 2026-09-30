@@ -10,6 +10,7 @@ import type {
   MomentKey,
   Proactivity,
   ScaleStats,
+  Signal,
   SignalCreate,
 } from "./types";
 
@@ -184,6 +185,22 @@ export async function getMe(): Promise<Me> {
 export async function getOverview(): Promise<CustomerOverview> {
   if (USE_MOCKS) return delay(mock.overview);
   return request<CustomerOverview>("/me/overview");
+}
+
+/**
+ * The customer's own recent transactions, newest first. Resolves to null when the backend has no
+ * such endpoint yet, so the app can simply leave the section out.
+ */
+export async function getTransactions(limit = 40): Promise<Signal[] | null> {
+  if (USE_MOCKS) {
+    return delay((saraDetailFixture.signals as Signal[]).filter((s) => s.kind === "transaction").slice(0, limit));
+  }
+  try {
+    return await request<Signal[]>(`/me/transactions?limit=${limit}`);
+  } catch (err) {
+    if (err instanceof ApiError && err.status === 404) return null;
+    throw err;
+  }
 }
 
 export async function setProactivity(proactivity: Proactivity): Promise<CustomerOverview> {
