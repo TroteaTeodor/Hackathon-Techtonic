@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { FluidBackdrop } from "@/components/FluidBackdrop";
+import { RecentActivity } from "@/components/RecentActivity";
 import { TwinChart } from "@/components/TwinChart";
 import { Money, Skeleton, StreamText } from "@/components/motion";
 import { BrandMark, ErrorNote, errorMessage, LogoutButton, MockBadge, useSession } from "@/components/shell";
@@ -130,6 +131,8 @@ function Overview({ data, onChange }: { data: CustomerOverview; onChange: (d: Cu
             )}
           </div>
         </section>
+
+        <RecentActivity />
 
         <UpcomingEvents months={twin.months.slice(0, 3)} pinchMonths={twin.pinch_points.map((p) => p.month)} />
 

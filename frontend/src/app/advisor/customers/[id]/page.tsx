@@ -51,6 +51,8 @@ const PRESETS: { label: string; icon: typeof Landmark; signal: SignalCreate }[] 
   },
 ];
 
+const SOURCE_NAME: Record<Moment["source"], string> = { jev: "Jev", gemini: "Gemini", rules: "rules", customer: "customer" };
+
 /** Wall-clock milliseconds, for timing a re-analysis in an event handler. */
 const clockMs = () => performance.now();
 
@@ -466,7 +468,7 @@ function InjectPanel({
       const secs = ((clockMs() - started) / 1000).toFixed(1);
       toast(`Re-analyzed in ${secs} s`, {
         description: next.moment
-          ? `${MOMENTS[next.moment.key].label}, ${percent(next.moment.confidence)} (${next.moment.source === "gemini" ? "Gemini" : "rules"})`
+          ? `${MOMENTS[next.moment.key].label}, ${percent(next.moment.confidence)} (${SOURCE_NAME[next.moment.source]})`
           : undefined,
       });
       if (tag === "custom") {

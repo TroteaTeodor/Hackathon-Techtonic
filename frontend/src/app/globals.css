@@ -353,3 +353,15 @@ a[href].press:active {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* The chart is focusable for keyboard users; a mouse click or tap shouldn't draw a box around it. */
+.recharts-wrapper:focus,
+.recharts-surface:focus,
+.recharts-wrapper *:focus {
+  outline: none;
+}
+.recharts-wrapper:focus-visible {
+  outline: 2px solid var(--color-cyan-500);
+  outline-offset: 4px;
+  border-radius: 14px;
+}
