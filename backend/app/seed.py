@@ -22,6 +22,8 @@ logger = logging.getLogger(__name__)
 
 POPULATION_SIZE = 200
 POPULATION_SEED = 42
+# Seeding isn't interactive, so Gemini gets more time than the 10 s request limit.
+SEED_AI_TIMEOUT_SECONDS = 30
 
 
 @dataclass
@@ -233,7 +235,8 @@ def seed(db: Session, use_ai: bool = True) -> None:
         created = [(story, *_insert(db, story, True, random.Random(story.username))) for story in STORIES]
         # Story customers are analysed with Gemini when configured (in parallel), else with rules.
         with ThreadPoolExecutor(max_workers=7) as pool:
-            detections = list(pool.map(lambda row: detect(row[1], row[2], use_ai=use_ai), created))
+            detections = list(pool.map(
+                lambda row: detect(row[1], row[2], use_ai=use_ai, timeout_seconds=SEED_AI_TIMEOUT_SECONDS, retries=2), created))
         for (story, customer, signals), detection in zip(created, detections):
             persist(db, customer, signals, detection)
             logger.info("Seeded %s: %s (%.2f, %s)", story.first_name, detection.key, detection.confidence, detection.source)

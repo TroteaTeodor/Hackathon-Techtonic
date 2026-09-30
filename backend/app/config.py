@@ -24,7 +24,7 @@ class Settings(BaseSettings):
     gemini_model: str = "gemini-3.8-flash"
     gemini_timeout_seconds: float = 10
     # "" = model default; "minimal" | "low" | "medium" | "high". Chosen from the evals (backend/evals/REPORT.md).
-    gemini_thinking_level: str = ""
+    gemini_thinking_level: str = "low"
 
     # Jev via OpenRouter's Decisions API (eval variant).
     openrouter_api_key: str | None = None

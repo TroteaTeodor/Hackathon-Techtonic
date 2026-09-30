@@ -133,6 +133,36 @@ def summarize(variant, rows) -> dict:
     }
 
 
+CASCADE_THRESHOLD = 0.75
+
+
+def cascade(rows_by_variant, cheap="jev", strong="gemini:gemini-3.8-flash:low", threshold=CASCADE_THRESHOLD):
+    """Simulate: answer with the cheap model when it is confident, escalate the rest to the strong model."""
+    if cheap not in rows_by_variant or strong not in rows_by_variant:
+        return None
+    strong_by_id = {r["id"]: r for r in rows_by_variant[strong]}
+    rows, escalated = [], 0
+    for r in rows_by_variant[cheap]:
+        if r["confidence"] >= threshold:
+            rows.append({**r, "latency_s": r["latency_s"]})
+        else:
+            escalated += 1
+            s = strong_by_id[r["id"]]
+            rows.append({**s, "latency_s": (r["latency_s"] or 0) + (s["latency_s"] or 0),
+                         "cost_usd": (r.get("cost_usd") or 0), "strong_cost": True})
+    cheap_cost = summarize(cheap, rows_by_variant[cheap])["cost_per_analysis_eur"]
+    strong_cost = summarize(strong, rows_by_variant[strong])["cost_per_analysis_eur"]
+    cost = cheap_cost + strong_cost * escalated / len(rows)
+    by_group = {g: metrics.accuracy([r for r in rows if r["group"] == g]) for g in ("story", "population", "hard")}
+    return {
+        "variant": f"cascade: {cheap} → {strong} below {threshold:.0%}", "n": len(rows), "escalated": escalated,
+        "accuracy": metrics.accuracy(rows), "accuracy_by_group": by_group, "macro_f1": metrics.macro_f1(rows),
+        "latency": metrics.latency(rows), "cost_per_analysis_eur": cost,
+        "projected_daily_cost_eur": cost * settings.projection_customers * settings.daily_reevaluation_rate,
+        "guardrails": guardrails(rows), "rows": rows,
+    }
+
+
 def pct(x):
     return "—" if x is None else f"{100 * x:.1f}%"
 
@@ -162,6 +192,30 @@ def report(summaries, pairs, cases_n, rows_by_variant) -> str:
               "| Variant | Only this variant correct | Only rules correct | p-value |", "|---|---|---|---|"]
     for variant, p in pairs.items():
         lines.append(f"| `{variant}` | {p['b_only_correct']} | {p['a_only_correct']} | {p['p_value']:.2g} |")
+    heads = [v for v in pairs if v != "jev"] if "jev" in rows_by_variant else []
+    if heads:
+        lines += ["", "## Head to head: Gemini variants vs Jev (exact McNemar)", "",
+                  "| Variant | Only Gemini correct | Only Jev correct | p-value |", "|---|---|---|---|"]
+        for v in heads:
+            p = metrics.mcnemar(rows_by_variant["jev"], rows_by_variant[v])
+            lines.append(f"| `{v}` | {p['b_only_correct']} | {p['a_only_correct']} | {p['p_value']:.2g} |")
+    cas = cascade(rows_by_variant)
+    if cas:
+        lat = cas["latency"]
+        g = cas["accuracy_by_group"]
+        gr = cas["guardrails"]
+        lines += ["", "## Cascade (simulated from the rows above)", "",
+                  f"Jev answers when its confidence is ≥ {CASCADE_THRESHOLD:.0%}; otherwise the case is escalated to "
+                  f"`gemini:gemini-3.8-flash:low`. {cas['escalated']} of {cas['n']} cases ({pct(cas['escalated'] / cas['n'])}) escalated.", "",
+                  "| Variant | Accuracy | Macro-F1 | Story | Population | Hard | p50 / p95 latency | Cost / 1k analyses | Daily @2.3M×5% | Stressed got sales |",
+                  "|---|---|---|---|---|---|---|---|---|---|",
+                  f"| cascade | {pct(cas['accuracy'])} | {cas['macro_f1']:.3f} | {pct(g['story'])} | {pct(g['population'])} | {pct(g['hard'])} | "
+                  f"{lat['p50']:.1f}s / {lat['p95']:.1f}s | €{cas['cost_per_analysis_eur'] * 1000:.2f} | €{cas['projected_daily_cost_eur']:.0f} | {gr['stressed_got_sales']} |"]
+        strong = rows_by_variant.get("gemini:gemini-3.8-flash:low")
+        if strong:
+            p = metrics.mcnemar(strong, cas["rows"])
+            lines.append(f"\nCascade vs `gemini:gemini-3.8-flash:low` alone: {p['b_only_correct']} cases only the cascade gets right, "
+                         f"{p['a_only_correct']} only Gemini gets right (p = {p['p_value']:.2g}).")
     lines += ["", "## Guardrails (must be 0)", "",
               "| Variant | Stressed got sales | No consent got sales | Missing reasons | Harmful sales rate | Right moment reached | Wrong moment delivered |",
               "|---|---|---|---|---|---|---|"]
@@ -196,7 +250,16 @@ def main():
     parser.add_argument("--limit", type=int, default=0, help="population cases to include (0 = all)")
     parser.add_argument("--workers", type=int, default=8)
     parser.add_argument("--append", help="results JSON from an earlier run: keep its variants and add these")
+    parser.add_argument("--report-only", help="rebuild evals/REPORT.md from a results JSON without calling any model")
     args = parser.parse_args()
+
+    if args.report_only:
+        previous = json.loads(Path(args.report_only).read_text())
+        rows = previous["rows"]
+        n = len(next(iter(rows.values())))
+        (OUT / "REPORT.md").write_text(report(previous["summaries"], previous["pairs"], n, rows))
+        print("rebuilt evals/REPORT.md")
+        return
 
     cases = build(TODAY)
     if args.limit:

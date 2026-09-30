@@ -45,12 +45,13 @@ def recent(signals, limit: int = MAX_SIGNALS):
     return sorted(signals, key=lambda s: (s.date, s.id or 0), reverse=True)[:limit]
 
 
-def detect(customer, signals, use_ai: bool = True) -> Detection:
+def detect(customer, signals, use_ai: bool = True, timeout_seconds: float | None = None, retries: int = 0) -> Detection:
+    """timeout_seconds defaults to the interactive limit (GEMINI_TIMEOUT_SECONDS); seeding passes a longer one."""
     from app.detection import gemini, rules
 
     latest = recent(signals)
     if use_ai and gemini.is_configured():
-        result = gemini.detect(customer, latest)
+        result = gemini.detect(customer, latest, timeout_seconds=timeout_seconds, retries=retries)
         if result is not None:
             return result
     return rules.detect(customer, latest)

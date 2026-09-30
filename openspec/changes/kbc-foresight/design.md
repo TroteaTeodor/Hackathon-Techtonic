@@ -160,6 +160,21 @@ Fixtures (`frontend/src/mocks/`): `me-customer.json`, `me-advisor.json`, `overvi
 - *Alternative:* Jev, which has calibrated probabilities and is cheaper. It was rejected because the team preferred Gemini, and a model that also generates text leaves room for message wording later.
 - *Fallback:* the keyword and amount rules are also what the generated population uses, so the scale view costs no API calls.
 
+**1b. Production Gemini settings come from the A/B evals** (`backend/evals/REPORT.md`: 340 labelled cases, of which 133 are hard traps and paraphrases).
+
+| Variant | Accuracy | Hard cases | p95 latency | Cost / 1k analyses |
+|---|---|---|---|---|
+| Rules | 61.8% | 2.3% | — | €0 |
+| Jev | 94.1% | 96.2% | 0.5s | €0.10 |
+| Gemini 3.8 Flash, low thinking | 96.5% | 98.5% | 9.9s | €1.14 |
+| Gemini 3.8 Flash, default thinking | 95.9% | 96.2% | 16.5s | €1.99 |
+| Jev → Gemini-low cascade (simulated) | 96.5% | 98.5% | 4.0s | €0.23 |
+
+- *Chosen:* `gemini-3.8-flash` with `GEMINI_THINKING_LEVEL=low`. It's as accurate as default thinking or better, twice as fast and 43% cheaper, and it removes most of the timeouts to the rules fallback that the end-to-end run hit.
+- *Seeding:* gets a 30 s budget and 2 retries on transient 5xx/429 errors. Live requests keep the 10 s limit and don't retry.
+- *Guardrail invariants:* hold for every variant. No stressed customer and no customer without consent got a delivered sales offer.
+- *Proposed next step (not built):* the Jev-first cascade. It matches Gemini-low accuracy at a fifth of the cost and with a much lower latency. It needs a `jev` value for `Moment.source` in the contract. Gemini's lead over Jev alone isn't statistically significant (McNemar p = 0.077).
+
 **2. The twin is deterministic arithmetic, not AI.**
 - *Why:* numbers a judge can check, instant recomputation, and zero cost at 2.3M customers.
 - *Alternative:* LLM forecasting, rejected as slow, costly and unexplainable.

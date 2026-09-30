@@ -93,3 +93,22 @@ def test_keyword_stems_still_match():
     from datetime import date
     signals = [SimpleNamespace(id=1, date=date(2026, 9, 1), kind="search", description="Retirement planning calculator", amount=None)]
     assert rules.detect(customer(), signals).key == "approaching_retirement"
+
+
+def test_transient_error_is_retried_when_asked(monkeypatch):
+    calls = []
+
+    class Flaky:
+        class models:
+            @staticmethod
+            def generate_content(**_):
+                calls.append(1)
+                if len(calls) == 1:
+                    raise RuntimeError("504 DEADLINE_EXCEEDED")
+                return SimpleNamespace(text=VALID, usage_metadata=None)
+
+    monkeypatch.setattr(gemini, "is_configured", lambda: True)
+    monkeypatch.setattr(gemini, "_client", lambda: Flaky)
+    assert detect(customer(), story_signals("sara"), retries=1).source == "gemini"
+    calls.clear()
+    assert detect(customer(), story_signals("sara")).source == "rules"  # live requests don't retry
