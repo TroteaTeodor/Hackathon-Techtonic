@@ -68,7 +68,7 @@
 ### Advisor
 | Method & path | Body | Response |
 |---|---|---|
-| `GET /customers?moment=&needs_review=` | none | `CustomerSummary[]` |
+| `GET /customers?moment=&needs_review=&limit=&offset=` | none | `CustomerSummary[]` (`limit` 1–1000, default 500) |
 | `GET /customers/{id}` | none | `CustomerDetail` |
 | `POST /customers/{id}/signals` | `SignalCreate` | `CustomerDetail` (re-analyzed) |
 | `POST /interventions/{id}/decision` | `{decision: "approve"\|"dismiss"}` | `Intervention` |

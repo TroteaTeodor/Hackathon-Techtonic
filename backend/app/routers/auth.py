@@ -4,8 +4,8 @@ from sqlalchemy.orm import Session
 
 from app import schemas
 from app.auth import (
-    DUMMY_HASH, clear_session_cookie, create_session, current_user, login_limiter,
-    set_session_cookie, verify_password,
+    DUMMY_HASH, TooBusy, clear_session_cookie, create_session, current_user, login_limiter,
+    password_check_slot, set_session_cookie, verify_password,
 )
 from app.db import get_db
 from app.models import Customer, User
@@ -26,7 +26,11 @@ def login(body: schemas.LoginRequest, request: Request, response: Response, db: 
     if login_limiter.blocked(body.username, ip):
         raise HTTPException(status_code=status.HTTP_429_TOO_MANY_REQUESTS, detail="Too many failed attempts, try again later")
     user = db.scalar(select(User).where(User.username == body.username.lower()))
-    valid = verify_password(body.password, user.password_hash if user else DUMMY_HASH)
+    try:
+        with password_check_slot():
+            valid = verify_password(body.password, user.password_hash if user else DUMMY_HASH)
+    except TooBusy:
+        raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail="Busy, try again shortly")
     if not user or not valid:
         login_limiter.record_failure(body.username, ip)
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid username or password")

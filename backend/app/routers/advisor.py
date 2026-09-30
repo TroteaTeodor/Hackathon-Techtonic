@@ -2,7 +2,7 @@
 
 from datetime import date
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
@@ -29,7 +29,11 @@ def _get_customer(db: Session, customer_id: int) -> Customer:
 
 
 @router.get("/customers", response_model=list[schemas.CustomerSummary])
-def list_customers(moment: schemas.MomentKey | None = None, needs_review: bool = False, db: Session = Depends(get_db)):
+def list_customers(
+    moment: schemas.MomentKey | None = None, needs_review: bool = False,
+    limit: int = Query(500, ge=1, le=1000), offset: int = Query(0, ge=0, le=100_000),
+    db: Session = Depends(get_db),
+):
     moments = {m.customer_id: m for m in db.scalars(_latest_moments())}
     reviews = dict(db.execute(
         select(InterventionRecord.customer_id, func.count())
@@ -48,7 +52,7 @@ def list_customers(moment: schemas.MomentKey | None = None, needs_review: bool =
             stress=m.stress if m else None, next_pinch_month=m.next_pinch_month if m else None,
             review_count=reviews.get(c.id, 0),
         ))
-    return rows
+    return rows[offset: offset + limit]
 
 
 @router.get("/customers/{customer_id}", response_model=schemas.CustomerDetail)
@@ -59,6 +63,9 @@ def get_customer(customer_id: int, db: Session = Depends(get_db)):
 @router.post("/customers/{customer_id}/signals", response_model=schemas.CustomerDetail)
 def inject_signal(customer_id: int, body: schemas.SignalCreate, db: Session = Depends(get_db)):
     customer = _get_customer(db, customer_id)
+    count = db.scalar(select(func.count()).select_from(Signal).where(Signal.customer_id == customer.id))
+    if count >= settings.max_signals_per_customer:
+        raise HTTPException(status_code=409, detail="This customer has reached the signal limit")
     db.add(Signal(
         customer_id=customer.id, date=body.date or date.today(), kind=body.kind,
         description=body.description, amount=body.amount,

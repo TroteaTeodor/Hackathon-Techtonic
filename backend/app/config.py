@@ -18,6 +18,8 @@ class Settings(BaseSettings):
     # Request limits (resource exhaustion).
     max_body_bytes: int = 64 * 1024
     write_rate_limit_per_minute: int = 120
+    max_concurrent_password_checks: int = 4  # scrypt uses ~16 MB per check
+    max_signals_per_customer: int = 2000     # every analysis reads all of a customer's signals
 
     # Gemini runs only through Vertex AI with a service account (API keys are disabled on the hackathon projects).
     ai_enabled: bool = True

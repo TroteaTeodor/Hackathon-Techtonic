@@ -5,8 +5,7 @@ services:
       POSTGRES_USER: app
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env (see .env.example)}
       POSTGRES_DB: app
-    ports:
-      - "5432:5432"
+    # Not published to the host: only the backend reaches it, over the compose network.
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
@@ -25,7 +24,7 @@ services:
       DATABASE_URL: postgresql+psycopg://app:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@db:5432/app
       GOOGLE_APPLICATION_CREDENTIALS: /secrets/gcp-sa.json
     ports:
-      - "8000:8000"
+      - "127.0.0.1:8000:8000"  # localhost only
     volumes:
       - ./backend:/app
       - ./secrets:/secrets:ro

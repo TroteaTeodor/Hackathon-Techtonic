@@ -4,6 +4,7 @@ import hashlib
 import hmac
 import secrets
 import threading
+from contextlib import contextmanager
 import time
 from collections import defaultdict, deque
 from datetime import datetime, timedelta, timezone
@@ -36,6 +37,24 @@ def verify_password(password: str, stored: str) -> bool:
         return False
     digest = hashlib.scrypt(password.encode(), salt=bytes.fromhex(salt_hex), **SCRYPT)
     return hmac.compare_digest(digest.hex(), digest_hex)
+
+
+_password_checks = threading.BoundedSemaphore(settings.max_concurrent_password_checks)
+
+
+class TooBusy(Exception):
+    pass
+
+
+@contextmanager
+def password_check_slot(timeout_seconds: float = 5):
+    """Bound concurrent scrypt checks so a login flood can't exhaust memory."""
+    if not _password_checks.acquire(timeout=timeout_seconds):
+        raise TooBusy
+    try:
+        yield
+    finally:
+        _password_checks.release()
 
 
 # Used to spend the same time on unknown usernames as on wrong passwords.

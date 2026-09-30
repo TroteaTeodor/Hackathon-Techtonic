@@ -244,3 +244,36 @@ def test_validation_errors_are_capped(client, db):
     login(client, "advisor")
     res = client.post(f"/customers/{customer_id(db, 'Jan')}/signals", json=[{"x": i} for i in range(500)])
     assert res.status_code == 422 and len(res.json()["detail"]) < 2000
+
+
+def test_customer_list_is_paginated(client):
+    login(client, "advisor")
+    assert len(client.get("/customers?limit=10").json()) == 10
+    assert client.get("/customers?limit=5000").status_code == 422
+    first = client.get("/customers?limit=5").json()
+    second = client.get("/customers?limit=5&offset=5").json()
+    assert {c["id"] for c in first}.isdisjoint({c["id"] for c in second})
+
+
+def test_signal_limit_per_customer(client, db, monkeypatch):
+    from app.config import settings
+
+    login(client, "advisor")
+    monkeypatch.setattr(settings, "max_signals_per_customer", 1)
+    res = client.post(f"/customers/{customer_id(db, 'Marc')}/signals", json={"kind": "search", "description": "pension"})
+    assert res.status_code == 409
+
+
+def test_password_checks_are_bounded():
+    from app.auth import TooBusy, password_check_slot
+
+    held = [password_check_slot(timeout_seconds=0.01) for _ in range(4)]
+    for slot in held:
+        slot.__enter__()
+    try:
+        with pytest.raises(TooBusy):
+            with password_check_slot(timeout_seconds=0.01):
+                pass
+    finally:
+        for slot in held:
+            slot.__exit__(None, None, None)

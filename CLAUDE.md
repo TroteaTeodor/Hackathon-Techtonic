@@ -20,7 +20,8 @@ docker compose up -d --build    # Postgres :5432, FastAPI :8000 (hot reload); mi
 cd frontend && pnpm install && pnpm dev   # Next.js on :3000
 ```
 - API docs: http://localhost:8000/docs · health: http://localhost:8000/health (`"ai": true` when Gemini is configured)
-- DB connection: `postgresql://app:<POSTGRES_PASSWORD>@localhost:5432/app` (password from `.env`). Fresh start: `docker compose down -v`
+- Postgres isn't published to the host. Open a shell with `docker compose exec db psql -U app -d app`. The backend listens
+  on 127.0.0.1:8000 only. Fresh start: `docker compose down -v`
   (also needed after changing `POSTGRES_PASSWORD`, because Postgres only sets it when the volume is created).
 - Frontend reads `NEXT_PUBLIC_API_URL` and `NEXT_PUBLIC_USE_MOCKS` from `frontend/.env.local`.
 - Demo logins (password = `DEMO_PASSWORD`): `advisor`, and customers `sara` (moving home), `lien` (baby),
