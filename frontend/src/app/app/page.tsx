@@ -1,7 +1,8 @@
 "use client";
 
 import clsx from "clsx";
-import { Check, ChevronDown, ThumbsDown, ThumbsUp } from "lucide-react";
+import { Check, ChevronDown, ThumbsDown, ThumbsUp, X } from "lucide-react";
+import { Button } from "@/components/Button";
 import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useEffect, useState } from "react";
 import { TwinChart } from "@/components/TwinChart";
@@ -158,9 +159,11 @@ function MomentBanner({ overview, onChange }: { overview: CustomerOverview; onCh
           <span className={clsx("text-xs", support ? "text-mint" : "text-muted")}>
             {support ? "We'll only offer support, never products." : `${Math.round(moment.confidence * 100)}% sure`}
           </span>
-          <button
-            type="button"
-            disabled={busy}
+          <Button
+            variant="secondary"
+            size="sm"
+            icon={X}
+            loading={busy}
             onClick={async () => {
               setBusy(true);
               try {
@@ -169,10 +172,9 @@ function MomentBanner({ overview, onChange }: { overview: CustomerOverview; onCh
                 setBusy(false);
               }
             }}
-            className="rounded-full border border-line px-4 py-2 text-sm font-medium text-navy-900 transition hover:border-navy-500 disabled:opacity-50"
           >
             {busy ? "Updating…" : "Not right"}
-          </button>
+          </Button>
         </div>
       </div>
     </section>
@@ -227,7 +229,7 @@ function InterventionCard({ item, onChange }: { item: Intervention; onChange: (d
         type="button"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-navy-700"
+        className="-mx-2 mt-2 inline-flex min-h-11 items-center gap-1 rounded-lg px-2 text-sm font-semibold text-navy-700 hover:bg-ice/70 hover:text-navy-900"
       >
         Why am I seeing this?
         <ChevronDown className={clsx("size-4 transition-transform", open && "rotate-180")} aria-hidden />
@@ -260,22 +262,28 @@ function InterventionCard({ item, onChange }: { item: Intervention; onChange: (d
           </span>
         ) : (
           <>
-            <button
-              type="button"
+            <Button
+              variant="soft"
+              size="sm"
+              icon={ThumbsUp}
+              loading={busy === "helpful"}
               disabled={busy !== null}
               onClick={() => give("helpful")}
-              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full bg-ice px-3 py-2 text-sm font-medium text-navy-900 transition hover:bg-cyan-300/40 disabled:opacity-50"
+              className="flex-1"
             >
-              <ThumbsUp className="size-4" aria-hidden /> Helpful
-            </button>
-            <button
-              type="button"
+              Helpful
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              icon={ThumbsDown}
+              loading={busy === "not_relevant"}
               disabled={busy !== null}
               onClick={() => give("not_relevant")}
-              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-muted transition hover:bg-paper disabled:opacity-50"
+              className="flex-1"
             >
-              <ThumbsDown className="size-4" aria-hidden /> Not relevant
-            </button>
+              Not relevant
+            </Button>
           </>
         )}
       </div>
@@ -384,14 +392,14 @@ function ProactivityControl({ value, onChange }: { value: Proactivity; onChange:
               }
             }}
             className={clsx(
-              "relative rounded-xl px-2 py-2.5 text-sm font-medium transition-colors",
+              "relative min-h-11 rounded-xl px-2 text-sm font-semibold transition-colors",
               current === p ? "text-navy-900" : "text-muted hover:text-navy-900",
             )}
           >
             {current === p && (
               <motion.span
                 layoutId="proactivity-pill"
-                className="absolute inset-0 rounded-xl bg-white shadow-sm"
+                className="absolute inset-0 rounded-xl bg-white shadow-[0_1px_2px_rgb(4_24_51/0.08),0_4px_12px_-4px_rgb(6_34_74/0.18)]"
                 transition={{ type: "spring", stiffness: 420, damping: 34 }}
               />
             )}

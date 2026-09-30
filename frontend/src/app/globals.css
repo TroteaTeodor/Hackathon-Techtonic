@@ -82,6 +82,18 @@ html {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Tailwind v4 dropped the pointer cursor on buttons; anything clickable should say so. */
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]),
+select,
+label[for] {
+  cursor: pointer;
+}
+button,
+a[href] {
+  touch-action: manipulation;
+}
+
 /* Buttons and links give way under the finger, then spring back. */
 button:not(:disabled),
 a[href] {

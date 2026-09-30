@@ -74,8 +74,9 @@ export function TwinChart({
   const lo = Math.min(...values);
   const hi = Math.max(...values);
   const span = Math.max(hi - lo, 1);
-  const yMin = Math.min(0, lo) - span * 0.12;
-  const yMax = Math.max(hi, BUFFER * 4) + span * 0.1;
+  const yMin = Math.min(0, lo) - Math.max(span * 0.12, 150);
+  // Keep the buffer line in frame without leaving a tall empty band above a low forecast.
+  const yMax = Math.max(hi, BUFFER) + Math.max(span * 0.12, 300);
   // Where the €250 buffer sits inside the line's own bounding box, for the two-colour stroke.
   const split = hi === lo ? 0 : Math.min(Math.max((hi - BUFFER) / (hi - lo), 0), 1);
 
@@ -162,7 +163,7 @@ export function TwinChart({
             <Area
               type="monotone"
               dataKey="balance"
-              stroke={`url(#stroke-${uid})`}
+              stroke={hi < BUFFER ? CORAL : lo >= BUFFER ? c.line : `url(#stroke-${uid})`}
               strokeWidth={2.5}
               fill={`url(#fill-${uid})`}
               dot={false}
@@ -203,12 +204,16 @@ export function TwinChart({
                 />
               ))}
 
-            {twin.pinch_points.map((p) => (
+            {twin.pinch_points.map((p, i) => (
               <ReferenceDot
                 key={`pinch-${p.month}`}
                 x={p.month}
                 y={p.balance}
-                shape={(d: { cx?: number; cy?: number }) => (
+                shape={(d: { cx?: number; cy?: number }) =>
+                  i > 0 ? (
+                    // Later tight months: a quiet dot, so a long tight stretch doesn't stack labels.
+                    <circle cx={d.cx} cy={d.cy} r={3.5} fill={CORAL} stroke={c.dot} strokeWidth={1.5} />
+                  ) : (
                   <g>
                     <circle cx={d.cx} cy={d.cy} r={12} fill={CORAL} opacity={0.18} />
                     <circle cx={d.cx} cy={d.cy} r={5.5} fill={CORAL} stroke={c.dot} strokeWidth={2} />
@@ -219,7 +224,8 @@ export function TwinChart({
                       </text>
                     </g>
                   </g>
-                )}
+                  )
+                }
               />
             ))}
           </ComposedChart>

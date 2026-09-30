@@ -1,8 +1,9 @@
 "use client";
 
 import clsx from "clsx";
-import { LogOut } from "lucide-react";
+import { LogOut, RotateCw } from "lucide-react";
 import Link from "next/link";
+import { Button } from "@/components/Button";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ApiError, getMe, logout, USE_MOCKS } from "@/lib/api";
@@ -41,8 +42,11 @@ export function BrandMark({
 export function LogoutButton({ className }: { className?: string }) {
   const router = useRouter();
   return (
-    <button
-      type="button"
+    <Button
+      variant="ghost-dark"
+      size="sm"
+      icon={LogOut}
+      className={className}
       onClick={async () => {
         try {
           await logout();
@@ -50,14 +54,9 @@ export function LogoutButton({ className }: { className?: string }) {
           router.replace("/login");
         }
       }}
-      className={clsx(
-        "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition-colors",
-        className,
-      )}
     >
-      <LogOut className="size-4" aria-hidden />
       Log out
-    </button>
+    </Button>
   );
 }
 
@@ -108,9 +107,9 @@ export function ErrorNote({ message, onRetry }: { message: string; onRetry?: () 
     <div role="alert" className="rounded-2xl border border-coral/30 bg-coral-soft p-4 text-sm text-ink">
       <p>{message}</p>
       {onRetry && (
-        <button type="button" onClick={onRetry} className="mt-2 font-semibold text-coral underline underline-offset-2">
+        <Button variant="secondary" size="sm" icon={RotateCw} onClick={onRetry} className="mt-3">
           Try again
-        </button>
+        </Button>
       )}
     </div>
   );

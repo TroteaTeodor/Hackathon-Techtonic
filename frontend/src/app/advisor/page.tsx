@@ -45,8 +45,10 @@ export default function CustomersPage() {
           aria-pressed={needsReview}
           onClick={() => setNeedsReview((v) => !v)}
           className={clsx(
-            "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition",
-            needsReview ? "border-amber bg-amber-soft text-amber" : "border-line bg-white text-navy-900 hover:border-navy-500",
+            "inline-flex min-h-11 items-center gap-2 rounded-xl border px-4 text-sm font-semibold shadow-[0_1px_2px_rgb(4_24_51/0.06)] transition sm:min-h-10",
+            needsReview
+              ? "border-amber/60 bg-amber-soft text-amber"
+              : "border-line bg-white text-navy-900 hover:border-navy-500/45 hover:bg-paper",
           )}
         >
           <span className={clsx("size-2 rounded-full", needsReview ? "bg-amber" : "bg-line")} />
@@ -62,8 +64,10 @@ export default function CustomersPage() {
             aria-pressed={moment === key}
             onClick={() => setMoment(key)}
             className={clsx(
-              "shrink-0 rounded-full px-3.5 py-1.5 text-sm transition",
-              moment === key ? "bg-navy-900 font-medium text-white" : "bg-white text-muted ring-1 ring-line hover:text-navy-900",
+              "min-h-10 shrink-0 rounded-full px-4 text-sm font-medium transition",
+              moment === key
+                ? "bg-navy-900 text-white shadow-[0_4px_12px_-4px_rgb(6_34_74/0.5)]"
+                : "bg-white text-muted ring-1 ring-line hover:bg-paper hover:text-navy-900 hover:ring-navy-500/40",
             )}
           >
             {key ? MOMENTS[key].label : "All moments"}
