@@ -279,7 +279,7 @@ function Customers() {
             {/* Wider screens: a scannable, sortable table. */}
             <div className="elev-1 hidden rounded-[var(--radius-card)] bg-white md:block">
               <table className="w-full text-left text-sm">
-                <thead className="sticky top-[6.5rem] z-10 bg-paper/95 text-xs text-muted backdrop-blur">
+                <thead className="sticky top-[var(--console-header-h,6.5rem)] z-10 bg-paper/95 text-xs text-muted backdrop-blur">
                   <tr className="border-b border-line">
                     <SortHead label="Customer" k="name" sort={sort} dir={dir} onSort={toggleSort} className="rounded-tl-[var(--radius-card)] pl-5" />
                     <SortHead label="Moment" k="moment" sort={sort} dir={dir} onSort={toggleSort} />
