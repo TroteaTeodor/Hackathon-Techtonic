@@ -78,5 +78,7 @@ class InterventionRecord(Base):
     deliver_at: Mapped[date] = mapped_column(Date)
     reasons: Mapped[list] = mapped_column(JSON)
     feedback: Mapped[str | None] = mapped_column(String(20))
+    cta: Mapped[str | None] = mapped_column(String(60))  # the card's one direct next step
+    personalized: Mapped[bool] = mapped_column(Boolean, default=False)  # wording written by Gemini (kept on re-plan)
     # Advisor decision ("approved" / "dismissed"), kept across re-analysis.
     decision: Mapped[str | None] = mapped_column(String(20))

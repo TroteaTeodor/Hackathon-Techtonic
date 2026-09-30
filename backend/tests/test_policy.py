@@ -59,7 +59,7 @@ def test_not_receptive_holds_moment_interventions():
 
 def test_minimal_proactivity_holds_moment_but_keeps_pinch_warning():
     signals = story_signals("sara", TODAY)
-    twin = build_twin(9800, signals, "moving_home", 0.9)
+    twin = build_twin(8000, signals, "moving_home", 0.9)
     items = by_key(plan(customer(proactivity="minimal"), detection("moving_home", 0.9), twin, TODAY))
     assert items["moving_home_bundle"]["status"] == "held"
     assert items["pinch_point_bridge"]["status"] == "delivered"
@@ -79,7 +79,7 @@ def test_pinch_delivery_is_21_days_before_the_month():
 
 def test_every_intervention_has_reasons():
     signals = story_signals("sara", TODAY)
-    twin = build_twin(9800, signals, "moving_home", 0.9)
+    twin = build_twin(8000, signals, "moving_home", 0.9)
     for item in plan(customer(), detection("moving_home", 0.9), twin, TODAY):
         assert item["reasons"]
 
@@ -87,7 +87,7 @@ def test_every_intervention_has_reasons():
 def test_stress_moment_with_low_score_still_gets_support_only():
     """Review finding: key=financial_stress with stress < 0.6 must still trigger the guardrail."""
     signals = story_signals("sara", TODAY)
-    twin = build_twin(9800, signals, "moving_home", 0.9)  # has a pinch point
+    twin = build_twin(8000, signals, "moving_home", 0.9)  # has a pinch point
     items = plan(customer(), detection("financial_stress", 0.64, stress=0.45), twin, TODAY)
     keys = {i["key"]: i for i in items}
     assert keys["stress_budget_coach"]["status"] == "review"

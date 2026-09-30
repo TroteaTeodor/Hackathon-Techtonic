@@ -13,7 +13,8 @@ from app.db import SessionLocal, get_db
 from app.detection import gemini
 from app.limits import RequestLimitsMiddleware
 from app.routers import advisor, auth, me
-from app.seed import seed
+from app.seed import seed, story_customer_ids
+from app.analysis import personalize_in_background
 
 logging.basicConfig(level=logging.INFO)
 
@@ -22,6 +23,7 @@ logging.basicConfig(level=logging.INFO)
 async def lifespan(_: FastAPI):
     with SessionLocal() as db:
         seed(db)
+    personalize_in_background(story_customer_ids())
     yield
 
 

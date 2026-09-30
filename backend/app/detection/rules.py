@@ -47,6 +47,17 @@ def _pattern(word: str) -> re.Pattern:
 PATTERNS = {m: [(_pattern(w), weight) for w, weight in words.items()] for m, words in KEYWORDS.items()}
 
 
+EVIDENCE_ORDER = {"transaction": 0, "search": 1, "app_event": 2, "contact": 3}
+
+
+def evidence(key: str, signals):
+    """The most telling recent signal for a moment: a transaction first (the notary), then a search, app use, contact."""
+    matches = [s for s in signals if any(p.search(s.description.lower()) for p, _ in PATTERNS.get(key, []))]
+    if not matches:
+        return None
+    return sorted(matches, key=lambda s: (EVIDENCE_ORDER.get(s.kind, 9), -s.date.toordinal()))[0]
+
+
 def detect(customer, signals) -> Detection:
     scores = {k: BASE_SCORE for k in MOMENT_KEYS}
     scores["no_clear_moment"] = NO_MOMENT_SCORE

@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app import schemas
+from app import insights, schemas
 from app.analysis import overview, reject_moment, replan
 from app.auth import require_customer
 from app.db import get_db
@@ -25,15 +25,10 @@ def get_transactions(
 ):
     # The customer's own account activity, newest first. Only transactions: searches, app events and
     # contacts are signals we read, not something the customer sees as a statement line.
-    rows = db.scalars(
-        select(Signal)
-        .where(Signal.customer_id == customer.id, Signal.kind == "transaction")
-        .order_by(Signal.date.desc(), Signal.id.desc())
-        .limit(limit)
-    )
-    return [
-        schemas.Signal(id=s.id, date=s.date, description=s.description, amount=s.amount, kind=s.kind) for s in rows
-    ]
+    # Recurring detection needs the whole history, so classify all of it, then return the newest transactions.
+    signals = list(db.scalars(select(Signal).where(Signal.customer_id == customer.id)))
+    views = [v for v in insights.signal_views(signals) if v.kind == "transaction"]
+    return sorted(views, key=lambda v: (v.date, v.id), reverse=True)[:limit]
 
 
 @router.put("/preferences", response_model=schemas.CustomerOverview)

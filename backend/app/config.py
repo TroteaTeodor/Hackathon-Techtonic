@@ -31,6 +31,10 @@ class Settings(BaseSettings):
     gemini_timeout_seconds: float = 10
     # "" = model default; "minimal" | "low" | "medium" | "high". Chosen from the evals (backend/evals/REPORT.md).
     gemini_thinking_level: str = "low"
+    # Gemini Flash also writes personal card copy and picks spending-based suggestions (app/personalize.py).
+    personalize_with_ai: bool = True
+    copy_thinking_level: str = "low"  # gemini-3.8-flash doesn't support "minimal"
+    copy_timeout_seconds: float = 45  # runs in the background, after the response
 
     # Detection pipeline (design.md decision 1): Jev first, Gemini when Jev is unsure, rules as the safety net.
     #   cascade (default) | jev | gemini | rules
