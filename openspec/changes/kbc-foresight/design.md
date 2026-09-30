@@ -15,7 +15,7 @@
 
 **Goals:**
 - Two workstreams that never wait on each other after a 15-minute shared foundation.
-- A demo that works with or without an AI key (rule-based fallback), and with or without the backend (frontend mock mode).
+- A demo that works with or without working Gemini credentials (rule-based fallback), and with or without the backend (frontend mock mode).
 - Security that holds up in an audit: sessions, roles, per-customer scoping.
 
 **Non-Goals:**
@@ -155,7 +155,7 @@ Fixtures (`frontend/src/mocks/`): `me-customer.json`, `me-advisor.json`, `overvi
 ## Decisions
 
 **1. Gemini for moment detection, with a rule-based fallback.**
-- *How:* use the `google-genai` SDK with structured output (a JSON response schema matching `Moment` minus the server-set fields). The model comes from `GEMINI_MODEL` (default `gemini-3.8-flash`, on Vertex location `global`). An AI Studio key (`GEMINI_API_KEY`) is the default. Vertex AI with the team's GCP credits is the alternative: `GOOGLE_GENAI_USE_VERTEXAI=true`, `GOOGLE_CLOUD_PROJECT`, `GOOGLE_CLOUD_LOCATION`.
+- *How:* use the `google-genai` SDK with structured output (a JSON response schema matching `Moment` minus the server-set fields). The model comes from `GEMINI_MODEL` (default `gemini-3.8-flash`, on Vertex location `global`). It runs only through Vertex AI with a service-account key (`GOOGLE_GENAI_USE_VERTEXAI=true`, `GOOGLE_CLOUD_PROJECT`, `GOOGLE_CLOUD_LOCATION`, key file at `secrets/gcp-sa.json`). API keys are disabled on the hackathon projects, so there is no API-key path.
 - *Why Gemini:* the team prefers it, credits are provided, and it understands free-text merchant descriptions well.
 - *Alternative:* Jev, which has calibrated probabilities and is cheaper. It was rejected because the team preferred Gemini, and a model that also generates text leaves room for message wording later.
 - *Fallback:* the keyword and amount rules are also what the generated population uses, so the scale view costs no API calls.
@@ -236,7 +236,7 @@ The twin is computed on read from signals plus the current moment, and is not st
 ## Risks / Trade-offs
 
 - [Gemini probabilities are not calibrated] → Present them as "confidence", keep the thresholds conservative, and name calibration (for example with Jev) as a next step in the pitch.
-- [No or failed AI key during the demo] → The rule-based fallback is scripted to recognize every story customer. The UI shows the source (`gemini`/`rules`).
+- [No or failed Gemini credentials during the demo] → The rule-based fallback is scripted to recognize every story customer. The UI shows the source (`gemini`/`rules`).
 - [Contract drift between A and B] → Types and fixtures are frozen at 0:15, and the contract test runs in A's CI step (`pytest`). Integration starts at 2:15 at the latest, not at 2:55.
 - [Merge conflicts] → Directory ownership is strict. Only `README.md` and `CLAUDE.md` are shared, and only at the end.
 - [3-hour overrun] → Each group lists its cut line. The optional group (ElevenLabs voice, Gemini-written messages) is only started if integration is green.
@@ -251,4 +251,4 @@ The twin is computed on read from signals plus the current moment, and is not st
 
 ## Open Questions
 
-- None blocking. Resolved: Vertex AI on project `billem-499113`, location `global` (Gemini 3.x isn't served from `europe-west1`), model `gemini-3.8-flash`, authenticated with the service-account key at `secrets/gcp-sa.json`. It was verified with a live call. `GEMINI_API_KEY` (AI Studio) is the fallback when `GOOGLE_GENAI_USE_VERTEXAI` is not `true`.
+- None blocking. Resolved: Vertex AI on project `billem-499113`, location `global` (Gemini 3.x isn't served from `europe-west1`), model `gemini-3.8-flash`, authenticated with the service-account key at `secrets/gcp-sa.json`. It was verified with a live call. There is no API-key path. The hackathon-provided project (`qwiklabs-gcp-02-7084aced4e5c`) currently denies every model through its `vertexai.allowedModels` org policy; its key is staged at `secrets/gcp-sa-hackathon.json` for when the organizers allow Gemini.

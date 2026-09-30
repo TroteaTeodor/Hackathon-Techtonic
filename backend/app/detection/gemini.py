@@ -50,10 +50,10 @@ class _GeminiMoment(BaseModel):
 def is_configured() -> bool:
     if not settings.ai_enabled:
         return False
-    if settings.google_genai_use_vertexai:
-        creds = settings.google_application_credentials
-        return bool(settings.google_cloud_project) and (not creds or os.path.exists(creds))
-    return bool(settings.gemini_api_key)
+    if not settings.google_genai_use_vertexai:
+        return False
+    creds = settings.google_application_credentials
+    return bool(settings.google_cloud_project) and (not creds or os.path.exists(creds))
 
 
 _client_lock = threading.Lock()
@@ -69,15 +69,12 @@ def _client():
             from google.genai import types
 
             http_options = types.HttpOptions(timeout=int(settings.gemini_timeout_seconds * 1000))
-            if settings.google_genai_use_vertexai:
-                _client_instance = genai.Client(
-                    vertexai=True,
-                    project=settings.google_cloud_project,
-                    location=settings.google_cloud_location,
-                    http_options=http_options,
-                )
-            else:
-                _client_instance = genai.Client(api_key=settings.gemini_api_key, http_options=http_options)
+            _client_instance = genai.Client(
+                vertexai=True,
+                project=settings.google_cloud_project,
+                location=settings.google_cloud_location,
+                http_options=http_options,
+            )
         return _client_instance
 
 

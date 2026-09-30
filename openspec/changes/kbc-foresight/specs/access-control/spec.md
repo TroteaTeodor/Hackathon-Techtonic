@@ -46,7 +46,7 @@ Customer endpoints SHALL identify the customer from the session only, never from
 - **THEN** the response is 404 and the intervention is unchanged
 
 ### Requirement: Secrets and passwords
-Passwords SHALL be stored only as salted hashes. The session signing secret, demo password and AI key SHALL come from environment variables and SHALL NOT be committed. The backend SHALL refuse to start if the session secret is missing or shorter than 32 characters.
+Passwords SHALL be stored only as salted hashes. The session signing secret, demo password and AI credentials (the service-account key file) SHALL come from environment variables or git-ignored files and SHALL NOT be committed. The backend SHALL refuse to start if the session secret is missing or shorter than 32 characters.
 
 #### Scenario: Missing secret
 - **WHEN** the backend starts without `SESSION_SECRET`

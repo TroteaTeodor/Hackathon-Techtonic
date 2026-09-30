@@ -37,5 +37,5 @@ The KBC challenge asks for a scalable way for KBC to understand what 2.3M custom
 
 - **Backend** (`backend/`): new models and an Alembic migration (customers, signals, moments, interventions, users); new routers; a Gemini client (`google-genai`); a session library (`PyJWT`); the seed generator. The `items` code is removed.
 - **Frontend** (`frontend/`): new routes (`/login`, `/app`, `/advisor`, `/advisor/customers/[id]`, `/advisor/scale`); a typed API client with a mock mode; a chart for the twin. The starter page is replaced.
-- **Config**: `.env` gains `GEMINI_API_KEY`, `GEMINI_MODEL`, `SESSION_SECRET` and `DEMO_PASSWORD`. `OPENROUTER_API_KEY` is no longer used.
+- **Config**: `.env` gains the Vertex AI settings (`GOOGLE_GENAI_USE_VERTEXAI`, `GOOGLE_CLOUD_PROJECT`, `GOOGLE_CLOUD_LOCATION`, `GEMINI_MODEL`, and a service-account key in `secrets/`), `SESSION_SECRET` and `DEMO_PASSWORD`. `OPENROUTER_API_KEY` is no longer used.
 - **Repo process**: foundation lands on `main` first, then two branches (`feat/backend`, `feat/frontend`) merge into `main` via PRs. The Aikido baseline scan runs before feature work, and a re-scan runs after.
