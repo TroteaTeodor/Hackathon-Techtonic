@@ -6,6 +6,7 @@ import { Button } from "@/components/Button";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
+import { toast } from "sonner";
 import { MomentChip, Panel, StatusBadge } from "@/components/advisor";
 import { Money, StreamText } from "@/components/motion";
 import { CustomerDetailSkeleton } from "@/components/skeletons";
@@ -50,6 +51,9 @@ const PRESETS: { label: string; icon: typeof Landmark; signal: SignalCreate }[] 
   },
 ];
 
+/** Wall-clock milliseconds, for timing a re-analysis in an event handler. */
+const clockMs = () => performance.now();
+
 interface Change {
   moment?: { from: MomentKey | null; to: MomentKey | null; confidence: number | null };
   balance?: { from: number; to: number };
@@ -82,6 +86,7 @@ export default function CustomerDetailPage() {
   const [error, setError] = useState<string | null>(null);
   const [change, setChange] = useState<Change | null>(null);
   const [flashKey, setFlashKey] = useState(0);
+  const [analyzing, setAnalyzing] = useState(false);
   const topRef = useRef<HTMLDivElement>(null);
 
   const validId = Number.isInteger(id) && id > 0;
@@ -196,6 +201,7 @@ export default function CustomerDetailPage() {
             key={`moment-${flashKey}`}
             title="Life moment"
             flash={flash(!!change?.moment)}
+            thinking={analyzing}
             aside={moment && <SourceBadge source={moment.source} />}
           >
             {moment ? <MomentDetail moment={moment} /> : <p className="text-sm text-muted">Not analyzed yet.</p>}
@@ -205,6 +211,7 @@ export default function CustomerDetailPage() {
             key={`twin-${flashKey}`}
             title="Next 12 months"
             flash={flash(!!change?.balance || !!change?.pinch)}
+            thinking={analyzing}
             aside={
               twin.pinch_points[0] ? (
                 <span className="text-sm font-medium text-coral">Tight in {monthLong(twin.pinch_points[0].month)}</span>
@@ -241,7 +248,7 @@ export default function CustomerDetailPage() {
         </div>
 
         <div className="flex min-w-0 flex-col gap-5 lg:sticky lg:top-32 lg:self-start">
-          <InjectPanel customerId={customer.id} onUpdated={applyUpdate} />
+          <InjectPanel customerId={customer.id} onUpdated={applyUpdate} onBusy={setAnalyzing} />
           <Panel title="Signals" aside={<span className="text-sm text-muted">Newest first</span>}>
             <SignalTimeline signals={signals} highlight={change?.newSignal} />
           </Panel>
@@ -360,6 +367,12 @@ function InterventionRow({
     setError(null);
     try {
       onDecided(await decideIntervention(item.id, decision));
+      toast(decision === "approve" ? "Approved" : "Dismissed", {
+        description:
+          decision === "approve"
+            ? `“${item.title}” goes to the customer’s app.`
+            : `“${item.title}” won’t be sent.`,
+      });
     } catch (err) {
       setError(errorMessage(err));
     } finally {
@@ -427,7 +440,15 @@ function InterventionRow({
   );
 }
 
-function InjectPanel({ customerId, onUpdated }: { customerId: number; onUpdated: (d: CustomerDetail) => void }) {
+function InjectPanel({
+  customerId,
+  onUpdated,
+  onBusy,
+}: {
+  customerId: number;
+  onUpdated: (d: CustomerDetail) => void;
+  onBusy?: (busy: boolean) => void;
+}) {
   const [busy, setBusy] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [kind, setKind] = useState<Signal["kind"]>("transaction");
@@ -436,17 +457,28 @@ function InjectPanel({ customerId, onUpdated }: { customerId: number; onUpdated:
 
   async function send(signal: SignalCreate, tag: string) {
     setBusy(tag);
+    onBusy?.(true);
     setError(null);
+    const started = clockMs();
     try {
-      onUpdated(await injectSignal(customerId, signal));
+      const next = await injectSignal(customerId, signal);
+      onUpdated(next);
+      const secs = ((clockMs() - started) / 1000).toFixed(1);
+      toast(`Re-analyzed in ${secs} s`, {
+        description: next.moment
+          ? `${MOMENTS[next.moment.key].label}, ${percent(next.moment.confidence)} (${next.moment.source === "gemini" ? "Gemini" : "rules"})`
+          : undefined,
+      });
       if (tag === "custom") {
         setDescription("");
         setAmount("");
       }
     } catch (err) {
       setError(errorMessage(err));
+      toast.error(errorMessage(err));
     } finally {
       setBusy(null);
+      onBusy?.(false);
     }
   }
 

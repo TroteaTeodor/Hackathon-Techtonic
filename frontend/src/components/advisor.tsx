@@ -64,15 +64,34 @@ export function Panel({
   children,
   className,
   flash,
+  thinking,
 }: {
   title: string;
   aside?: React.ReactNode;
   children: React.ReactNode;
   className?: string;
   flash?: boolean;
+  /** The model is rewriting this panel: dim it and say so. */
+  thinking?: boolean;
 }) {
   return (
-    <section className={clsx("rounded-[var(--radius-card)] border border-line bg-white p-4 sm:p-5", flash && "flash-change", className)}>
+    <section
+      aria-busy={thinking || undefined}
+      className={clsx(
+        "relative overflow-hidden rounded-[var(--radius-card)] border bg-white p-4 transition-colors sm:p-5",
+        thinking ? "border-cyan-500/50" : "border-line",
+        flash && "flash-change",
+        className,
+      )}
+    >
+      {thinking && (
+        <div aria-hidden className="thinking-sheen pointer-events-none absolute inset-0 z-10">
+          <span className="absolute right-4 top-4 inline-flex items-center gap-2 rounded-full bg-navy-900 px-3 py-1 text-xs font-medium text-white shadow-lg">
+            <span className="size-1.5 animate-pulse rounded-full bg-cyan-400" />
+            Re-analyzing
+          </span>
+        </div>
+      )}
       <div className="flex items-center justify-between gap-3">
         <h2 className="font-display text-lg font-semibold tracking-tight text-navy-900">{title}</h2>
         {aside}

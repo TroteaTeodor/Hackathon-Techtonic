@@ -1,11 +1,11 @@
 "use client";
 
-import { MeshGradient } from "@paper-design/shaders-react";
 import clsx from "clsx";
 import { ArrowRight, Check, Eye, EyeOff } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Button } from "@/components/Button";
+import { FluidBackdrop } from "@/components/FluidBackdrop";
 import { SmoothField } from "@/components/SmoothField";
 import { BrandMark, MockBadge } from "@/components/shell";
 import { ApiError, login, USE_MOCKS } from "@/lib/api";
@@ -88,7 +88,7 @@ export default function LoginPage() {
     <main className="flex flex-1 flex-col bg-navy-950 lg:flex-row">
       {/* ---- Story side: a living gradient, the promise typed out, and a glimpse of the product ---- */}
       <section className="relative isolate flex min-h-[44svh] flex-col justify-between overflow-hidden px-6 pb-12 pt-[max(1.5rem,env(safe-area-inset-top))] lg:min-h-svh lg:flex-1 lg:px-14 lg:py-12">
-        <FluidBackdrop />
+        <FluidBackdrop photo="/moments/login_hero.webp" />
 
         <div className="flex items-center justify-between">
           <BrandMark href={null} />
@@ -232,30 +232,6 @@ export default function LoginPage() {
         </form>
       </section>
     </main>
-  );
-}
-
-/** Slow, living gradient in the brand's navy and cyan, with the city photo breathing through. */
-function FluidBackdrop() {
-  const [reduced] = useState(
-    () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-  );
-  return (
-    <div aria-hidden className="absolute inset-0 -z-10">
-      <MeshGradient
-        colors={["#041833", "#0b3a73", "#1fb6e8", "#06224a", "#3d6194"]}
-        distortion={0.85}
-        swirl={0.35}
-        grainOverlay={0.06}
-        speed={reduced ? 0 : 0.22}
-        style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
-      />
-      <div
-        className="absolute inset-0 bg-cover bg-center opacity-25 mix-blend-soft-light"
-        style={{ backgroundImage: "url(/moments/login_hero.webp)" }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-navy-950/85 via-navy-950/20 to-transparent" />
-    </div>
   );
 }
 

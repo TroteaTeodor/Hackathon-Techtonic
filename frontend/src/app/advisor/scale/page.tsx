@@ -3,7 +3,7 @@
 import clsx from "clsx";
 import { useCallback, useEffect, useState } from "react";
 import { STATUS_TONE } from "@/components/advisor";
-import { Num } from "@/components/motion";
+import { RollIn } from "@/components/motion";
 import { ScaleSkeleton } from "@/components/skeletons";
 import { ErrorNote, errorMessage } from "@/components/shell";
 import { getScale } from "@/lib/api";
@@ -52,13 +52,13 @@ export default function ScalePage() {
           <div>
             <p className="text-sm text-ice/65">Projected AI cost per day</p>
             <p className="font-display tabular mt-1 text-5xl font-semibold tracking-tight text-cyan-300 sm:text-6xl">
-              <Num value={data.projected_daily_cost_eur} format={EUR2} />
+              <RollIn value={data.projected_daily_cost_eur} format={EUR2} />
             </p>
           </div>
           <div>
             <p className="text-sm text-ice/65">Per month</p>
             <p className="font-display tabular mt-1 text-5xl font-semibold tracking-tight sm:text-6xl">
-              <Num value={data.projected_monthly_cost_eur} format={EUR2} />
+              <RollIn value={data.projected_monthly_cost_eur} format={EUR2} />
             </p>
           </div>
         </div>
@@ -106,7 +106,7 @@ export default function ScalePage() {
 
         <section className="flex flex-col rounded-[var(--radius-card)] border border-line bg-white p-5">
           <h2 className="font-display text-lg font-semibold tracking-tight text-navy-900">Who handles each action</h2>
-          <p className="mt-4 font-display tabular text-5xl font-semibold tracking-tight text-navy-900">{percent(data.automation_rate)}</p>
+          <p className="mt-4 font-display tabular text-5xl font-semibold tracking-tight text-navy-900"><RollIn value={data.automation_rate} format={{ style: "percent", maximumFractionDigits: 0 }} /></p>
           <p className="mt-1 text-sm text-muted">
             sent automatically. The other {percent(1 - data.automation_rate)} wait for an advisor, because the customer is
             stressed or we aren’t sure enough.

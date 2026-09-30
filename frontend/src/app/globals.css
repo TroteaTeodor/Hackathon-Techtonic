@@ -254,6 +254,77 @@ a[href].press:active {
   animation: preview-dot 7s var(--ease-out-expo) infinite;
 }
 
+/* One orchestrated arrival: a page's sections rise in one after another. */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+.stagger > * {
+  animation: rise-in 640ms var(--ease-out-expo) both;
+}
+.stagger > *:nth-child(1) { animation-delay: 60ms; }
+.stagger > *:nth-child(2) { animation-delay: 130ms; }
+.stagger > *:nth-child(3) { animation-delay: 200ms; }
+.stagger > *:nth-child(4) { animation-delay: 270ms; }
+.stagger > *:nth-child(5) { animation-delay: 340ms; }
+.stagger > *:nth-child(n + 6) { animation-delay: 400ms; }
+
+/* While the model reads a new signal, the panel it will rewrite breathes. */
+@keyframes thinking {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+.thinking-sheen {
+  background: linear-gradient(100deg, transparent 20%, rgb(31 182 232 / 0.16) 45%, rgb(143 220 245 / 0.22) 50%, rgb(31 182 232 / 0.16) 55%, transparent 80%);
+  background-size: 220% 100%;
+  animation: shimmer 1.6s linear infinite, thinking 1.6s ease-in-out infinite;
+}
+
+/* Command palette */
+@keyframes palette-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 8px) scale(0.98);
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+.palette-panel {
+  animation: palette-in 260ms var(--ease-out-expo) both;
+}
+.palette-overlay {
+  animation: fade-in 200ms ease-out both;
+}
+[cmdk-input]:focus,
+[cmdk-input]:focus-visible {
+  outline: none;
+}
+.palette-group [cmdk-group-heading] {
+  padding: 0.75rem 0.75rem 0.35rem;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-muted);
+}
+.palette-item {
+  display: flex;
+  min-height: 3.25rem;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 0.9rem;
+  padding: 0.4rem 0.75rem;
+  font-size: 14px;
+  transition: background-color 120ms ease-out;
+}
+.palette-item[data-selected="true"] {
+  background: var(--color-ice);
+}
+
 /* Loading placeholders shimmer in the shape of what is coming. */
 @keyframes shimmer {
   from {

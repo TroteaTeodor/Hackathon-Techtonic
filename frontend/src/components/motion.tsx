@@ -86,3 +86,21 @@ export function useInView<T extends Element>(threshold = 0.4) {
   }, [inView, threshold]);
   return [ref, inView] as const;
 }
+
+/** A number that rolls up from zero the first time it scrolls into view. */
+export function RollIn({
+  value,
+  format,
+  className,
+}: {
+  value: number;
+  format?: React.ComponentProps<typeof NumberFlow>["format"];
+  className?: string;
+}) {
+  const [ref, inView] = useInView<HTMLSpanElement>(0.5);
+  return (
+    <span ref={ref} className={className}>
+      <Num value={inView ? value : 0} format={format} />
+    </span>
+  );
+}

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Onest } from "next/font/google";
 import { SmoothScroll } from "@/components/motion";
+import { Toaster } from "@/components/Toaster";
 import "./globals.css";
 
 const onest = Onest({ variable: "--font-onest", subsets: ["latin"] });
@@ -22,6 +23,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${onest.variable} ${bricolage.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <SmoothScroll />
+        <Toaster />
         {children}
       </body>
     </html>
