@@ -2,7 +2,6 @@
 
 import clsx from "clsx";
 import { ArrowLeft, ArrowRight, Baby, Car, FileSignature, Landmark, Sparkles, TriangleAlert } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
@@ -144,14 +143,10 @@ export default function CustomerDetailPage() {
         </dl>
       </div>
 
-      <AnimatePresence>
-        {change && (change.moment || change.balance || change.pinch || change.newInterventions.length > 0) && (
-          <motion.div
+      {change && (change.moment || change.balance || change.pinch || change.newInterventions.length > 0) && (
+          <div
             key={flashKey}
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            className="mt-5 rounded-[var(--radius-card)] bg-navy-900 p-4 text-white sm:p-5"
+            className="flash-change mt-5 rounded-[var(--radius-card)] bg-navy-900 p-4 text-white sm:p-5"
             role="status"
           >
             <p className="flex items-center gap-2 text-sm font-medium text-cyan-300">
@@ -194,9 +189,8 @@ export default function CustomerDetailPage() {
                 </li>
               )}
             </ul>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
 
       <div className="mt-6 grid gap-5 lg:grid-cols-[minmax(0,1fr)_340px]">
         <div className="flex min-w-0 flex-col gap-5">
@@ -308,11 +302,12 @@ function MomentDetail({ moment }: { moment: NonNullable<CustomerDetail["moment"]
                 {MOMENTS[key].label}
               </span>
               <span className="h-2 overflow-hidden rounded-full bg-paper">
-                <motion.span
-                  className={clsx("block h-full rounded-full", key === moment.key ? "bg-cyan-500" : "bg-navy-500/35")}
-                  initial={{ width: 0 }}
-                  animate={{ width: `${Math.max(p * 100, 1)}%` }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
+                <span
+                  className={clsx(
+                    "block h-full rounded-full transition-[width] duration-700 ease-out",
+                    key === moment.key ? "bg-cyan-500" : "bg-navy-500/35",
+                  )}
+                  style={{ width: `${Math.max(p * 100, 1)}%` }}
                 />
               </span>
               <span className="tabular text-right text-muted">{percent(p)}</span>
@@ -469,6 +464,13 @@ function InjectPanel({ customerId, onUpdated }: { customerId: number; onUpdated:
           </button>
         ))}
       </div>
+
+      {busy && (
+        <p role="status" className="mt-3 flex items-center gap-2 rounded-xl bg-cyan-500/15 px-3 py-2.5 text-sm text-cyan-300">
+          <Spinner className="size-4" />
+          Reading the new signal and re-running the forecast…
+        </p>
+      )}
 
       <form onSubmit={onSubmit} className="mt-4 space-y-2.5 border-t border-white/10 pt-4">
         <div className="grid grid-cols-[minmax(0,1fr)_7rem] gap-2">

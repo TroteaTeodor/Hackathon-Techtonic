@@ -1,7 +1,6 @@
 "use client";
 
 import clsx from "clsx";
-import { motion } from "motion/react";
 import { useCallback, useEffect, useState } from "react";
 import { STATUS_TONE } from "@/components/advisor";
 import { ErrorNote, errorMessage, Spinner } from "@/components/shell";
@@ -90,14 +89,12 @@ export default function ScalePage() {
                 <li key={k} className="grid grid-cols-[9.5rem_minmax(0,1fr)_4.5rem] items-center gap-3 text-sm">
                   <span className={clsx("truncate", k === "financial_stress" ? "text-coral" : "text-ink")}>{MOMENTS[k].label}</span>
                   <span className="h-2.5 overflow-hidden rounded-full bg-paper">
-                    <motion.span
+                    <span
                       className={clsx(
                         "block h-full rounded-full",
                         k === "financial_stress" ? "bg-coral" : k === "no_clear_moment" ? "bg-navy-500/30" : "bg-cyan-500",
                       )}
-                      initial={{ width: 0 }}
-                      animate={{ width: `${(n / momentMax) * 100}%` }}
-                      transition={{ duration: 0.7, ease: "easeOut" }}
+                      style={{ width: `${(n / momentMax) * 100}%` }}
                     />
                   </span>
                   <span className="tabular text-right text-muted">
