@@ -119,7 +119,11 @@ An LLM forecast would be slow, costly and impossible to audit. The AI is used on
 ### 5. Built to scale
 
 - **Incremental:** a customer is re-analysed only when a new signal arrives or a preference changes. Listing customers never re-runs detection; a test checks this.
-- **Cost projection:** at a 5% daily re-analysis rate, the cascade costs about **€28 a day** for 2.3M customers. The console's scale view shows the live figure, with its assumptions.
+- **Cost projection**, at a 5% daily re-analysis rate for 2.3M customers:
+  - **Detection** (the Jev → Gemini cascade) costs about **€28 a day**.
+  - **Detection plus Gemini's personal wording** (one extra Gemini call per re-analysed customer) costs about **€226 a day**, or roughly €6,800 a month. **This is the figure the console's scale view shows**, because it averages the real cost of every analysis, including the wording.
+  - The wording is optional: `PERSONALIZE_WITH_AI=false` brings it back to detection only, with template text.
+  - Gemini's token prices in both figures are placeholders (`PRICE_PER_MILLION_*` in `.env`); Jev's cost is what OpenRouter actually bills.
 - **Automation:** the policy sends high-confidence cases automatically and puts only the uncertain or sensitive ones in front of an advisor.
 - **Production path:** an event queue instead of analysing inside the request, and batch re-scoring. See [what's unfinished](#whats-unfinished).
 

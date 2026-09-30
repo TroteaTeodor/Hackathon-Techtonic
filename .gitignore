@@ -7,3 +7,4 @@ secrets/
 
 # Playwright MCP screenshots and snapshots
 .playwright-mcp/
+docker-compose.override.yml
