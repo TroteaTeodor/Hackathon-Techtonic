@@ -139,6 +139,121 @@ a[href].press:active {
 .fade-up {
   animation: fade-up 600ms var(--ease-out-expo) both;
 }
+/* ---- Smooth typing ---------------------------------------------------------- */
+
+/* The real input keeps working but draws nothing; SmoothField draws text and caret. */
+.smooth-input {
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  caret-color: transparent;
+}
+/* The field's rounded frame shows focus; the inner input must not draw its own square-ish outline. */
+.smooth-input:focus,
+.smooth-input:focus-visible {
+  outline: none;
+}
+.smooth-input::selection {
+  background: transparent;
+}
+.smooth-input:-webkit-autofill,
+.smooth-input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px transparent inset;
+  transition: background-color 9999s ease-out 0s;
+}
+@keyframes char-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.35em) scale(0.92);
+    filter: blur(2px);
+  }
+}
+.char-in {
+  display: inline-block;
+  animation: char-in 220ms var(--ease-out-expo) both;
+}
+@keyframes caret-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  55%,
+  100% {
+    opacity: 0.15;
+  }
+}
+.caret-blink {
+  animation: caret-blink 1.05s ease-in-out 0.5s infinite;
+}
+@keyframes shake {
+  10%,
+  90% {
+    transform: translateX(-2px);
+  }
+  20%,
+  80% {
+    transform: translateX(4px);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translateX(-7px);
+  }
+  40%,
+  60% {
+    transform: translateX(7px);
+  }
+}
+.shake {
+  animation: shake 460ms cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+@keyframes float-y {
+  50% {
+    transform: translateY(-8px);
+  }
+}
+.float-y {
+  animation: float-y 6s ease-in-out infinite;
+}
+
+/* The login preview line draws on a loop, and its tight month pops in. */
+@keyframes preview-draw {
+  0% {
+    stroke-dashoffset: 1;
+  }
+  45%,
+  88% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+.preview-line {
+  stroke-dasharray: 1;
+  animation: preview-draw 7s var(--ease-out-expo) infinite;
+}
+@keyframes preview-dot {
+  0%,
+  18% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  26%,
+  88% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.preview-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: preview-dot 7s var(--ease-out-expo) infinite;
+}
+
 /* Loading placeholders shimmer in the shape of what is coming. */
 @keyframes shimmer {
   from {
