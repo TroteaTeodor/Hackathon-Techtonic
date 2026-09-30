@@ -20,6 +20,10 @@ MOMENT_KEYS: tuple[str, ...] = MomentKey.__args__
 Proactivity = Literal["minimal", "balanced", "proactive"]
 SignalKind = Literal["transaction", "app_event", "search", "contact"]
 InterventionStatus = Literal["delivered", "review", "held", "dismissed"]
+TransactionCategory = Literal[
+    "income", "housing", "energy", "telecom", "groceries", "transport", "subscriptions", "entertainment", "dining",
+    "shopping", "health", "insurance", "travel", "family", "loans", "fees", "savings", "other",
+]
 
 
 class Me(BaseModel):
@@ -44,6 +48,30 @@ class Signal(BaseModel):
     description: str
     amount: float | None
     kind: SignalKind
+    category: TransactionCategory | None  # transactions only
+    recurring: bool  # the charge repeats monthly (or yearly, for periodic payments)
+
+
+class PriceChange(BaseModel):
+    before: float
+    after: float
+
+
+class Subscription(BaseModel):
+    name: str
+    monthly_amount: float
+    yearly_amount: float
+    since: str = Field(pattern=r"^\d{4}-\d{2}$")
+    last_charged: dt.date
+    price_change: PriceChange | None
+
+
+class CategorySpend(BaseModel):
+    category: TransactionCategory
+    label: str
+    monthly_average: float
+    share: float = Field(ge=0, le=1)
+    recurring_share: float = Field(ge=0, le=1)
 
 
 class SignalCreate(BaseModel):
@@ -129,6 +157,7 @@ class Intervention(BaseModel):
     deliver_at: dt.date
     reasons: list[str]
     feedback: Literal["helpful", "not_relevant"] | None
+    cta: str | None  # label of the card's one direct action, e.g. "Get home insurance"
 
 
 class CustomerOverview(BaseModel):
@@ -136,6 +165,8 @@ class CustomerOverview(BaseModel):
     moment: Moment | None
     twin: Twin
     interventions: list[Intervention]
+    subscriptions: list[Subscription]
+    spending: list[CategorySpend]
 
 
 class CustomerSummary(BaseModel):
@@ -156,6 +187,8 @@ class CustomerDetail(BaseModel):
     moment: Moment | None
     twin: Twin
     interventions: list[Intervention]
+    subscriptions: list[Subscription]
+    spending: list[CategorySpend]
 
 
 class ScaleAssumptions(BaseModel):

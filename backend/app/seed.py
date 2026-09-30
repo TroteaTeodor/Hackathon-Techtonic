@@ -41,6 +41,9 @@ class Story:
     recent: list = field(default_factory=list)  # (days_ago, kind, description, amount)
     history_only: list = field(default_factory=list)  # (description, amount, day, first_month_ago, last_month_ago)
     label: str | None = None  # the moment the generator scripted (ground truth for the evals)
+    # (description, monthly amount, day, new amount or None, months at the new price): a price rise when set
+    subscriptions: list = field(default_factory=list)
+    everyday: bool = True  # add random one-off everyday spending (eating out, shopping, pharmacy…)
 
 
 def _months_back(today: date, n: int = 12):
@@ -50,9 +53,34 @@ def _months_back(today: date, n: int = 12):
         yield yy, mm + 1, i
 
 
+# One-off everyday spending, so transaction categories have something to show. None of these match a moment keyword.
+EVERYDAY = [
+    ("Dinner — Deliveroo", 18, 45), ("Restaurant — Brasserie De Markt", 35, 90), ("Cinema — Kinepolis", 12, 30),
+    ("Clothes — Zalando", 25, 95), ("Toiletries — Kruidvat", 8, 30), ("Pharmacy — Apotheek Centrum", 6, 35),
+    ("Books — Fnac", 12, 40), ("Takeaway — Pizza Hut", 15, 35), ("Sports gear — Decathlon", 15, 80), ("Coffee — Café De Zwaan", 8, 25),
+]
+POPULATION_SUBSCRIPTIONS = [
+    ("Streaming — Netflix", 13.99), ("Music — Spotify", 11.99), ("Streaming — Disney+", 8.99), ("Streaming — Streamz", 11.95),
+    ("Gym — Basic-Fit", 29.99), ("Streaming — YouTube Premium", 12.99), ("Storage — iCloud+", 2.99),
+    ("Streaming — Prime Video", 5.99), ("News — De Standaard", 21.99), ("Games — Xbox Game Pass", 12.99),
+]
+NOTARIES = ["Notaris Verbeke", "Notaris Claeys", "Notaris De Wilde", "Notaris Van Damme", "Notaire Lambert",
+            "Notaris Wouters", "Notaire Dubois", "Notaris Peeters & Mertens"]
+
+
 def _history(story: Story, today: date, rng: random.Random) -> list[tuple]:
     rows = []
     for year, month, ago in _months_back(today):
+        for desc, amount, day, new_amount, months_new in story.subscriptions:
+            d = date(year, month, min(28, day))
+            if d <= today:
+                price = new_amount if new_amount is not None and ago < months_new else amount
+                rows.append((d, "transaction", desc, -price))
+        if story.everyday:
+            for desc, low, high in rng.sample(EVERYDAY, rng.randint(2, 4)):
+                d = date(year, month, rng.randint(1, 28))
+                if d <= today:
+                    rows.append((d, "transaction", desc, -round(rng.uniform(low, high), 2)))
         for desc, amount, day, times in story.monthly:
             for t in range(times):
                 d = date(year, month, min(28, day + t * 7))
@@ -84,7 +112,7 @@ def _base(salary_desc, salary, rent_desc, rent, energy_desc, energy, telecom_des
 
 STORIES = [
     Story(
-        "sara", "Sara", "Janssens", 31, "Leuven", 9800, True, "balanced",
+        "sara", "Sara", "Janssens", 31, "Leuven", 7800, True, "balanced",
         _base("Salary — Barco NV", 3100, "Rent — Immo Vandenberghe", 950, "Energy — Engie", 140,
               "Telecom — Proximus", 55, "Groceries — Colruyt", 520, 600) + [("Transport — NMBS", -70, 5, 1)],
         yearly=[("Home contents insurance — KBC", -180, 1, 10), ("Holiday pay — Barco NV", 2300, 5, 28)],
@@ -95,6 +123,7 @@ STORIES = [
             (15, "contact", "Asked the chatbot: 'How long does a mortgage approval take?'", None),
             (20, "search", "Immoweb — 2-bedroom apartments in Leuven", None),
         ],
+        subscriptions=[("Streaming — Netflix", 13.99, 12, 15.99, 2), ("Music — Spotify", 11.99, 5, None, 0), ("Gym — Basic-Fit", 29.99, 1, None, 0)],
     ),
     Story(
         "lien", "Lien", "Wouters", 29, "Gent", 2600, True, "balanced",
@@ -108,6 +137,7 @@ STORIES = [
             (13, "app_event", "Opened the child savings account page", None),
             (25, "transaction", "Prenatal — maternity clothes", -89),
         ],
+        subscriptions=[("Streaming — Disney+", 8.99, 9, None, 0), ("Music — Spotify Duo", 16.99, 5, None, 0), ("Streaming — Streamz", 11.95, 20, None, 0)],
     ),
     Story(
         "ahmed", "Ahmed", "El Amrani", 23, "Antwerpen", 1450, False, "balanced",
@@ -119,6 +149,7 @@ STORIES = [
             (6, "search", "Searched 'first salary taxes'", None),
             (4, "contact", "Asked about salary account switching", None),
         ],
+        subscriptions=[("Music — Spotify", 5.99, 5, None, 0), ("Games — Xbox Game Pass", 12.99, 14, None, 0)],
     ),
     Story(
         "marc", "Marc", "Dubois", 63, "Namur", 21000, True, "proactive",
@@ -129,6 +160,7 @@ STORIES = [
             (5, "search", "Searched 'pension calculation mypension.be'", None),
             (10, "contact", "Asked an advisor about early retirement options", None),
         ],
+        subscriptions=[("News — De Standaard", 21.99, 3, None, 0), ("Streaming — Netflix", 17.99, 12, None, 0)],
     ),
     Story(
         "julie", "Julie", "Maes", 41, "Hasselt", -420, True, "balanced",
@@ -142,6 +174,7 @@ STORIES = [
             (10, "transaction", "Collection agency — Fairway", -120),
             (14, "transaction", "Cash advance — credit card", -300),
         ],
+        subscriptions=[("Streaming — Netflix", 13.99, 12, 15.99, 2), ("Music — Spotify", 11.99, 5, None, 0), ("Streaming — Disney+", 8.99, 9, None, 0), ("Streaming — Streamz", 11.95, 20, None, 0), ("Gym — Basic-Fit", 29.99, 1, None, 0)],
     ),
     Story(
         "pieter", "Pieter", "De Smet", 37, "Brugge", 3900, True, "balanced",
@@ -153,6 +186,7 @@ STORIES = [
             (6, "search", "Autoscout24 — used Volvo XC40", None),
             (9, "contact", "Dealer quote received — Volvo Brugge", None),
         ],
+        subscriptions=[("Music — Spotify", 11.99, 5, None, 0), ("Streaming — Prime Video", 5.99, 18, None, 0)],
     ),
     Story(
         "jan", "Jan", "Claes", 45, "Mechelen", 32500, True, "proactive",
@@ -160,6 +194,7 @@ STORIES = [
               "Telecom — Telenet", 65, "Groceries — Aldi", 610, 700) + [("Fuel — TotalEnergies", -70, 8, 2)],
         yearly=[("Car insurance — KBC", -640, 3, 14), ("Holiday pay — Telenet", 2500, 5, 28)],
         recent=[(5, "app_event", "Checked account balance", None)],
+        subscriptions=[("Streaming — Netflix", 15.99, 12, None, 0), ("Streaming — YouTube Premium", 17.99, 7, None, 0), ("Storage — iCloud+", 2.99, 22, None, 0)],
     ),
 ]
 
@@ -209,7 +244,14 @@ def _population_story(rng: random.Random, n: int) -> Story:
     if moment != "no_clear_moment":
         pool = MOMENT_SIGNALS[moment]
         for kind, desc, amount in rng.sample(pool, rng.randint(1, len(pool))):
+            if "Notar" in desc:  # every buyer has their own notary and deposit
+                desc, amount = f"Notary deposit — {rng.choice(NOTARIES)}", -float(rng.randrange(8000, 32000, 500))
+            elif amount is not None:
+                amount = round(amount * rng.uniform(0.7, 1.5), 2)
             story.recent.append((rng.randint(1, 30), kind, desc, amount))
+    for desc, price in rng.sample(POPULATION_SUBSCRIPTIONS, rng.choices([0, 1, 2, 3, 4], weights=[15, 25, 30, 20, 10])[0]):
+        rise = rng.random() < 0.2
+        story.subscriptions.append((desc, price, rng.randint(1, 28), round(price + 2, 2) if rise else None, 2 if rise else 0))
     return story
 
 
@@ -268,3 +310,10 @@ def _seed_users(db: Session) -> None:
                 role="customer", customer_id=story_customers[story.first_name.lower()],
             ))
     db.commit()
+
+
+def story_customer_ids() -> list[int]:
+    from app.db import SessionLocal
+
+    with SessionLocal() as db:
+        return list(db.scalars(select(Customer.id).where(Customer.is_story)))

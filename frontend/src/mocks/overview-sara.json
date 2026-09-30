@@ -7,76 +7,94 @@
     "city": "Leuven",
     "marketing_consent": true,
     "proactivity": "balanced",
-    "balance": 9800
+    "balance": 7800.0
   },
   "moment": {
     "key": "moving_home",
     "label": "Moving home",
-    "confidence": 0.87,
+    "confidence": 0.99,
     "probabilities": {
-      "moving_home": 0.87,
-      "growing_family": 0.03,
-      "new_job": 0.01,
+      "moving_home": 0.99,
+      "growing_family": 0.01,
+      "new_job": 0.0,
       "approaching_retirement": 0.0,
-      "buying_car": 0.02,
-      "travel_abroad": 0.02,
-      "financial_stress": 0.01,
-      "no_clear_moment": 0.04
+      "buying_car": 0.0,
+      "travel_abroad": 0.0,
+      "financial_stress": 0.0,
+      "no_clear_moment": 0.0
     },
-    "stress": 0.08,
+    "stress": 0.29,
     "receptiveness": 2,
-    "rationale": "A €15,000 notary deposit, repeated Immoweb searches and mortgage-simulator use point to buying a home.",
-    "source": "gemini",
-    "analyzed_at": "2026-09-30T09:12:44Z"
+    "rationale": "Opened the mortgage simulator (3 times this week); Searched the app for 'home insurance new apartment'; Notary deposit — Notaris Peeters.",
+    "source": "jev",
+    "analyzed_at": "2026-09-30T19:24:09.663838Z"
   },
   "twin": {
-    "start_balance": 9800,
+    "start_balance": 7800.0,
     "months": [
       {
         "month": "2026-10",
-        "income": 3100,
-        "expenses": 2335,
-        "balance": 10565,
+        "income": 3100.0,
+        "expenses": 2374.99,
+        "balance": 8525.01,
         "events": [
           {
+            "label": "Streaming — Netflix",
+            "amount": -13.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Music — Spotify",
+            "amount": -11.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Gym — Basic-Fit",
+            "amount": -29.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
             "label": "Salary — Barco NV",
-            "amount": 3100,
+            "amount": 3100.0,
             "kind": "income",
             "source": "recurring"
           },
           {
             "label": "Rent — Immo Vandenberghe",
-            "amount": -950,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Groceries — Colruyt & Delhaize",
-            "amount": -520,
+            "amount": -950.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Energy — Engie",
-            "amount": -140,
+            "amount": -140.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Telecom — Proximus",
-            "amount": -55,
+            "amount": -55.0,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Colruyt",
+            "amount": -519.61,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card payment — Bancontact",
+            "amount": -584.41,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Transport — NMBS",
-            "amount": -70,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Card spending",
-            "amount": -600,
+            "amount": -70.0,
             "kind": "expense",
             "source": "recurring"
           }
@@ -84,61 +102,79 @@
       },
       {
         "month": "2026-11",
-        "income": 3100,
-        "expenses": 13835,
-        "balance": -170,
+        "income": 3100.0,
+        "expenses": 11794.99,
+        "balance": -169.98,
         "events": [
           {
+            "label": "Streaming — Netflix",
+            "amount": -13.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Music — Spotify",
+            "amount": -11.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Gym — Basic-Fit",
+            "amount": -29.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
             "label": "Salary — Barco NV",
-            "amount": 3100,
+            "amount": 3100.0,
             "kind": "income",
             "source": "recurring"
           },
           {
             "label": "Rent — Immo Vandenberghe",
-            "amount": -950,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Groceries — Colruyt & Delhaize",
-            "amount": -520,
+            "amount": -950.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Energy — Engie",
-            "amount": -140,
+            "amount": -140.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Telecom — Proximus",
-            "amount": -55,
+            "amount": -55.0,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Colruyt",
+            "amount": -519.61,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card payment — Bancontact",
+            "amount": -584.41,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Transport — NMBS",
-            "amount": -70,
+            "amount": -70.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
-            "label": "Card spending",
-            "amount": -600,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Notary fees (estimate)",
-            "amount": -9000,
+            "label": "Notary and registration fees (estimate, 2% of ~€219,000 + €3,500)",
+            "amount": -7870.0,
             "kind": "expense",
             "source": "moment"
           },
           {
             "label": "Moving costs (estimate)",
-            "amount": -2500,
+            "amount": -1550.0,
             "kind": "expense",
             "source": "moment"
           }
@@ -146,49 +182,67 @@
       },
       {
         "month": "2026-12",
-        "income": 3100,
-        "expenses": 2535,
-        "balance": 395,
+        "income": 3100.0,
+        "expenses": 2444.99,
+        "balance": 485.03,
         "events": [
           {
-            "label": "Salary — Barco NV",
-            "amount": 3100,
-            "kind": "income",
-            "source": "recurring"
-          },
-          {
-            "label": "Groceries — Colruyt & Delhaize",
-            "amount": -520,
+            "label": "Streaming — Netflix",
+            "amount": -13.99,
             "kind": "expense",
             "source": "recurring"
           },
           {
+            "label": "Music — Spotify",
+            "amount": -11.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Gym — Basic-Fit",
+            "amount": -29.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Salary — Barco NV",
+            "amount": 3100.0,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
             "label": "Energy — Engie",
-            "amount": -140,
+            "amount": -140.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Telecom — Proximus",
-            "amount": -55,
+            "amount": -55.0,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Colruyt",
+            "amount": -519.61,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card payment — Bancontact",
+            "amount": -584.41,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Transport — NMBS",
-            "amount": -70,
+            "amount": -70.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
-            "label": "Card spending",
-            "amount": -600,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Mortgage payment — KBC home loan (estimate)",
-            "amount": -1150,
+            "label": "Mortgage payment — KBC home loan (estimate, 33% of income)",
+            "amount": -1020.0,
             "kind": "expense",
             "source": "moment"
           }
@@ -196,55 +250,73 @@
       },
       {
         "month": "2027-01",
-        "income": 3100,
-        "expenses": 2715,
-        "balance": 780,
+        "income": 3100.0,
+        "expenses": 2624.99,
+        "balance": 960.04,
         "events": [
           {
-            "label": "Salary — Barco NV",
-            "amount": 3100,
-            "kind": "income",
-            "source": "recurring"
-          },
-          {
-            "label": "Groceries — Colruyt & Delhaize",
-            "amount": -520,
+            "label": "Streaming — Netflix",
+            "amount": -13.99,
             "kind": "expense",
             "source": "recurring"
           },
           {
+            "label": "Music — Spotify",
+            "amount": -11.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Gym — Basic-Fit",
+            "amount": -29.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Salary — Barco NV",
+            "amount": 3100.0,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
             "label": "Energy — Engie",
-            "amount": -140,
+            "amount": -140.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Telecom — Proximus",
-            "amount": -55,
+            "amount": -55.0,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Colruyt",
+            "amount": -519.61,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card payment — Bancontact",
+            "amount": -584.41,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Transport — NMBS",
-            "amount": -70,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Card spending",
-            "amount": -600,
+            "amount": -70.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Home contents insurance — KBC",
-            "amount": -180,
+            "amount": -180.0,
             "kind": "expense",
             "source": "scheduled"
           },
           {
-            "label": "Mortgage payment — KBC home loan (estimate)",
-            "amount": -1150,
+            "label": "Mortgage payment — KBC home loan (estimate, 33% of income)",
+            "amount": -1020.0,
             "kind": "expense",
             "source": "moment"
           }
@@ -252,49 +324,67 @@
       },
       {
         "month": "2027-02",
-        "income": 3100,
-        "expenses": 2535,
-        "balance": 1345,
+        "income": 3100.0,
+        "expenses": 2444.99,
+        "balance": 1615.05,
         "events": [
           {
-            "label": "Salary — Barco NV",
-            "amount": 3100,
-            "kind": "income",
-            "source": "recurring"
-          },
-          {
-            "label": "Groceries — Colruyt & Delhaize",
-            "amount": -520,
+            "label": "Streaming — Netflix",
+            "amount": -13.99,
             "kind": "expense",
             "source": "recurring"
           },
           {
+            "label": "Music — Spotify",
+            "amount": -11.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Gym — Basic-Fit",
+            "amount": -29.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Salary — Barco NV",
+            "amount": 3100.0,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
             "label": "Energy — Engie",
-            "amount": -140,
+            "amount": -140.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Telecom — Proximus",
-            "amount": -55,
+            "amount": -55.0,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Colruyt",
+            "amount": -519.61,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card payment — Bancontact",
+            "amount": -584.41,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Transport — NMBS",
-            "amount": -70,
+            "amount": -70.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
-            "label": "Card spending",
-            "amount": -600,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Mortgage payment — KBC home loan (estimate)",
-            "amount": -1150,
+            "label": "Mortgage payment — KBC home loan (estimate, 33% of income)",
+            "amount": -1020.0,
             "kind": "expense",
             "source": "moment"
           }
@@ -302,49 +392,67 @@
       },
       {
         "month": "2027-03",
-        "income": 3100,
-        "expenses": 2535,
-        "balance": 1910,
+        "income": 3100.0,
+        "expenses": 2444.99,
+        "balance": 2270.06,
         "events": [
           {
-            "label": "Salary — Barco NV",
-            "amount": 3100,
-            "kind": "income",
-            "source": "recurring"
-          },
-          {
-            "label": "Groceries — Colruyt & Delhaize",
-            "amount": -520,
+            "label": "Streaming — Netflix",
+            "amount": -13.99,
             "kind": "expense",
             "source": "recurring"
           },
           {
+            "label": "Music — Spotify",
+            "amount": -11.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Gym — Basic-Fit",
+            "amount": -29.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Salary — Barco NV",
+            "amount": 3100.0,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
             "label": "Energy — Engie",
-            "amount": -140,
+            "amount": -140.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Telecom — Proximus",
-            "amount": -55,
+            "amount": -55.0,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Colruyt",
+            "amount": -519.61,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card payment — Bancontact",
+            "amount": -584.41,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Transport — NMBS",
-            "amount": -70,
+            "amount": -70.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
-            "label": "Card spending",
-            "amount": -600,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Mortgage payment — KBC home loan (estimate)",
-            "amount": -1150,
+            "label": "Mortgage payment — KBC home loan (estimate, 33% of income)",
+            "amount": -1020.0,
             "kind": "expense",
             "source": "moment"
           }
@@ -352,49 +460,67 @@
       },
       {
         "month": "2027-04",
-        "income": 3100,
-        "expenses": 2535,
-        "balance": 2475,
+        "income": 3100.0,
+        "expenses": 2444.99,
+        "balance": 2925.07,
         "events": [
           {
-            "label": "Salary — Barco NV",
-            "amount": 3100,
-            "kind": "income",
-            "source": "recurring"
-          },
-          {
-            "label": "Groceries — Colruyt & Delhaize",
-            "amount": -520,
+            "label": "Streaming — Netflix",
+            "amount": -13.99,
             "kind": "expense",
             "source": "recurring"
           },
           {
+            "label": "Music — Spotify",
+            "amount": -11.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Gym — Basic-Fit",
+            "amount": -29.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Salary — Barco NV",
+            "amount": 3100.0,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
             "label": "Energy — Engie",
-            "amount": -140,
+            "amount": -140.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Telecom — Proximus",
-            "amount": -55,
+            "amount": -55.0,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Colruyt",
+            "amount": -519.61,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card payment — Bancontact",
+            "amount": -584.41,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Transport — NMBS",
-            "amount": -70,
+            "amount": -70.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
-            "label": "Card spending",
-            "amount": -600,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Mortgage payment — KBC home loan (estimate)",
-            "amount": -1150,
+            "label": "Mortgage payment — KBC home loan (estimate, 33% of income)",
+            "amount": -1020.0,
             "kind": "expense",
             "source": "moment"
           }
@@ -402,55 +528,73 @@
       },
       {
         "month": "2027-05",
-        "income": 5400,
-        "expenses": 2535,
-        "balance": 5340,
+        "income": 5400.0,
+        "expenses": 2444.99,
+        "balance": 5880.08,
         "events": [
           {
-            "label": "Salary — Barco NV",
-            "amount": 3100,
-            "kind": "income",
-            "source": "recurring"
-          },
-          {
-            "label": "Groceries — Colruyt & Delhaize",
-            "amount": -520,
+            "label": "Streaming — Netflix",
+            "amount": -13.99,
             "kind": "expense",
             "source": "recurring"
           },
           {
+            "label": "Music — Spotify",
+            "amount": -11.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Gym — Basic-Fit",
+            "amount": -29.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Salary — Barco NV",
+            "amount": 3100.0,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
             "label": "Energy — Engie",
-            "amount": -140,
+            "amount": -140.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Telecom — Proximus",
-            "amount": -55,
+            "amount": -55.0,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Colruyt",
+            "amount": -519.61,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card payment — Bancontact",
+            "amount": -584.41,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Transport — NMBS",
-            "amount": -70,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Card spending",
-            "amount": -600,
+            "amount": -70.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Holiday pay — Barco NV",
-            "amount": 2300,
+            "amount": 2300.0,
             "kind": "income",
             "source": "scheduled"
           },
           {
-            "label": "Mortgage payment — KBC home loan (estimate)",
-            "amount": -1150,
+            "label": "Mortgage payment — KBC home loan (estimate, 33% of income)",
+            "amount": -1020.0,
             "kind": "expense",
             "source": "moment"
           }
@@ -458,49 +602,67 @@
       },
       {
         "month": "2027-06",
-        "income": 3100,
-        "expenses": 2535,
-        "balance": 5905,
+        "income": 3100.0,
+        "expenses": 2444.99,
+        "balance": 6535.09,
         "events": [
           {
-            "label": "Salary — Barco NV",
-            "amount": 3100,
-            "kind": "income",
-            "source": "recurring"
-          },
-          {
-            "label": "Groceries — Colruyt & Delhaize",
-            "amount": -520,
+            "label": "Streaming — Netflix",
+            "amount": -13.99,
             "kind": "expense",
             "source": "recurring"
           },
           {
+            "label": "Music — Spotify",
+            "amount": -11.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Gym — Basic-Fit",
+            "amount": -29.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Salary — Barco NV",
+            "amount": 3100.0,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
             "label": "Energy — Engie",
-            "amount": -140,
+            "amount": -140.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Telecom — Proximus",
-            "amount": -55,
+            "amount": -55.0,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Colruyt",
+            "amount": -519.61,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card payment — Bancontact",
+            "amount": -584.41,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Transport — NMBS",
-            "amount": -70,
+            "amount": -70.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
-            "label": "Card spending",
-            "amount": -600,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Mortgage payment — KBC home loan (estimate)",
-            "amount": -1150,
+            "label": "Mortgage payment — KBC home loan (estimate, 33% of income)",
+            "amount": -1020.0,
             "kind": "expense",
             "source": "moment"
           }
@@ -508,49 +670,67 @@
       },
       {
         "month": "2027-07",
-        "income": 3100,
-        "expenses": 2535,
-        "balance": 6470,
+        "income": 3100.0,
+        "expenses": 2444.99,
+        "balance": 7190.1,
         "events": [
           {
-            "label": "Salary — Barco NV",
-            "amount": 3100,
-            "kind": "income",
-            "source": "recurring"
-          },
-          {
-            "label": "Groceries — Colruyt & Delhaize",
-            "amount": -520,
+            "label": "Streaming — Netflix",
+            "amount": -13.99,
             "kind": "expense",
             "source": "recurring"
           },
           {
+            "label": "Music — Spotify",
+            "amount": -11.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Gym — Basic-Fit",
+            "amount": -29.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Salary — Barco NV",
+            "amount": 3100.0,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
             "label": "Energy — Engie",
-            "amount": -140,
+            "amount": -140.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Telecom — Proximus",
-            "amount": -55,
+            "amount": -55.0,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Colruyt",
+            "amount": -519.61,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card payment — Bancontact",
+            "amount": -584.41,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Transport — NMBS",
-            "amount": -70,
+            "amount": -70.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
-            "label": "Card spending",
-            "amount": -600,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Mortgage payment — KBC home loan (estimate)",
-            "amount": -1150,
+            "label": "Mortgage payment — KBC home loan (estimate, 33% of income)",
+            "amount": -1020.0,
             "kind": "expense",
             "source": "moment"
           }
@@ -558,49 +738,67 @@
       },
       {
         "month": "2027-08",
-        "income": 3100,
-        "expenses": 2535,
-        "balance": 7035,
+        "income": 3100.0,
+        "expenses": 2444.99,
+        "balance": 7845.11,
         "events": [
           {
-            "label": "Salary — Barco NV",
-            "amount": 3100,
-            "kind": "income",
-            "source": "recurring"
-          },
-          {
-            "label": "Groceries — Colruyt & Delhaize",
-            "amount": -520,
+            "label": "Streaming — Netflix",
+            "amount": -13.99,
             "kind": "expense",
             "source": "recurring"
           },
           {
+            "label": "Music — Spotify",
+            "amount": -11.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Gym — Basic-Fit",
+            "amount": -29.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Salary — Barco NV",
+            "amount": 3100.0,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
             "label": "Energy — Engie",
-            "amount": -140,
+            "amount": -140.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Telecom — Proximus",
-            "amount": -55,
+            "amount": -55.0,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Colruyt",
+            "amount": -519.61,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card payment — Bancontact",
+            "amount": -584.41,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Transport — NMBS",
-            "amount": -70,
+            "amount": -70.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
-            "label": "Card spending",
-            "amount": -600,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Mortgage payment — KBC home loan (estimate)",
-            "amount": -1150,
+            "label": "Mortgage payment — KBC home loan (estimate, 33% of income)",
+            "amount": -1020.0,
             "kind": "expense",
             "source": "moment"
           }
@@ -608,49 +806,67 @@
       },
       {
         "month": "2027-09",
-        "income": 3100,
-        "expenses": 2535,
-        "balance": 7600,
+        "income": 3100.0,
+        "expenses": 2444.99,
+        "balance": 8500.12,
         "events": [
           {
-            "label": "Salary — Barco NV",
-            "amount": 3100,
-            "kind": "income",
-            "source": "recurring"
-          },
-          {
-            "label": "Groceries — Colruyt & Delhaize",
-            "amount": -520,
+            "label": "Streaming — Netflix",
+            "amount": -13.99,
             "kind": "expense",
             "source": "recurring"
           },
           {
+            "label": "Music — Spotify",
+            "amount": -11.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Gym — Basic-Fit",
+            "amount": -29.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Salary — Barco NV",
+            "amount": 3100.0,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
             "label": "Energy — Engie",
-            "amount": -140,
+            "amount": -140.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Telecom — Proximus",
-            "amount": -55,
+            "amount": -55.0,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Colruyt",
+            "amount": -519.61,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card payment — Bancontact",
+            "amount": -584.41,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Transport — NMBS",
-            "amount": -70,
+            "amount": -70.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
-            "label": "Card spending",
-            "amount": -600,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Mortgage payment — KBC home loan (estimate)",
-            "amount": -1150,
+            "label": "Mortgage payment — KBC home loan (estimate, 33% of income)",
+            "amount": -1020.0,
             "kind": "expense",
             "source": "moment"
           }
@@ -660,43 +876,160 @@
     "pinch_points": [
       {
         "month": "2026-11",
-        "balance": -170,
-        "reason": "Notary fees (€9,000) and moving costs (€2,500) push your balance below the €250 buffer."
+        "balance": -169.98,
+        "reason": "Notary and registration fees (€7,870) will take your balance below the €250 buffer."
       }
     ]
   },
   "interventions": [
     {
-      "id": 11,
+      "id": 2,
+      "key": "subscription_review",
+      "title": "Your subscriptions: €57.97 a month",
+      "message": "Sara, your 3 monthly subscriptions total €57.97, and Netflix recently changed from €13.99 to €15.99. Take a moment to see all your active plans in one place.",
+      "line": "support",
+      "channel": "app",
+      "status": "delivered",
+      "deliver_at": "2026-09-30",
+      "reasons": [
+        "3 recurring subscriptions found: Basic-Fit €29.99, Netflix €15.99, Spotify €11.99",
+        "Price rise detected: Netflix €13.99 → €15.99",
+        "Subscriptions are 1.9% of monthly income",
+        "A service check-up, not an offer: no consent or proactivity rule applies",
+        "Wording personalised by Gemini Flash from your categorised spending"
+      ],
+      "feedback": null,
+      "cta": "Review my subscriptions"
+    },
+    {
+      "id": 3,
       "key": "moving_home_bundle",
-      "title": "Your move, sorted",
-      "message": "Congrats on the new place, Sara! Get your mortgage pre-approved in 10 minutes and have home insurance in place from the day you sign.",
+      "title": "Moving home?",
+      "message": "We noticed a €15,000 payment to Notaris Peeters on 18 September. Are you moving? If so, congratulations! We have gathered your mortgage options and information to help you plan your next steps.",
       "line": "banking",
       "channel": "app",
       "status": "delivered",
       "deliver_at": "2026-09-30",
       "reasons": [
-        "Detected life moment: moving home (87% confidence)",
-        "Signals: notary deposit of €15,000 to Notaris Peeters on 2026-09-18, Immoweb searches, mortgage simulator used 3 times",
-        "You allow offers and your proactivity is 'balanced' (needs 75% confidence)"
+        "Detected life moment: moving home (99% confidence)",
+        "Signals: Opened the mortgage simulator (3 times this week); Searched the app for 'home insurance new apartment'; Notary deposit — Notaris Peeters.",
+        "You allow offers and your proactivity is 'balanced' (needs 75% confidence)",
+        "Wording personalised by Gemini Flash from your categorised spending"
       ],
-      "feedback": "helpful"
+      "feedback": null,
+      "cta": "See my mortgage options"
     },
     {
-      "id": 12,
-      "key": "pinch_point_bridge",
-      "title": "Heads-up for November",
-      "message": "Notary fees and your move will take your balance to about -€170 in November. Move €500 from savings now, or set up a short bridge loan in one tap.",
-      "line": "banking",
+      "id": 4,
+      "key": "moving_home_insurance",
+      "title": "Home insurance for your new place",
+      "message": "With your housing costs around €950, securing your next home is an important step. When moving, getting fire and home insurance arranged early helps keep your new place protected from day one.",
+      "line": "insurance",
       "channel": "app",
       "status": "delivered",
-      "deliver_at": "2026-10-11",
+      "deliver_at": "2026-09-30",
       "reasons": [
-        "Forecast: balance of -€170 at the end of 2026-11, below the €250 buffer",
-        "Largest expense that month: notary fees (€9,000)",
-        "Sent 21 days before the month starts, so there is time to act"
+        "Detected life moment: moving home (99% confidence)",
+        "Signals: Opened the mortgage simulator (3 times this week); Searched the app for 'home insurance new apartment'; Notary deposit — Notaris Peeters.",
+        "You allow offers and your proactivity is 'balanced' (needs 75% confidence)",
+        "Wording personalised by Gemini Flash from your categorised spending"
       ],
-      "feedback": null
+      "feedback": null,
+      "cta": "Get home insurance"
+    }
+  ],
+  "subscriptions": [
+    {
+      "name": "Basic-Fit",
+      "monthly_amount": 29.99,
+      "yearly_amount": 359.88,
+      "since": "2025-10",
+      "last_charged": "2026-09-01",
+      "price_change": null
+    },
+    {
+      "name": "Netflix",
+      "monthly_amount": 15.99,
+      "yearly_amount": 191.88,
+      "since": "2025-10",
+      "last_charged": "2026-09-12",
+      "price_change": {
+        "before": 13.99,
+        "after": 15.99
+      }
+    },
+    {
+      "name": "Spotify",
+      "monthly_amount": 11.99,
+      "yearly_amount": 143.88,
+      "since": "2025-10",
+      "last_charged": "2026-09-05",
+      "price_change": null
+    }
+  ],
+  "spending": [
+    {
+      "category": "housing",
+      "label": "Housing",
+      "monthly_average": 950.0,
+      "share": 0.389,
+      "recurring_share": 1.0
+    },
+    {
+      "category": "shopping",
+      "label": "Shopping",
+      "monthly_average": 577.79,
+      "share": 0.237,
+      "recurring_share": 0.969
+    },
+    {
+      "category": "groceries",
+      "label": "Groceries",
+      "monthly_average": 517.86,
+      "share": 0.212,
+      "recurring_share": 1.0
+    },
+    {
+      "category": "energy",
+      "label": "Energy & water",
+      "monthly_average": 140.0,
+      "share": 0.057,
+      "recurring_share": 1.0
+    },
+    {
+      "category": "transport",
+      "label": "Transport",
+      "monthly_average": 70.0,
+      "share": 0.029,
+      "recurring_share": 1.0
+    },
+    {
+      "category": "dining",
+      "label": "Eating out",
+      "monthly_average": 63.59,
+      "share": 0.026,
+      "recurring_share": 0.0
+    },
+    {
+      "category": "subscriptions",
+      "label": "Subscriptions",
+      "monthly_average": 57.3,
+      "share": 0.023,
+      "recurring_share": 1.0
+    },
+    {
+      "category": "telecom",
+      "label": "Phone & internet",
+      "monthly_average": 55.0,
+      "share": 0.023,
+      "recurring_share": 1.0
+    },
+    {
+      "category": "health",
+      "label": "Health",
+      "monthly_average": 8.26,
+      "share": 0.003,
+      "recurring_share": 0.0
     }
   ]
 }

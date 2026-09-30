@@ -7,120 +7,642 @@
     "city": "Mechelen",
     "marketing_consent": true,
     "proactivity": "proactive",
-    "balance": 17500
+    "balance": 17500.0
   },
   "signals": [
     {
-      "id": 706,
+      "id": 39348,
       "date": "2026-09-30",
-      "kind": "transaction",
       "description": "Notary deposit — Notaris Peeters",
-      "amount": -15000
-    },
-    {
-      "id": 705,
-      "date": "2026-09-26",
+      "amount": -15000.0,
       "kind": "transaction",
-      "description": "Groceries — Aldi",
-      "amount": -87.4
+      "category": "housing",
+      "recurring": false
     },
     {
-      "id": 704,
-      "date": "2026-09-19",
-      "kind": "transaction",
-      "description": "Fuel — TotalEnergies",
-      "amount": -68.9
-    },
-    {
-      "id": 703,
-      "date": "2026-09-05",
-      "kind": "app_event",
+      "id": 1457,
+      "date": "2026-09-25",
       "description": "Checked account balance",
-      "amount": null
+      "amount": null,
+      "kind": "app_event",
+      "category": null,
+      "recurring": false
     },
     {
-      "id": 702,
-      "date": "2026-09-01",
+      "id": 1237,
+      "date": "2026-09-23",
+      "description": "Groceries — Aldi",
+      "amount": -139.29,
       "kind": "transaction",
-      "description": "Salary — Telenet",
-      "amount": 3450
+      "category": "groceries",
+      "recurring": true
     },
     {
-      "id": 701,
-      "date": "2026-09-01",
+      "id": 1227,
+      "date": "2026-09-23",
+      "description": "Books — Fnac",
+      "amount": -39.68,
       "kind": "transaction",
+      "category": "shopping",
+      "recurring": false
+    },
+    {
+      "id": 1226,
+      "date": "2026-09-22",
+      "description": "Storage — iCloud+",
+      "amount": -2.99,
+      "kind": "transaction",
+      "category": "subscriptions",
+      "recurring": true
+    },
+    {
+      "id": 1240,
+      "date": "2026-09-20",
+      "description": "Card payment — Bancontact",
+      "amount": -244.76,
+      "kind": "transaction",
+      "category": "shopping",
+      "recurring": true
+    },
+    {
+      "id": 1232,
+      "date": "2026-09-20",
+      "description": "Energy — Luminus",
+      "amount": -160.0,
+      "kind": "transaction",
+      "category": "energy",
+      "recurring": true
+    },
+    {
+      "id": 1229,
+      "date": "2026-09-20",
+      "description": "Takeaway — Pizza Hut",
+      "amount": -33.27,
+      "kind": "transaction",
+      "category": "dining",
+      "recurring": true
+    },
+    {
+      "id": 1236,
+      "date": "2026-09-16",
+      "description": "Groceries — Aldi",
+      "amount": -145.03,
+      "kind": "transaction",
+      "category": "groceries",
+      "recurring": true
+    },
+    {
+      "id": 1242,
+      "date": "2026-09-15",
+      "description": "Fuel — TotalEnergies",
+      "amount": -63.83,
+      "kind": "transaction",
+      "category": "transport",
+      "recurring": true
+    },
+    {
+      "id": 1233,
+      "date": "2026-09-15",
+      "description": "Telecom — Telenet",
+      "amount": -65.0,
+      "kind": "transaction",
+      "category": "telecom",
+      "recurring": true
+    },
+    {
+      "id": 1239,
+      "date": "2026-09-13",
+      "description": "Card payment — Bancontact",
+      "amount": -264.05,
+      "kind": "transaction",
+      "category": "shopping",
+      "recurring": true
+    },
+    {
+      "id": 1224,
+      "date": "2026-09-12",
+      "description": "Streaming — Netflix",
+      "amount": -15.99,
+      "kind": "transaction",
+      "category": "subscriptions",
+      "recurring": true
+    },
+    {
+      "id": 1235,
+      "date": "2026-09-09",
+      "description": "Groceries — Aldi",
+      "amount": -151.8,
+      "kind": "transaction",
+      "category": "groceries",
+      "recurring": true
+    },
+    {
+      "id": 1241,
+      "date": "2026-09-08",
+      "description": "Fuel — TotalEnergies",
+      "amount": -64.37,
+      "kind": "transaction",
+      "category": "transport",
+      "recurring": true
+    },
+    {
+      "id": 1225,
+      "date": "2026-09-07",
+      "description": "Streaming — YouTube Premium",
+      "amount": -17.99,
+      "kind": "transaction",
+      "category": "subscriptions",
+      "recurring": true
+    },
+    {
+      "id": 1238,
+      "date": "2026-09-06",
+      "description": "Card payment — Bancontact",
+      "amount": -240.74,
+      "kind": "transaction",
+      "category": "shopping",
+      "recurring": true
+    },
+    {
+      "id": 1228,
+      "date": "2026-09-06",
+      "description": "Restaurant — Brasserie De Markt",
+      "amount": -55.58,
+      "kind": "transaction",
+      "category": "dining",
+      "recurring": false
+    },
+    {
+      "id": 1231,
+      "date": "2026-09-03",
       "description": "Rent — Woonhaven",
-      "amount": -890
+      "amount": -890.0,
+      "kind": "transaction",
+      "category": "housing",
+      "recurring": true
+    },
+    {
+      "id": 1234,
+      "date": "2026-09-02",
+      "description": "Groceries — Aldi",
+      "amount": -166.08,
+      "kind": "transaction",
+      "category": "groceries",
+      "recurring": true
+    },
+    {
+      "id": 1230,
+      "date": "2026-09-01",
+      "description": "Salary — Telenet",
+      "amount": 3450.0,
+      "kind": "transaction",
+      "category": "income",
+      "recurring": true
+    },
+    {
+      "id": 1255,
+      "date": "2026-08-23",
+      "description": "Groceries — Aldi",
+      "amount": -174.16,
+      "kind": "transaction",
+      "category": "groceries",
+      "recurring": true
+    },
+    {
+      "id": 1245,
+      "date": "2026-08-22",
+      "description": "Storage — iCloud+",
+      "amount": -2.99,
+      "kind": "transaction",
+      "category": "subscriptions",
+      "recurring": true
+    },
+    {
+      "id": 1258,
+      "date": "2026-08-20",
+      "description": "Card payment — Bancontact",
+      "amount": -248.16,
+      "kind": "transaction",
+      "category": "shopping",
+      "recurring": true
+    },
+    {
+      "id": 1250,
+      "date": "2026-08-20",
+      "description": "Energy — Luminus",
+      "amount": -160.0,
+      "kind": "transaction",
+      "category": "energy",
+      "recurring": true
+    },
+    {
+      "id": 1247,
+      "date": "2026-08-19",
+      "description": "Pharmacy — Apotheek Centrum",
+      "amount": -26.59,
+      "kind": "transaction",
+      "category": "health",
+      "recurring": false
+    },
+    {
+      "id": 1254,
+      "date": "2026-08-16",
+      "description": "Groceries — Aldi",
+      "amount": -136.39,
+      "kind": "transaction",
+      "category": "groceries",
+      "recurring": true
+    },
+    {
+      "id": 1260,
+      "date": "2026-08-15",
+      "description": "Fuel — TotalEnergies",
+      "amount": -76.79,
+      "kind": "transaction",
+      "category": "transport",
+      "recurring": true
+    },
+    {
+      "id": 1251,
+      "date": "2026-08-15",
+      "description": "Telecom — Telenet",
+      "amount": -65.0,
+      "kind": "transaction",
+      "category": "telecom",
+      "recurring": true
+    },
+    {
+      "id": 1257,
+      "date": "2026-08-13",
+      "description": "Card payment — Bancontact",
+      "amount": -205.32,
+      "kind": "transaction",
+      "category": "shopping",
+      "recurring": true
+    },
+    {
+      "id": 1243,
+      "date": "2026-08-12",
+      "description": "Streaming — Netflix",
+      "amount": -15.99,
+      "kind": "transaction",
+      "category": "subscriptions",
+      "recurring": true
+    },
+    {
+      "id": 1246,
+      "date": "2026-08-10",
+      "description": "Dinner — Deliveroo",
+      "amount": -40.41,
+      "kind": "transaction",
+      "category": "dining",
+      "recurring": false
+    },
+    {
+      "id": 1253,
+      "date": "2026-08-09",
+      "description": "Groceries — Aldi",
+      "amount": -136.27,
+      "kind": "transaction",
+      "category": "groceries",
+      "recurring": true
+    },
+    {
+      "id": 1259,
+      "date": "2026-08-08",
+      "description": "Fuel — TotalEnergies",
+      "amount": -66.2,
+      "kind": "transaction",
+      "category": "transport",
+      "recurring": true
+    },
+    {
+      "id": 1244,
+      "date": "2026-08-07",
+      "description": "Streaming — YouTube Premium",
+      "amount": -17.99,
+      "kind": "transaction",
+      "category": "subscriptions",
+      "recurring": true
+    },
+    {
+      "id": 1256,
+      "date": "2026-08-06",
+      "description": "Card payment — Bancontact",
+      "amount": -209.5,
+      "kind": "transaction",
+      "category": "shopping",
+      "recurring": true
+    },
+    {
+      "id": 1249,
+      "date": "2026-08-03",
+      "description": "Rent — Woonhaven",
+      "amount": -890.0,
+      "kind": "transaction",
+      "category": "housing",
+      "recurring": true
+    },
+    {
+      "id": 1252,
+      "date": "2026-08-02",
+      "description": "Groceries — Aldi",
+      "amount": -163.98,
+      "kind": "transaction",
+      "category": "groceries",
+      "recurring": true
+    },
+    {
+      "id": 1248,
+      "date": "2026-08-01",
+      "description": "Salary — Telenet",
+      "amount": 3450.0,
+      "kind": "transaction",
+      "category": "income",
+      "recurring": true
+    },
+    {
+      "id": 1275,
+      "date": "2026-07-23",
+      "description": "Groceries — Aldi",
+      "amount": -173.77,
+      "kind": "transaction",
+      "category": "groceries",
+      "recurring": true
+    },
+    {
+      "id": 1263,
+      "date": "2026-07-22",
+      "description": "Storage — iCloud+",
+      "amount": -2.99,
+      "kind": "transaction",
+      "category": "subscriptions",
+      "recurring": true
+    },
+    {
+      "id": 1278,
+      "date": "2026-07-20",
+      "description": "Card payment — Bancontact",
+      "amount": -255.1,
+      "kind": "transaction",
+      "category": "shopping",
+      "recurring": true
+    },
+    {
+      "id": 1270,
+      "date": "2026-07-20",
+      "description": "Energy — Luminus",
+      "amount": -160.0,
+      "kind": "transaction",
+      "category": "energy",
+      "recurring": true
+    },
+    {
+      "id": 1274,
+      "date": "2026-07-16",
+      "description": "Groceries — Aldi",
+      "amount": -164.34,
+      "kind": "transaction",
+      "category": "groceries",
+      "recurring": true
+    },
+    {
+      "id": 1280,
+      "date": "2026-07-15",
+      "description": "Fuel — TotalEnergies",
+      "amount": -70.29,
+      "kind": "transaction",
+      "category": "transport",
+      "recurring": true
+    },
+    {
+      "id": 1271,
+      "date": "2026-07-15",
+      "description": "Telecom — Telenet",
+      "amount": -65.0,
+      "kind": "transaction",
+      "category": "telecom",
+      "recurring": true
+    },
+    {
+      "id": 1265,
+      "date": "2026-07-15",
+      "description": "Clothes — Zalando",
+      "amount": -72.47,
+      "kind": "transaction",
+      "category": "shopping",
+      "recurring": false
+    },
+    {
+      "id": 1277,
+      "date": "2026-07-13",
+      "description": "Card payment — Bancontact",
+      "amount": -201.17,
+      "kind": "transaction",
+      "category": "shopping",
+      "recurring": true
+    },
+    {
+      "id": 1261,
+      "date": "2026-07-12",
+      "description": "Streaming — Netflix",
+      "amount": -15.99,
+      "kind": "transaction",
+      "category": "subscriptions",
+      "recurring": true
+    },
+    {
+      "id": 1266,
+      "date": "2026-07-10",
+      "description": "Takeaway — Pizza Hut",
+      "amount": -24.98,
+      "kind": "transaction",
+      "category": "dining",
+      "recurring": true
+    },
+    {
+      "id": 1273,
+      "date": "2026-07-09",
+      "description": "Groceries — Aldi",
+      "amount": -173.55,
+      "kind": "transaction",
+      "category": "groceries",
+      "recurring": true
+    },
+    {
+      "id": 1279,
+      "date": "2026-07-08",
+      "description": "Fuel — TotalEnergies",
+      "amount": -64.88,
+      "kind": "transaction",
+      "category": "transport",
+      "recurring": true
+    },
+    {
+      "id": 1262,
+      "date": "2026-07-07",
+      "description": "Streaming — YouTube Premium",
+      "amount": -17.99,
+      "kind": "transaction",
+      "category": "subscriptions",
+      "recurring": true
+    },
+    {
+      "id": 1276,
+      "date": "2026-07-06",
+      "description": "Card payment — Bancontact",
+      "amount": -262.12,
+      "kind": "transaction",
+      "category": "shopping",
+      "recurring": true
+    },
+    {
+      "id": 1269,
+      "date": "2026-07-03",
+      "description": "Rent — Woonhaven",
+      "amount": -890.0,
+      "kind": "transaction",
+      "category": "housing",
+      "recurring": true
+    },
+    {
+      "id": 1272,
+      "date": "2026-07-02",
+      "description": "Groceries — Aldi",
+      "amount": -153.91,
+      "kind": "transaction",
+      "category": "groceries",
+      "recurring": true
+    },
+    {
+      "id": 1267,
+      "date": "2026-07-02",
+      "description": "Cinema — Kinepolis",
+      "amount": -14.39,
+      "kind": "transaction",
+      "category": "entertainment",
+      "recurring": false
+    },
+    {
+      "id": 1268,
+      "date": "2026-07-01",
+      "description": "Salary — Telenet",
+      "amount": 3450.0,
+      "kind": "transaction",
+      "category": "income",
+      "recurring": true
+    },
+    {
+      "id": 1264,
+      "date": "2026-07-01",
+      "description": "Restaurant — Brasserie De Markt",
+      "amount": -37.08,
+      "kind": "transaction",
+      "category": "dining",
+      "recurring": false
+    },
+    {
+      "id": 1294,
+      "date": "2026-06-23",
+      "description": "Groceries — Aldi",
+      "amount": -160.92,
+      "kind": "transaction",
+      "category": "groceries",
+      "recurring": true
     }
   ],
   "moment": {
     "key": "moving_home",
     "label": "Moving home",
-    "confidence": 0.68,
+    "confidence": 0.97,
     "probabilities": {
-      "moving_home": 0.68,
-      "growing_family": 0.03,
-      "new_job": 0.02,
-      "approaching_retirement": 0.01,
-      "buying_car": 0.04,
-      "travel_abroad": 0.03,
-      "financial_stress": 0.01,
-      "no_clear_moment": 0.18
+      "moving_home": 0.97,
+      "growing_family": 0.0,
+      "new_job": 0.0,
+      "approaching_retirement": 0.0,
+      "buying_car": 0.01,
+      "travel_abroad": 0.0,
+      "financial_stress": 0.0,
+      "no_clear_moment": 0.02
     },
     "stress": 0.12,
-    "receptiveness": 1,
-    "rationale": "A single €15,000 notary deposit suggests a property purchase, but there are no other housing signals yet.",
-    "source": "gemini",
-    "analyzed_at": "2026-09-30T10:41:17Z"
+    "receptiveness": 0,
+    "rationale": "Notary deposit — Notaris Peeters.",
+    "source": "jev",
+    "analyzed_at": "2026-09-30T19:25:22.509275Z"
   },
   "twin": {
-    "start_balance": 17500,
+    "start_balance": 17500.0,
     "months": [
       {
         "month": "2026-10",
-        "income": 3450,
-        "expenses": 2565,
-        "balance": 18385,
+        "income": 3450.0,
+        "expenses": 2646.12,
+        "balance": 18303.88,
         "events": [
           {
+            "label": "Streaming — Netflix",
+            "amount": -15.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Streaming — YouTube Premium",
+            "amount": -17.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Storage — iCloud+",
+            "amount": -2.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Takeaway — Pizza Hut",
+            "amount": -24.36,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
             "label": "Salary — Telenet",
-            "amount": 3450,
+            "amount": 3450.0,
             "kind": "income",
             "source": "recurring"
           },
           {
             "label": "Rent — Woonhaven",
-            "amount": -890,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Groceries — Aldi & Carrefour",
-            "amount": -610,
+            "amount": -890.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Energy — Luminus",
-            "amount": -160,
+            "amount": -160.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Telecom — Telenet",
-            "amount": -65,
+            "amount": -65.0,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi",
+            "amount": -616.04,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card payment — Bancontact",
+            "amount": -714.18,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Fuel — TotalEnergies",
-            "amount": -140,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Card spending",
-            "amount": -700,
+            "amount": -139.57,
             "kind": "expense",
             "source": "recurring"
           }
@@ -128,61 +650,85 @@
       },
       {
         "month": "2026-11",
-        "income": 3450,
-        "expenses": 14065,
-        "balance": 7770,
+        "income": 3450.0,
+        "expenses": 12716.12,
+        "balance": 9037.76,
         "events": [
           {
+            "label": "Streaming — Netflix",
+            "amount": -15.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Streaming — YouTube Premium",
+            "amount": -17.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Storage — iCloud+",
+            "amount": -2.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Takeaway — Pizza Hut",
+            "amount": -24.36,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
             "label": "Salary — Telenet",
-            "amount": 3450,
+            "amount": 3450.0,
             "kind": "income",
             "source": "recurring"
           },
           {
             "label": "Rent — Woonhaven",
-            "amount": -890,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Groceries — Aldi & Carrefour",
-            "amount": -610,
+            "amount": -890.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Energy — Luminus",
-            "amount": -160,
+            "amount": -160.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Telecom — Telenet",
-            "amount": -65,
+            "amount": -65.0,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi",
+            "amount": -616.04,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card payment — Bancontact",
+            "amount": -714.18,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Fuel — TotalEnergies",
-            "amount": -140,
+            "amount": -139.57,
             "kind": "expense",
             "source": "recurring"
           },
           {
-            "label": "Card spending",
-            "amount": -700,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Notary fees (estimate)",
-            "amount": -9000,
+            "label": "Notary and registration fees (estimate, 2% of ~€243,000 + €3,500)",
+            "amount": -8350.0,
             "kind": "expense",
             "source": "moment"
           },
           {
             "label": "Moving costs (estimate)",
-            "amount": -2500,
+            "amount": -1720.0,
             "kind": "expense",
             "source": "moment"
           }
@@ -190,49 +736,73 @@
       },
       {
         "month": "2026-12",
-        "income": 3450,
-        "expenses": 2825,
-        "balance": 8395,
+        "income": 3450.0,
+        "expenses": 2896.12,
+        "balance": 9591.64,
         "events": [
           {
-            "label": "Salary — Telenet",
-            "amount": 3450,
-            "kind": "income",
-            "source": "recurring"
-          },
-          {
-            "label": "Groceries — Aldi & Carrefour",
-            "amount": -610,
+            "label": "Streaming — Netflix",
+            "amount": -15.99,
             "kind": "expense",
             "source": "recurring"
           },
           {
+            "label": "Streaming — YouTube Premium",
+            "amount": -17.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Storage — iCloud+",
+            "amount": -2.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Takeaway — Pizza Hut",
+            "amount": -24.36,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450.0,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
             "label": "Energy — Luminus",
-            "amount": -160,
+            "amount": -160.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Telecom — Telenet",
-            "amount": -65,
+            "amount": -65.0,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi",
+            "amount": -616.04,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card payment — Bancontact",
+            "amount": -714.18,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Fuel — TotalEnergies",
-            "amount": -140,
+            "amount": -139.57,
             "kind": "expense",
             "source": "recurring"
           },
           {
-            "label": "Card spending",
-            "amount": -700,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Mortgage payment — KBC home loan (estimate)",
-            "amount": -1150,
+            "label": "Mortgage payment — KBC home loan (estimate, 33% of income)",
+            "amount": -1140.0,
             "kind": "expense",
             "source": "moment"
           }
@@ -240,49 +810,73 @@
       },
       {
         "month": "2027-01",
-        "income": 3450,
-        "expenses": 2825,
-        "balance": 9020,
+        "income": 3450.0,
+        "expenses": 2896.12,
+        "balance": 10145.52,
         "events": [
           {
-            "label": "Salary — Telenet",
-            "amount": 3450,
-            "kind": "income",
-            "source": "recurring"
-          },
-          {
-            "label": "Groceries — Aldi & Carrefour",
-            "amount": -610,
+            "label": "Streaming — Netflix",
+            "amount": -15.99,
             "kind": "expense",
             "source": "recurring"
           },
           {
+            "label": "Streaming — YouTube Premium",
+            "amount": -17.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Storage — iCloud+",
+            "amount": -2.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Takeaway — Pizza Hut",
+            "amount": -24.36,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450.0,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
             "label": "Energy — Luminus",
-            "amount": -160,
+            "amount": -160.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Telecom — Telenet",
-            "amount": -65,
+            "amount": -65.0,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi",
+            "amount": -616.04,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card payment — Bancontact",
+            "amount": -714.18,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Fuel — TotalEnergies",
-            "amount": -140,
+            "amount": -139.57,
             "kind": "expense",
             "source": "recurring"
           },
           {
-            "label": "Card spending",
-            "amount": -700,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Mortgage payment — KBC home loan (estimate)",
-            "amount": -1150,
+            "label": "Mortgage payment — KBC home loan (estimate, 33% of income)",
+            "amount": -1140.0,
             "kind": "expense",
             "source": "moment"
           }
@@ -290,49 +884,73 @@
       },
       {
         "month": "2027-02",
-        "income": 3450,
-        "expenses": 2825,
-        "balance": 9645,
+        "income": 3450.0,
+        "expenses": 2896.12,
+        "balance": 10699.4,
         "events": [
           {
-            "label": "Salary — Telenet",
-            "amount": 3450,
-            "kind": "income",
-            "source": "recurring"
-          },
-          {
-            "label": "Groceries — Aldi & Carrefour",
-            "amount": -610,
+            "label": "Streaming — Netflix",
+            "amount": -15.99,
             "kind": "expense",
             "source": "recurring"
           },
           {
+            "label": "Streaming — YouTube Premium",
+            "amount": -17.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Storage — iCloud+",
+            "amount": -2.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Takeaway — Pizza Hut",
+            "amount": -24.36,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450.0,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
             "label": "Energy — Luminus",
-            "amount": -160,
+            "amount": -160.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Telecom — Telenet",
-            "amount": -65,
+            "amount": -65.0,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi",
+            "amount": -616.04,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card payment — Bancontact",
+            "amount": -714.18,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Fuel — TotalEnergies",
-            "amount": -140,
+            "amount": -139.57,
             "kind": "expense",
             "source": "recurring"
           },
           {
-            "label": "Card spending",
-            "amount": -700,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Mortgage payment — KBC home loan (estimate)",
-            "amount": -1150,
+            "label": "Mortgage payment — KBC home loan (estimate, 33% of income)",
+            "amount": -1140.0,
             "kind": "expense",
             "source": "moment"
           }
@@ -340,55 +958,79 @@
       },
       {
         "month": "2027-03",
-        "income": 3450,
-        "expenses": 3465,
-        "balance": 9630,
+        "income": 3450.0,
+        "expenses": 3536.12,
+        "balance": 10613.28,
         "events": [
           {
-            "label": "Salary — Telenet",
-            "amount": 3450,
-            "kind": "income",
-            "source": "recurring"
-          },
-          {
-            "label": "Groceries — Aldi & Carrefour",
-            "amount": -610,
+            "label": "Streaming — Netflix",
+            "amount": -15.99,
             "kind": "expense",
             "source": "recurring"
           },
           {
+            "label": "Streaming — YouTube Premium",
+            "amount": -17.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Storage — iCloud+",
+            "amount": -2.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Takeaway — Pizza Hut",
+            "amount": -24.36,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450.0,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
             "label": "Energy — Luminus",
-            "amount": -160,
+            "amount": -160.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Telecom — Telenet",
-            "amount": -65,
+            "amount": -65.0,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi",
+            "amount": -616.04,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card payment — Bancontact",
+            "amount": -714.18,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Fuel — TotalEnergies",
-            "amount": -140,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Card spending",
-            "amount": -700,
+            "amount": -139.57,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Car insurance — KBC",
-            "amount": -640,
+            "amount": -640.0,
             "kind": "expense",
             "source": "scheduled"
           },
           {
-            "label": "Mortgage payment — KBC home loan (estimate)",
-            "amount": -1150,
+            "label": "Mortgage payment — KBC home loan (estimate, 33% of income)",
+            "amount": -1140.0,
             "kind": "expense",
             "source": "moment"
           }
@@ -396,49 +1038,73 @@
       },
       {
         "month": "2027-04",
-        "income": 3450,
-        "expenses": 2825,
-        "balance": 10255,
+        "income": 3450.0,
+        "expenses": 2896.12,
+        "balance": 11167.16,
         "events": [
           {
-            "label": "Salary — Telenet",
-            "amount": 3450,
-            "kind": "income",
-            "source": "recurring"
-          },
-          {
-            "label": "Groceries — Aldi & Carrefour",
-            "amount": -610,
+            "label": "Streaming — Netflix",
+            "amount": -15.99,
             "kind": "expense",
             "source": "recurring"
           },
           {
+            "label": "Streaming — YouTube Premium",
+            "amount": -17.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Storage — iCloud+",
+            "amount": -2.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Takeaway — Pizza Hut",
+            "amount": -24.36,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450.0,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
             "label": "Energy — Luminus",
-            "amount": -160,
+            "amount": -160.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Telecom — Telenet",
-            "amount": -65,
+            "amount": -65.0,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi",
+            "amount": -616.04,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card payment — Bancontact",
+            "amount": -714.18,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Fuel — TotalEnergies",
-            "amount": -140,
+            "amount": -139.57,
             "kind": "expense",
             "source": "recurring"
           },
           {
-            "label": "Card spending",
-            "amount": -700,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Mortgage payment — KBC home loan (estimate)",
-            "amount": -1150,
+            "label": "Mortgage payment — KBC home loan (estimate, 33% of income)",
+            "amount": -1140.0,
             "kind": "expense",
             "source": "moment"
           }
@@ -446,55 +1112,79 @@
       },
       {
         "month": "2027-05",
-        "income": 5950,
-        "expenses": 2825,
-        "balance": 13380,
+        "income": 5950.0,
+        "expenses": 2896.12,
+        "balance": 14221.04,
         "events": [
           {
-            "label": "Salary — Telenet",
-            "amount": 3450,
-            "kind": "income",
-            "source": "recurring"
-          },
-          {
-            "label": "Groceries — Aldi & Carrefour",
-            "amount": -610,
+            "label": "Streaming — Netflix",
+            "amount": -15.99,
             "kind": "expense",
             "source": "recurring"
           },
           {
+            "label": "Streaming — YouTube Premium",
+            "amount": -17.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Storage — iCloud+",
+            "amount": -2.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Takeaway — Pizza Hut",
+            "amount": -24.36,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450.0,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
             "label": "Energy — Luminus",
-            "amount": -160,
+            "amount": -160.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Telecom — Telenet",
-            "amount": -65,
+            "amount": -65.0,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi",
+            "amount": -616.04,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card payment — Bancontact",
+            "amount": -714.18,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Fuel — TotalEnergies",
-            "amount": -140,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Card spending",
-            "amount": -700,
+            "amount": -139.57,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Holiday pay — Telenet",
-            "amount": 2500,
+            "amount": 2500.0,
             "kind": "income",
             "source": "scheduled"
           },
           {
-            "label": "Mortgage payment — KBC home loan (estimate)",
-            "amount": -1150,
+            "label": "Mortgage payment — KBC home loan (estimate, 33% of income)",
+            "amount": -1140.0,
             "kind": "expense",
             "source": "moment"
           }
@@ -502,49 +1192,73 @@
       },
       {
         "month": "2027-06",
-        "income": 3450,
-        "expenses": 2825,
-        "balance": 14005,
+        "income": 3450.0,
+        "expenses": 2896.12,
+        "balance": 14774.92,
         "events": [
           {
-            "label": "Salary — Telenet",
-            "amount": 3450,
-            "kind": "income",
-            "source": "recurring"
-          },
-          {
-            "label": "Groceries — Aldi & Carrefour",
-            "amount": -610,
+            "label": "Streaming — Netflix",
+            "amount": -15.99,
             "kind": "expense",
             "source": "recurring"
           },
           {
+            "label": "Streaming — YouTube Premium",
+            "amount": -17.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Storage — iCloud+",
+            "amount": -2.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Takeaway — Pizza Hut",
+            "amount": -24.36,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450.0,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
             "label": "Energy — Luminus",
-            "amount": -160,
+            "amount": -160.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Telecom — Telenet",
-            "amount": -65,
+            "amount": -65.0,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi",
+            "amount": -616.04,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card payment — Bancontact",
+            "amount": -714.18,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Fuel — TotalEnergies",
-            "amount": -140,
+            "amount": -139.57,
             "kind": "expense",
             "source": "recurring"
           },
           {
-            "label": "Card spending",
-            "amount": -700,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Mortgage payment — KBC home loan (estimate)",
-            "amount": -1150,
+            "label": "Mortgage payment — KBC home loan (estimate, 33% of income)",
+            "amount": -1140.0,
             "kind": "expense",
             "source": "moment"
           }
@@ -552,49 +1266,73 @@
       },
       {
         "month": "2027-07",
-        "income": 3450,
-        "expenses": 2825,
-        "balance": 14630,
+        "income": 3450.0,
+        "expenses": 2896.12,
+        "balance": 15328.8,
         "events": [
           {
-            "label": "Salary — Telenet",
-            "amount": 3450,
-            "kind": "income",
-            "source": "recurring"
-          },
-          {
-            "label": "Groceries — Aldi & Carrefour",
-            "amount": -610,
+            "label": "Streaming — Netflix",
+            "amount": -15.99,
             "kind": "expense",
             "source": "recurring"
           },
           {
+            "label": "Streaming — YouTube Premium",
+            "amount": -17.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Storage — iCloud+",
+            "amount": -2.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Takeaway — Pizza Hut",
+            "amount": -24.36,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450.0,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
             "label": "Energy — Luminus",
-            "amount": -160,
+            "amount": -160.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Telecom — Telenet",
-            "amount": -65,
+            "amount": -65.0,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi",
+            "amount": -616.04,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card payment — Bancontact",
+            "amount": -714.18,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Fuel — TotalEnergies",
-            "amount": -140,
+            "amount": -139.57,
             "kind": "expense",
             "source": "recurring"
           },
           {
-            "label": "Card spending",
-            "amount": -700,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Mortgage payment — KBC home loan (estimate)",
-            "amount": -1150,
+            "label": "Mortgage payment — KBC home loan (estimate, 33% of income)",
+            "amount": -1140.0,
             "kind": "expense",
             "source": "moment"
           }
@@ -602,49 +1340,73 @@
       },
       {
         "month": "2027-08",
-        "income": 3450,
-        "expenses": 2825,
-        "balance": 15255,
+        "income": 3450.0,
+        "expenses": 2896.12,
+        "balance": 15882.68,
         "events": [
           {
-            "label": "Salary — Telenet",
-            "amount": 3450,
-            "kind": "income",
-            "source": "recurring"
-          },
-          {
-            "label": "Groceries — Aldi & Carrefour",
-            "amount": -610,
+            "label": "Streaming — Netflix",
+            "amount": -15.99,
             "kind": "expense",
             "source": "recurring"
           },
           {
+            "label": "Streaming — YouTube Premium",
+            "amount": -17.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Storage — iCloud+",
+            "amount": -2.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Takeaway — Pizza Hut",
+            "amount": -24.36,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450.0,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
             "label": "Energy — Luminus",
-            "amount": -160,
+            "amount": -160.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Telecom — Telenet",
-            "amount": -65,
+            "amount": -65.0,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi",
+            "amount": -616.04,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card payment — Bancontact",
+            "amount": -714.18,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Fuel — TotalEnergies",
-            "amount": -140,
+            "amount": -139.57,
             "kind": "expense",
             "source": "recurring"
           },
           {
-            "label": "Card spending",
-            "amount": -700,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Mortgage payment — KBC home loan (estimate)",
-            "amount": -1150,
+            "label": "Mortgage payment — KBC home loan (estimate, 33% of income)",
+            "amount": -1140.0,
             "kind": "expense",
             "source": "moment"
           }
@@ -652,49 +1414,73 @@
       },
       {
         "month": "2027-09",
-        "income": 3450,
-        "expenses": 2825,
-        "balance": 15880,
+        "income": 3450.0,
+        "expenses": 2896.12,
+        "balance": 16436.56,
         "events": [
           {
-            "label": "Salary — Telenet",
-            "amount": 3450,
-            "kind": "income",
-            "source": "recurring"
-          },
-          {
-            "label": "Groceries — Aldi & Carrefour",
-            "amount": -610,
+            "label": "Streaming — Netflix",
+            "amount": -15.99,
             "kind": "expense",
             "source": "recurring"
           },
           {
+            "label": "Streaming — YouTube Premium",
+            "amount": -17.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Storage — iCloud+",
+            "amount": -2.99,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Takeaway — Pizza Hut",
+            "amount": -24.36,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450.0,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
             "label": "Energy — Luminus",
-            "amount": -160,
+            "amount": -160.0,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Telecom — Telenet",
-            "amount": -65,
+            "amount": -65.0,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi",
+            "amount": -616.04,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card payment — Bancontact",
+            "amount": -714.18,
             "kind": "expense",
             "source": "recurring"
           },
           {
             "label": "Fuel — TotalEnergies",
-            "amount": -140,
+            "amount": -139.57,
             "kind": "expense",
             "source": "recurring"
           },
           {
-            "label": "Card spending",
-            "amount": -700,
-            "kind": "expense",
-            "source": "recurring"
-          },
-          {
-            "label": "Mortgage payment — KBC home loan (estimate)",
-            "amount": -1150,
+            "label": "Mortgage payment — KBC home loan (estimate, 33% of income)",
+            "amount": -1140.0,
             "kind": "expense",
             "source": "moment"
           }
@@ -705,52 +1491,147 @@
   },
   "interventions": [
     {
-      "id": 72,
-      "key": "moving_home_bundle",
-      "title": "Your move, sorted",
-      "message": "Congrats on the new place, Jan! Get your mortgage pre-approved in 10 minutes and have home insurance in place from the day you sign.",
+      "id": 23,
+      "key": "suggest_energy_loan",
+      "title": "Lower your energy bill",
+      "message": "This seems interesting for you because your energy and water costs are €160 a month, and energy-efficient improvements could help reduce those recurring bills.",
       "line": "banking",
-      "channel": "app",
-      "status": "review",
-      "deliver_at": "2026-09-30",
-      "reasons": [
-        "Detected life moment: moving home (68% confidence)",
-        "Signal: notary deposit of €15,000 to Notaris Peeters on 2026-09-30",
-        "Confidence is between 50% and 75%, so an advisor reviews before it is sent"
-      ],
-      "feedback": null
-    },
-    {
-      "id": 73,
-      "key": "moving_home_insurance",
-      "title": "Protect your new home",
-      "message": "Jan, fire and home insurance is required for your mortgage. Get a quote for your new address in two minutes.",
-      "line": "insurance",
-      "channel": "app",
-      "status": "review",
-      "deliver_at": "2026-09-30",
-      "reasons": [
-        "Detected life moment: moving home (68% confidence)",
-        "No home insurance found in your products",
-        "Confidence is between 50% and 75%, so an advisor reviews before it is sent"
-      ],
-      "feedback": null
-    },
-    {
-      "id": 71,
-      "key": "surplus_invest",
-      "title": "Put idle cash to work",
-      "message": "Jan, your balance stays well above what you need every month. Start a monthly investment plan from €50 and keep a safety buffer.",
-      "line": "investing",
       "channel": "app",
       "status": "delivered",
       "deliver_at": "2026-09-30",
       "reasons": [
-        "Forecast: balance stays above €7,700 for all 12 months, even after the notary fees",
-        "No pinch points in the next 12 months",
-        "You allow offers and your proactivity is 'proactive'"
+        "Picked from your spending: Energy and water: €160 a month",
+        "You allow offers and your proactivity is 'proactive'",
+        "Picked for you by Gemini Flash from your categorised spending",
+        "Wording personalised by Gemini Flash from your categorised spending"
       ],
-      "feedback": null
+      "feedback": null,
+      "cta": "See the energy-saving loan"
+    },
+    {
+      "id": 587,
+      "key": "moving_home_bundle",
+      "title": "Moving home?",
+      "message": "We noticed a €15,000 payment to Notaris Peeters on 30 September. Are you moving? If so, congratulations! Your mortgage options and a pre-approval in 10 minutes are ready for you here.",
+      "line": "banking",
+      "channel": "app",
+      "status": "held",
+      "deliver_at": "2026-09-30",
+      "reasons": [
+        "Detected life moment: moving home (97% confidence)",
+        "Signals: Notary deposit — Notaris Peeters.",
+        "Held: signals suggest this isn't the right time to reach out"
+      ],
+      "feedback": null,
+      "cta": "See my mortgage options"
+    },
+    {
+      "id": 588,
+      "key": "moving_home_insurance",
+      "title": "Home insurance for your new place",
+      "message": "If you're moving, you'll need fire and home insurance for the new address: it's required for a mortgage. Get covered from here in two minutes, from the day you sign.",
+      "line": "insurance",
+      "channel": "app",
+      "status": "held",
+      "deliver_at": "2026-09-30",
+      "reasons": [
+        "Detected life moment: moving home (97% confidence)",
+        "Signals: Notary deposit — Notaris Peeters.",
+        "Held: signals suggest this isn't the right time to reach out"
+      ],
+      "feedback": null,
+      "cta": "Get home insurance"
+    }
+  ],
+  "subscriptions": [
+    {
+      "name": "YouTube Premium",
+      "monthly_amount": 17.99,
+      "yearly_amount": 215.88,
+      "since": "2025-10",
+      "last_charged": "2026-09-07",
+      "price_change": null
+    },
+    {
+      "name": "Netflix",
+      "monthly_amount": 15.99,
+      "yearly_amount": 191.88,
+      "since": "2025-10",
+      "last_charged": "2026-09-12",
+      "price_change": null
+    },
+    {
+      "name": "iCloud+",
+      "monthly_amount": 2.99,
+      "yearly_amount": 35.88,
+      "since": "2025-10",
+      "last_charged": "2026-09-22",
+      "price_change": null
+    }
+  ],
+  "spending": [
+    {
+      "category": "housing",
+      "label": "Housing",
+      "monthly_average": 890.0,
+      "share": 0.333,
+      "recurring_share": 1.0
+    },
+    {
+      "category": "shopping",
+      "label": "Shopping",
+      "monthly_average": 747.69,
+      "share": 0.28,
+      "recurring_share": 0.95
+    },
+    {
+      "category": "groceries",
+      "label": "Groceries",
+      "monthly_average": 574.89,
+      "share": 0.215,
+      "recurring_share": 1.0
+    },
+    {
+      "category": "energy",
+      "label": "Energy & water",
+      "monthly_average": 160.0,
+      "share": 0.06,
+      "recurring_share": 1.0
+    },
+    {
+      "category": "transport",
+      "label": "Transport",
+      "monthly_average": 135.45,
+      "share": 0.051,
+      "recurring_share": 1.0
+    },
+    {
+      "category": "telecom",
+      "label": "Phone & internet",
+      "monthly_average": 65.0,
+      "share": 0.024,
+      "recurring_share": 1.0
+    },
+    {
+      "category": "dining",
+      "label": "Eating out",
+      "monthly_average": 51.41,
+      "share": 0.019,
+      "recurring_share": 0.378
+    },
+    {
+      "category": "subscriptions",
+      "label": "Subscriptions",
+      "monthly_average": 36.97,
+      "share": 0.014,
+      "recurring_share": 1.0
+    },
+    {
+      "category": "health",
+      "label": "Health",
+      "monthly_average": 8.86,
+      "share": 0.003,
+      "recurring_share": 0.0
     }
   ]
 }

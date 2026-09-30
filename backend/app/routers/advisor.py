@@ -2,12 +2,12 @@
 
 from datetime import date
 
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app import schemas
-from app.analysis import analyze, detail, intervention_view
+from app.analysis import analyze, detail, intervention_view, personalize_customer
 from app.auth import require_advisor
 from app.config import settings
 from app.db import get_db
@@ -61,7 +61,7 @@ def get_customer(customer_id: int, db: Session = Depends(get_db)):
 
 
 @router.post("/customers/{customer_id}/signals", response_model=schemas.CustomerDetail)
-def inject_signal(customer_id: int, body: schemas.SignalCreate, db: Session = Depends(get_db)):
+def inject_signal(customer_id: int, body: schemas.SignalCreate, background: BackgroundTasks, db: Session = Depends(get_db)):
     customer = _get_customer(db, customer_id)
     count = db.scalar(select(func.count()).select_from(Signal).where(Signal.customer_id == customer.id))
     if count >= settings.max_signals_per_customer:
@@ -75,6 +75,7 @@ def inject_signal(customer_id: int, body: schemas.SignalCreate, db: Session = De
     db.flush()
     analyze(db, customer)
     db.commit()
+    background.add_task(personalize_customer, customer.id)  # Gemini wording arrives after the response
     return detail(db, customer)
 
 

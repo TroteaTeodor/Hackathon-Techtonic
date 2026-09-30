@@ -13,6 +13,25 @@ export type MomentKey =
   | "financial_stress"
   | "no_clear_moment";
 export type Proactivity = "minimal" | "balanced" | "proactive";
+export type TransactionCategory =
+  | "income"
+  | "housing"
+  | "energy"
+  | "telecom"
+  | "groceries"
+  | "transport"
+  | "subscriptions"
+  | "entertainment"
+  | "dining"
+  | "shopping"
+  | "health"
+  | "insurance"
+  | "travel"
+  | "family"
+  | "loans"
+  | "fees"
+  | "savings"
+  | "other";
 
 export interface Me {
   role: Role;
@@ -36,6 +55,25 @@ export interface Signal {
   description: string;
   amount: number | null;
   kind: "transaction" | "app_event" | "search" | "contact";
+  category: TransactionCategory | null; // transactions only
+  recurring: boolean; // repeats monthly (or yearly, for periodic payments)
+}
+
+export interface Subscription {
+  name: string;
+  monthly_amount: number;
+  yearly_amount: number;
+  since: string; // YYYY-MM
+  last_charged: string; // YYYY-MM-DD
+  price_change: { before: number; after: number } | null;
+}
+
+export interface CategorySpend {
+  category: TransactionCategory;
+  label: string;
+  monthly_average: number;
+  share: number; // of all spending, 0..1
+  recurring_share: number; // part of this category that repeats, 0..1
 }
 
 export interface SignalCreate {
@@ -95,6 +133,7 @@ export interface Intervention {
   deliver_at: string; // YYYY-MM-DD
   reasons: string[];
   feedback: "helpful" | "not_relevant" | null;
+  cta: string | null; // the card's one direct action, e.g. "Get home insurance"
 }
 
 export interface CustomerOverview {
@@ -102,6 +141,8 @@ export interface CustomerOverview {
   moment: Moment | null;
   twin: Twin;
   interventions: Intervention[]; // delivered only, not_relevant excluded
+  subscriptions: Subscription[];
+  spending: CategorySpend[];
 }
 
 export interface CustomerSummary {
@@ -122,6 +163,8 @@ export interface CustomerDetail {
   moment: Moment | null;
   twin: Twin;
   interventions: Intervention[]; // all statuses
+  subscriptions: Subscription[];
+  spending: CategorySpend[];
 }
 
 export interface ScaleStats {

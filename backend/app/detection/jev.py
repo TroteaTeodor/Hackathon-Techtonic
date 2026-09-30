@@ -54,8 +54,19 @@ def is_configured() -> bool:
     return settings.ai_enabled and bool(settings.openrouter_api_key)
 
 
-def _evidence(signals, limit: int = 3) -> str:
-    """The most recent signals that aren't routine monthly payments, to explain Jev's answer."""
+EVERYDAY = {"groceries", "dining", "shopping", "entertainment", "health", "subscriptions", "transport", "energy", "telecom"}
+
+
+def _evidence(signals, key: str | None = None, limit: int = 3) -> str:
+    """The signals behind Jev's answer: those matching the moment first, never everyday spending."""
+    from app.detection.rules import PATTERNS
+    from app.insights import classify
+
+    if key in PATTERNS:
+        matched = [s for s in signals if any(p.search(s.description.lower()) for p, _ in PATTERNS[key])]
+        if matched:
+            return "; ".join(s.description for s in matched[:limit])
+    signals = [s for s in signals if s.kind != "transaction" or classify(s.description, s.amount) not in EVERYDAY]
     counts: dict[str, int] = {}
     for s in signals:
         counts[s.description] = counts.get(s.description, 0) + 1
@@ -105,7 +116,7 @@ def detect(customer, signals, *, timeout_seconds: float = 30) -> Detection:
         probabilities=probs,
         stress=round(float(answers["stress"]["noul"]), 2),
         receptiveness=max(0, min(2, round(float(answers["receptiveness"]["score"])))),
-        rationale=f"Based on {_evidence(signals)}.",
+        rationale=f"{_evidence(signals, key)}.",
         source="jev",
         input_tokens=int(usage.get("input_tokens", 0)),
         output_tokens=int(usage.get("output_tokens", 0)),

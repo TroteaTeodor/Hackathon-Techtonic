@@ -14,6 +14,8 @@
 | **3. Foresee** | A **financial twin**: a 12-month cash-flow forecast | Deterministic arithmetic (no AI, so every number is explainable): recurring and yearly payments, plus what the detected moment adds (notary fees, a mortgage, childcare…), with **pinch points** where the balance drops below €250 |
 | **4. Act** | The right help across banking, insurance and investing | An intervention catalog and an ordered **guardrail policy** (below). Pinch-point warnings go out 21 days before the month. |
 | **5. Explain** | Every card carries a "Why am I seeing this?" | The reasons name the signals, the probability and the rule that applied |
+| **6. Understand spending** | Every transaction is categorised (17 categories), recurring payments are flagged, subscriptions are detected with price-rise alerts, and spend is broken down by category | Deterministic merchant rules. Large one-offs, like a notary deposit, aren't counted as monthly spend |
+| **7. Personalise** | Cards say what we noticed and ask: *"We noticed a €15,000 payment to Notaris Peeters. Are you moving?"*, with one direct action (**Get home insurance**). Up to 2 spending-based suggestions are added | **Gemini Flash** rewrites the wording and picks the suggestions in the background. The output is validated: only known offers, no invented numbers, and the "We noticed" sentence is kept word for word. It's never used for customers in financial difficulty. The guardrails still decide what may be shown |
 
 **Guardrails**, applied in order:
 1. A customer in financial difficulty gets **support, never sales**, routed to an advisor.
@@ -202,6 +204,7 @@ scripts/use-gcp.sh  switch the Gemini service account
 
 - **Gemini on the organizers' project.** The hackathon project (`qwiklabs-gcp-02-…`) has an org policy (`vertexai.allowedModels`) that denies every model. With that account, Jev still answers every customer, but the ~13% escalations can't reach Gemini and keep Jev's answer instead. We run Gemini on our own Google Cloud project (`./scripts/use-gcp.sh <name>`).
 - **Price assumptions:** the Gemini cost projection uses placeholder token prices.
+- **Eval numbers** were measured before the subscription and everyday-spending data was added to the synthetic customers. Re-run with `python -m evals.run` to refresh them.
 - **Proof-of-concept shortcuts:**
   - The rate limiters are in memory (one process).
   - Analysis runs inside the request; production would use an event-driven queue.

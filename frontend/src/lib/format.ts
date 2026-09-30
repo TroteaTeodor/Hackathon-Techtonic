@@ -1,4 +1,4 @@
-import type { Intervention, MomentKey, Proactivity, Signal } from "./types";
+import type { Intervention, MomentKey, Proactivity, Signal, TransactionCategory } from "./types";
 
 const eur = new Intl.NumberFormat("en-GB", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
 const eurCents = new Intl.NumberFormat("en-GB", {
@@ -94,6 +94,13 @@ export const PROACTIVITY: Record<Proactivity, { label: string; hint: string }> =
   minimal: { label: "Minimal", hint: "Only warnings and support" },
   balanced: { label: "Balanced", hint: "Suggestions when we're confident" },
   proactive: { label: "Proactive", hint: "Tell me about anything useful" },
+};
+
+export const CATEGORY_LABEL: Record<TransactionCategory, string> = {
+  income: "Income", housing: "Housing", energy: "Energy & water", telecom: "Phone & internet",
+  groceries: "Groceries", transport: "Transport", subscriptions: "Subscription", entertainment: "Entertainment",
+  dining: "Eating out", shopping: "Shopping", health: "Health", insurance: "Insurance", travel: "Travel",
+  family: "Family & children", loans: "Loans & credit", fees: "Bank fees & interest", savings: "Savings", other: "Other",
 };
 
 export const LINE_LABEL: Record<Intervention["line"], string> = {

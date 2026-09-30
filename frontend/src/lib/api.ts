@@ -292,6 +292,8 @@ export async function injectSignal(id: number, signal: SignalCreate): Promise<Cu
       kind: signal.kind,
       description: signal.description,
       amount: signal.amount ?? null,
+      category: signal.kind === "transaction" ? "other" : null,
+      recurring: false,
     });
     if (signal.amount) current.customer.balance += signal.amount;
     return delay(current);

@@ -13,7 +13,7 @@ import { CustomerDetailSkeleton } from "@/components/skeletons";
 import { ErrorNote, errorMessage, Spinner } from "@/components/shell";
 import { TwinChart } from "@/components/TwinChart";
 import { decideIntervention, getCustomer, injectSignal } from "@/lib/api";
-import {
+import { CATEGORY_LABEL,
   CHANNEL_LABEL,
   dayMonth,
   LINE_LABEL,
@@ -26,6 +26,7 @@ import {
   SIGNAL_KIND_LABEL,
   signedMoney,
 } from "@/lib/format";
+import { SpendingBreakdown, SubscriptionList } from "@/components/MoneyInsights";
 import type { CustomerDetail, Intervention, Moment, MomentKey, Signal, SignalCreate } from "@/lib/types";
 
 const PRESETS: { label: string; icon: typeof Landmark; signal: SignalCreate }[] = [
@@ -251,6 +252,14 @@ export default function CustomerDetailPage() {
 
         <div className="flex min-w-0 flex-col gap-5 lg:sticky lg:top-32 lg:self-start">
           <InjectPanel customerId={customer.id} onUpdated={applyUpdate} onBusy={setAnalyzing} />
+          {(data.subscriptions?.length > 0 || data.spending?.length > 0) && (
+            <Panel title="Money" aside={<span className="text-sm text-muted">Categorised transactions</span>}>
+              <div className="flex flex-col gap-6">
+                <SubscriptionList subscriptions={data.subscriptions ?? []} />
+                <SpendingBreakdown spending={data.spending ?? []} />
+              </div>
+            </Panel>
+          )}
           <Panel title="Signals" aside={<span className="text-sm text-muted">Newest first</span>}>
             <SignalTimeline signals={signals} highlight={change?.newSignal} />
           </Panel>
@@ -609,6 +618,12 @@ function SignalTimeline({ signals, highlight }: { signals: Signal[]; highlight?:
               )}
             </div>
             <p className="mt-0.5 text-sm leading-snug text-ink">{s.description}</p>
+            {s.category && (
+              <p className="mt-1 flex gap-1.5 text-[11px] font-medium">
+                <span className="rounded-full bg-ice px-2 py-0.5 text-navy-700">{CATEGORY_LABEL[s.category]}</span>
+                {s.recurring && <span className="rounded-full bg-mint-soft px-2 py-0.5 text-mint">recurring</span>}
+              </p>
+            )}
           </li>
         ))}
       </ol>
