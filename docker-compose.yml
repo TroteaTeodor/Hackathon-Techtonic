@@ -19,7 +19,6 @@ services:
     build: ./backend
     environment:
       DATABASE_URL: postgresql+psycopg://app:app@db:5432/app
-      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
       GOOGLE_GENAI_USE_VERTEXAI: ${GOOGLE_GENAI_USE_VERTEXAI:-true}
       GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT:-}
       GOOGLE_CLOUD_LOCATION: ${GOOGLE_CLOUD_LOCATION:-global}
@@ -34,6 +33,7 @@ services:
     volumes:
       - ./backend:/app
       - ./secrets:/secrets:ro
+      - ./frontend/src/mocks:/contract-fixtures:ro
     command: ["sh", "-c", "alembic upgrade head && fastapi dev app/main.py --host 0.0.0.0 --port 8000"]
     depends_on:
       db:
