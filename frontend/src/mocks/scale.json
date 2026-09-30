@@ -1,0 +1,30 @@
+{
+  "population": 207,
+  "moments": {
+    "moving_home": 21,
+    "growing_family": 18,
+    "new_job": 24,
+    "approaching_retirement": 15,
+    "buying_car": 17,
+    "travel_abroad": 22,
+    "financial_stress": 12,
+    "no_clear_moment": 78
+  },
+  "interventions": {
+    "delivered": 96,
+    "review": 23,
+    "held": 41,
+    "dismissed": 7
+  },
+  "automation_rate": 0.807,
+  "avg_tokens_per_analysis": 1850,
+  "avg_cost_per_analysis_eur": 0.000995,
+  "assumptions": {
+    "customers": 2300000,
+    "daily_reevaluation_rate": 0.05,
+    "price_per_million_input_tokens_eur": 0.3,
+    "price_per_million_output_tokens_eur": 2.5
+  },
+  "projected_daily_cost_eur": 114.42,
+  "projected_monthly_cost_eur": 3432.75
+}

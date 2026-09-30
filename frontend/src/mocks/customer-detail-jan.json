@@ -1,0 +1,705 @@
+{
+  "customer": {
+    "id": 7,
+    "first_name": "Jan",
+    "last_name": "Claes",
+    "age": 45,
+    "city": "Mechelen",
+    "marketing_consent": true,
+    "proactivity": "proactive",
+    "balance": 32500
+  },
+  "signals": [
+    {
+      "id": 705,
+      "date": "2026-09-26",
+      "kind": "transaction",
+      "description": "Groceries — Aldi",
+      "amount": -87.4
+    },
+    {
+      "id": 704,
+      "date": "2026-09-19",
+      "kind": "transaction",
+      "description": "Fuel — TotalEnergies",
+      "amount": -68.9
+    },
+    {
+      "id": 703,
+      "date": "2026-09-05",
+      "kind": "app_event",
+      "description": "Checked account balance",
+      "amount": null
+    },
+    {
+      "id": 702,
+      "date": "2026-09-01",
+      "kind": "transaction",
+      "description": "Salary — Telenet",
+      "amount": 3450
+    },
+    {
+      "id": 701,
+      "date": "2026-09-01",
+      "kind": "transaction",
+      "description": "Rent — Woonhaven",
+      "amount": -890
+    }
+  ],
+  "moment": {
+    "key": "no_clear_moment",
+    "label": "No clear moment",
+    "confidence": 0.81,
+    "probabilities": {
+      "moving_home": 0.03,
+      "growing_family": 0.01,
+      "new_job": 0.02,
+      "approaching_retirement": 0.01,
+      "buying_car": 0.05,
+      "travel_abroad": 0.06,
+      "financial_stress": 0.01,
+      "no_clear_moment": 0.81
+    },
+    "stress": 0.05,
+    "receptiveness": 1,
+    "rationale": "Stable salary, rent and everyday spending with no unusual transactions or searches.",
+    "source": "gemini",
+    "analyzed_at": "2026-09-30T09:13:02Z"
+  },
+  "twin": {
+    "start_balance": 32500,
+    "months": [
+      {
+        "month": "2026-10",
+        "income": 3450,
+        "expenses": 2565,
+        "balance": 33385,
+        "events": [
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Rent — Woonhaven",
+            "amount": -890,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi & Carrefour",
+            "amount": -610,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Luminus",
+            "amount": -160,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Telenet",
+            "amount": -65,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Fuel — TotalEnergies",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -700,
+            "kind": "expense",
+            "source": "recurring"
+          }
+        ]
+      },
+      {
+        "month": "2026-11",
+        "income": 3450,
+        "expenses": 2565,
+        "balance": 34270,
+        "events": [
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Rent — Woonhaven",
+            "amount": -890,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi & Carrefour",
+            "amount": -610,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Luminus",
+            "amount": -160,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Telenet",
+            "amount": -65,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Fuel — TotalEnergies",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -700,
+            "kind": "expense",
+            "source": "recurring"
+          }
+        ]
+      },
+      {
+        "month": "2026-12",
+        "income": 3450,
+        "expenses": 2565,
+        "balance": 35155,
+        "events": [
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Rent — Woonhaven",
+            "amount": -890,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi & Carrefour",
+            "amount": -610,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Luminus",
+            "amount": -160,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Telenet",
+            "amount": -65,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Fuel — TotalEnergies",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -700,
+            "kind": "expense",
+            "source": "recurring"
+          }
+        ]
+      },
+      {
+        "month": "2027-01",
+        "income": 3450,
+        "expenses": 2565,
+        "balance": 36040,
+        "events": [
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Rent — Woonhaven",
+            "amount": -890,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi & Carrefour",
+            "amount": -610,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Luminus",
+            "amount": -160,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Telenet",
+            "amount": -65,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Fuel — TotalEnergies",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -700,
+            "kind": "expense",
+            "source": "recurring"
+          }
+        ]
+      },
+      {
+        "month": "2027-02",
+        "income": 3450,
+        "expenses": 2565,
+        "balance": 36925,
+        "events": [
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Rent — Woonhaven",
+            "amount": -890,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi & Carrefour",
+            "amount": -610,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Luminus",
+            "amount": -160,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Telenet",
+            "amount": -65,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Fuel — TotalEnergies",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -700,
+            "kind": "expense",
+            "source": "recurring"
+          }
+        ]
+      },
+      {
+        "month": "2027-03",
+        "income": 3450,
+        "expenses": 3205,
+        "balance": 37170,
+        "events": [
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Rent — Woonhaven",
+            "amount": -890,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi & Carrefour",
+            "amount": -610,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Luminus",
+            "amount": -160,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Telenet",
+            "amount": -65,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Fuel — TotalEnergies",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -700,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Car insurance — KBC",
+            "amount": -640,
+            "kind": "expense",
+            "source": "scheduled"
+          }
+        ]
+      },
+      {
+        "month": "2027-04",
+        "income": 3450,
+        "expenses": 2565,
+        "balance": 38055,
+        "events": [
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Rent — Woonhaven",
+            "amount": -890,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi & Carrefour",
+            "amount": -610,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Luminus",
+            "amount": -160,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Telenet",
+            "amount": -65,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Fuel — TotalEnergies",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -700,
+            "kind": "expense",
+            "source": "recurring"
+          }
+        ]
+      },
+      {
+        "month": "2027-05",
+        "income": 5950,
+        "expenses": 2565,
+        "balance": 41440,
+        "events": [
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Rent — Woonhaven",
+            "amount": -890,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi & Carrefour",
+            "amount": -610,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Luminus",
+            "amount": -160,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Telenet",
+            "amount": -65,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Fuel — TotalEnergies",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -700,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Holiday pay — Telenet",
+            "amount": 2500,
+            "kind": "income",
+            "source": "scheduled"
+          }
+        ]
+      },
+      {
+        "month": "2027-06",
+        "income": 3450,
+        "expenses": 2565,
+        "balance": 42325,
+        "events": [
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Rent — Woonhaven",
+            "amount": -890,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi & Carrefour",
+            "amount": -610,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Luminus",
+            "amount": -160,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Telenet",
+            "amount": -65,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Fuel — TotalEnergies",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -700,
+            "kind": "expense",
+            "source": "recurring"
+          }
+        ]
+      },
+      {
+        "month": "2027-07",
+        "income": 3450,
+        "expenses": 2565,
+        "balance": 43210,
+        "events": [
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Rent — Woonhaven",
+            "amount": -890,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi & Carrefour",
+            "amount": -610,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Luminus",
+            "amount": -160,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Telenet",
+            "amount": -65,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Fuel — TotalEnergies",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -700,
+            "kind": "expense",
+            "source": "recurring"
+          }
+        ]
+      },
+      {
+        "month": "2027-08",
+        "income": 3450,
+        "expenses": 2565,
+        "balance": 44095,
+        "events": [
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Rent — Woonhaven",
+            "amount": -890,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi & Carrefour",
+            "amount": -610,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Luminus",
+            "amount": -160,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Telenet",
+            "amount": -65,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Fuel — TotalEnergies",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -700,
+            "kind": "expense",
+            "source": "recurring"
+          }
+        ]
+      },
+      {
+        "month": "2027-09",
+        "income": 3450,
+        "expenses": 2565,
+        "balance": 44980,
+        "events": [
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Rent — Woonhaven",
+            "amount": -890,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi & Carrefour",
+            "amount": -610,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Luminus",
+            "amount": -160,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Telenet",
+            "amount": -65,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Fuel — TotalEnergies",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -700,
+            "kind": "expense",
+            "source": "recurring"
+          }
+        ]
+      }
+    ],
+    "pinch_points": []
+  },
+  "interventions": [
+    {
+      "id": 71,
+      "key": "surplus_invest",
+      "title": "Put idle cash to work",
+      "message": "Jan, your balance stays well above what you need every month. Start a monthly investment plan from €50 and keep a safety buffer.",
+      "line": "investing",
+      "channel": "app",
+      "status": "delivered",
+      "deliver_at": "2026-09-30",
+      "reasons": [
+        "Forecast: balance stays above €32,000 for all 12 months (over 12× monthly expenses)",
+        "No pinch points in the next 12 months",
+        "You allow offers and your proactivity is 'proactive'"
+      ],
+      "feedback": null
+    }
+  ]
+}

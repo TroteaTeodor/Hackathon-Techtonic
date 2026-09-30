@@ -1,0 +1,756 @@
+{
+  "customer": {
+    "id": 7,
+    "first_name": "Jan",
+    "last_name": "Claes",
+    "age": 45,
+    "city": "Mechelen",
+    "marketing_consent": true,
+    "proactivity": "proactive",
+    "balance": 17500
+  },
+  "signals": [
+    {
+      "id": 706,
+      "date": "2026-09-30",
+      "kind": "transaction",
+      "description": "Notary deposit — Notaris Peeters",
+      "amount": -15000
+    },
+    {
+      "id": 705,
+      "date": "2026-09-26",
+      "kind": "transaction",
+      "description": "Groceries — Aldi",
+      "amount": -87.4
+    },
+    {
+      "id": 704,
+      "date": "2026-09-19",
+      "kind": "transaction",
+      "description": "Fuel — TotalEnergies",
+      "amount": -68.9
+    },
+    {
+      "id": 703,
+      "date": "2026-09-05",
+      "kind": "app_event",
+      "description": "Checked account balance",
+      "amount": null
+    },
+    {
+      "id": 702,
+      "date": "2026-09-01",
+      "kind": "transaction",
+      "description": "Salary — Telenet",
+      "amount": 3450
+    },
+    {
+      "id": 701,
+      "date": "2026-09-01",
+      "kind": "transaction",
+      "description": "Rent — Woonhaven",
+      "amount": -890
+    }
+  ],
+  "moment": {
+    "key": "moving_home",
+    "label": "Moving home",
+    "confidence": 0.68,
+    "probabilities": {
+      "moving_home": 0.68,
+      "growing_family": 0.03,
+      "new_job": 0.02,
+      "approaching_retirement": 0.01,
+      "buying_car": 0.04,
+      "travel_abroad": 0.03,
+      "financial_stress": 0.01,
+      "no_clear_moment": 0.18
+    },
+    "stress": 0.12,
+    "receptiveness": 1,
+    "rationale": "A single €15,000 notary deposit suggests a property purchase, but there are no other housing signals yet.",
+    "source": "gemini",
+    "analyzed_at": "2026-09-30T10:41:17Z"
+  },
+  "twin": {
+    "start_balance": 17500,
+    "months": [
+      {
+        "month": "2026-10",
+        "income": 3450,
+        "expenses": 2565,
+        "balance": 18385,
+        "events": [
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Rent — Woonhaven",
+            "amount": -890,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi & Carrefour",
+            "amount": -610,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Luminus",
+            "amount": -160,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Telenet",
+            "amount": -65,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Fuel — TotalEnergies",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -700,
+            "kind": "expense",
+            "source": "recurring"
+          }
+        ]
+      },
+      {
+        "month": "2026-11",
+        "income": 3450,
+        "expenses": 14065,
+        "balance": 7770,
+        "events": [
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Rent — Woonhaven",
+            "amount": -890,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi & Carrefour",
+            "amount": -610,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Luminus",
+            "amount": -160,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Telenet",
+            "amount": -65,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Fuel — TotalEnergies",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -700,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Notary fees (estimate)",
+            "amount": -9000,
+            "kind": "expense",
+            "source": "moment"
+          },
+          {
+            "label": "Moving costs (estimate)",
+            "amount": -2500,
+            "kind": "expense",
+            "source": "moment"
+          }
+        ]
+      },
+      {
+        "month": "2026-12",
+        "income": 3450,
+        "expenses": 2825,
+        "balance": 8395,
+        "events": [
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi & Carrefour",
+            "amount": -610,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Luminus",
+            "amount": -160,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Telenet",
+            "amount": -65,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Fuel — TotalEnergies",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -700,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Mortgage payment — KBC home loan (estimate)",
+            "amount": -1150,
+            "kind": "expense",
+            "source": "moment"
+          }
+        ]
+      },
+      {
+        "month": "2027-01",
+        "income": 3450,
+        "expenses": 2825,
+        "balance": 9020,
+        "events": [
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi & Carrefour",
+            "amount": -610,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Luminus",
+            "amount": -160,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Telenet",
+            "amount": -65,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Fuel — TotalEnergies",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -700,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Mortgage payment — KBC home loan (estimate)",
+            "amount": -1150,
+            "kind": "expense",
+            "source": "moment"
+          }
+        ]
+      },
+      {
+        "month": "2027-02",
+        "income": 3450,
+        "expenses": 2825,
+        "balance": 9645,
+        "events": [
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi & Carrefour",
+            "amount": -610,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Luminus",
+            "amount": -160,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Telenet",
+            "amount": -65,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Fuel — TotalEnergies",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -700,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Mortgage payment — KBC home loan (estimate)",
+            "amount": -1150,
+            "kind": "expense",
+            "source": "moment"
+          }
+        ]
+      },
+      {
+        "month": "2027-03",
+        "income": 3450,
+        "expenses": 3465,
+        "balance": 9630,
+        "events": [
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi & Carrefour",
+            "amount": -610,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Luminus",
+            "amount": -160,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Telenet",
+            "amount": -65,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Fuel — TotalEnergies",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -700,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Car insurance — KBC",
+            "amount": -640,
+            "kind": "expense",
+            "source": "scheduled"
+          },
+          {
+            "label": "Mortgage payment — KBC home loan (estimate)",
+            "amount": -1150,
+            "kind": "expense",
+            "source": "moment"
+          }
+        ]
+      },
+      {
+        "month": "2027-04",
+        "income": 3450,
+        "expenses": 2825,
+        "balance": 10255,
+        "events": [
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi & Carrefour",
+            "amount": -610,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Luminus",
+            "amount": -160,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Telenet",
+            "amount": -65,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Fuel — TotalEnergies",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -700,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Mortgage payment — KBC home loan (estimate)",
+            "amount": -1150,
+            "kind": "expense",
+            "source": "moment"
+          }
+        ]
+      },
+      {
+        "month": "2027-05",
+        "income": 5950,
+        "expenses": 2825,
+        "balance": 13380,
+        "events": [
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi & Carrefour",
+            "amount": -610,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Luminus",
+            "amount": -160,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Telenet",
+            "amount": -65,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Fuel — TotalEnergies",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -700,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Holiday pay — Telenet",
+            "amount": 2500,
+            "kind": "income",
+            "source": "scheduled"
+          },
+          {
+            "label": "Mortgage payment — KBC home loan (estimate)",
+            "amount": -1150,
+            "kind": "expense",
+            "source": "moment"
+          }
+        ]
+      },
+      {
+        "month": "2027-06",
+        "income": 3450,
+        "expenses": 2825,
+        "balance": 14005,
+        "events": [
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi & Carrefour",
+            "amount": -610,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Luminus",
+            "amount": -160,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Telenet",
+            "amount": -65,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Fuel — TotalEnergies",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -700,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Mortgage payment — KBC home loan (estimate)",
+            "amount": -1150,
+            "kind": "expense",
+            "source": "moment"
+          }
+        ]
+      },
+      {
+        "month": "2027-07",
+        "income": 3450,
+        "expenses": 2825,
+        "balance": 14630,
+        "events": [
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi & Carrefour",
+            "amount": -610,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Luminus",
+            "amount": -160,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Telenet",
+            "amount": -65,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Fuel — TotalEnergies",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -700,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Mortgage payment — KBC home loan (estimate)",
+            "amount": -1150,
+            "kind": "expense",
+            "source": "moment"
+          }
+        ]
+      },
+      {
+        "month": "2027-08",
+        "income": 3450,
+        "expenses": 2825,
+        "balance": 15255,
+        "events": [
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi & Carrefour",
+            "amount": -610,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Luminus",
+            "amount": -160,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Telenet",
+            "amount": -65,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Fuel — TotalEnergies",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -700,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Mortgage payment — KBC home loan (estimate)",
+            "amount": -1150,
+            "kind": "expense",
+            "source": "moment"
+          }
+        ]
+      },
+      {
+        "month": "2027-09",
+        "income": 3450,
+        "expenses": 2825,
+        "balance": 15880,
+        "events": [
+          {
+            "label": "Salary — Telenet",
+            "amount": 3450,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Aldi & Carrefour",
+            "amount": -610,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Luminus",
+            "amount": -160,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Telenet",
+            "amount": -65,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Fuel — TotalEnergies",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -700,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Mortgage payment — KBC home loan (estimate)",
+            "amount": -1150,
+            "kind": "expense",
+            "source": "moment"
+          }
+        ]
+      }
+    ],
+    "pinch_points": []
+  },
+  "interventions": [
+    {
+      "id": 72,
+      "key": "moving_home_bundle",
+      "title": "Your move, sorted",
+      "message": "Congrats on the new place, Jan! Get your mortgage pre-approved in 10 minutes and have home insurance in place from the day you sign.",
+      "line": "banking",
+      "channel": "app",
+      "status": "review",
+      "deliver_at": "2026-09-30",
+      "reasons": [
+        "Detected life moment: moving home (68% confidence)",
+        "Signal: notary deposit of €15,000 to Notaris Peeters on 2026-09-30",
+        "Confidence is between 50% and 75%, so an advisor reviews before it is sent"
+      ],
+      "feedback": null
+    },
+    {
+      "id": 73,
+      "key": "moving_home_insurance",
+      "title": "Protect your new home",
+      "message": "Jan, fire and home insurance is required for your mortgage. Get a quote for your new address in two minutes.",
+      "line": "insurance",
+      "channel": "app",
+      "status": "review",
+      "deliver_at": "2026-09-30",
+      "reasons": [
+        "Detected life moment: moving home (68% confidence)",
+        "No home insurance found in your products",
+        "Confidence is between 50% and 75%, so an advisor reviews before it is sent"
+      ],
+      "feedback": null
+    },
+    {
+      "id": 71,
+      "key": "surplus_invest",
+      "title": "Put idle cash to work",
+      "message": "Jan, your balance stays well above what you need every month. Start a monthly investment plan from €50 and keep a safety buffer.",
+      "line": "investing",
+      "channel": "app",
+      "status": "delivered",
+      "deliver_at": "2026-09-30",
+      "reasons": [
+        "Forecast: balance stays above €7,700 for all 12 months, even after the notary fees",
+        "No pinch points in the next 12 months",
+        "You allow offers and your proactivity is 'proactive'"
+      ],
+      "feedback": null
+    }
+  ]
+}

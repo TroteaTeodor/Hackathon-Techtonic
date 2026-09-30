@@ -12,10 +12,10 @@ Groups 2–6 (A) and 7–10 (B) run in parallel and never touch each other's dir
 ## 1. Foundation [Both] (0:00–0:15)
 
 - [x] 1.1 Land the `add-github-mcp` and `jev-categorization` work on `main` (done in the `initial commit`; jev brings Alembic, and its `items` code is removed in 2.1). Verify `git log origin/main` shows `initial commit`.
-- [ ] 1.2 On a `foundation` branch, write `frontend/src/lib/types.ts` exactly as in design.md "Types". Verify `pnpm exec tsc --noEmit` passes in `frontend/`.
-- [ ] 1.3 Write the fixtures in `frontend/src/mocks/` (`me-customer`, `me-advisor`, `overview-sara`, `customers`, `customer-detail-sara`, `customer-detail-after-inject`, `scale`). Use Sara's moving-home story with a March pinch point and one intervention per status. Verify every file parses with `node -e "JSON.parse(require('fs').readFileSync(f))"` for each file.
-- [ ] 1.4 Update `.env.example` with `GEMINI_API_KEY`, `GEMINI_MODEL`, `SESSION_SECRET`, `DEMO_PASSWORD` and `COOKIE_SECURE`, with placeholders only, and remove `OPENROUTER_API_KEY`. Verify `git diff` contains no real values.
-- [ ] 1.5 Merge the `foundation` PR into `main`, then create `feat/backend` (A) and `feat/frontend` (B) from it. Verify both branches exist on `origin`.
+- [x] 1.2 On a `foundation` branch, write `frontend/src/lib/types.ts` exactly as in design.md "Types". Verify `pnpm exec tsc --noEmit` passes in `frontend/`.
+- [x] 1.3 Write the fixtures in `frontend/src/mocks/` (`me-customer`, `me-advisor`, `overview-sara`, `customers`, `customer-detail-sara`, `customer-detail-jan`, `customer-detail-after-inject`, `scale`). Sara's moving-home story has a November pinch point. Jan (routine) has a before and after state for the notary-deposit injection. Together they cover the `delivered`, `review` and `dismissed` statuses; `held` appears in the scale counts. Verify every file parses with `node -e "JSON.parse(...)"`.
+- [x] 1.4 Update `.env.example` with `GEMINI_API_KEY`, `GEMINI_MODEL`, `SESSION_SECRET`, `DEMO_PASSWORD` and `COOKIE_SECURE`, with placeholders only, and remove `OPENROUTER_API_KEY`. Verify `git diff` contains no real values.
+- [x] 1.5 Merge the `foundation` PR into `main`, then create `feat/backend` (A) and `feat/frontend` (B) from it. Verify both branches exist on `origin`.
 - [ ] 1.6 Connect the repo to Aikido and run the AI Code Audit baseline. Verify the "before" screenshot is saved for submission.
 
 ## 2. Data model and synthetic customers [A] (0:15–0:45)

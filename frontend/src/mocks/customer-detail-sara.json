@@ -1,0 +1,782 @@
+{
+  "customer": {
+    "id": 1,
+    "first_name": "Sara",
+    "last_name": "Janssens",
+    "age": 31,
+    "city": "Leuven",
+    "marketing_consent": true,
+    "proactivity": "balanced",
+    "balance": 9800
+  },
+  "signals": [
+    {
+      "id": 109,
+      "date": "2026-09-24",
+      "kind": "app_event",
+      "description": "Opened the mortgage simulator (3 times this week)",
+      "amount": null
+    },
+    {
+      "id": 108,
+      "date": "2026-09-22",
+      "kind": "search",
+      "description": "Searched the app for 'home insurance new apartment'",
+      "amount": null
+    },
+    {
+      "id": 107,
+      "date": "2026-09-18",
+      "kind": "transaction",
+      "description": "Notary deposit — Notaris Peeters",
+      "amount": -15000
+    },
+    {
+      "id": 106,
+      "date": "2026-09-15",
+      "kind": "contact",
+      "description": "Asked the chatbot: 'How long does a mortgage approval take?'",
+      "amount": null
+    },
+    {
+      "id": 105,
+      "date": "2026-09-10",
+      "kind": "search",
+      "description": "Immoweb — 2-bedroom apartments in Leuven",
+      "amount": null
+    },
+    {
+      "id": 104,
+      "date": "2026-09-01",
+      "kind": "transaction",
+      "description": "Salary — Barco NV",
+      "amount": 3100
+    },
+    {
+      "id": 103,
+      "date": "2026-09-01",
+      "kind": "transaction",
+      "description": "Rent — Immo Vandenberghe",
+      "amount": -950
+    },
+    {
+      "id": 102,
+      "date": "2026-08-28",
+      "kind": "transaction",
+      "description": "Groceries — Colruyt",
+      "amount": -134.2
+    },
+    {
+      "id": 101,
+      "date": "2026-08-20",
+      "kind": "transaction",
+      "description": "Energy — Engie",
+      "amount": -140
+    }
+  ],
+  "moment": {
+    "key": "moving_home",
+    "label": "Moving home",
+    "confidence": 0.87,
+    "probabilities": {
+      "moving_home": 0.87,
+      "growing_family": 0.03,
+      "new_job": 0.01,
+      "approaching_retirement": 0.0,
+      "buying_car": 0.02,
+      "travel_abroad": 0.02,
+      "financial_stress": 0.01,
+      "no_clear_moment": 0.04
+    },
+    "stress": 0.08,
+    "receptiveness": 2,
+    "rationale": "A €15,000 notary deposit, repeated Immoweb searches and mortgage-simulator use point to buying a home.",
+    "source": "gemini",
+    "analyzed_at": "2026-09-30T09:12:44Z"
+  },
+  "twin": {
+    "start_balance": 9800,
+    "months": [
+      {
+        "month": "2026-10",
+        "income": 3100,
+        "expenses": 2335,
+        "balance": 10565,
+        "events": [
+          {
+            "label": "Salary — Barco NV",
+            "amount": 3100,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Rent — Immo Vandenberghe",
+            "amount": -950,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Colruyt & Delhaize",
+            "amount": -520,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Engie",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Proximus",
+            "amount": -55,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Transport — NMBS",
+            "amount": -70,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -600,
+            "kind": "expense",
+            "source": "recurring"
+          }
+        ]
+      },
+      {
+        "month": "2026-11",
+        "income": 3100,
+        "expenses": 13835,
+        "balance": -170,
+        "events": [
+          {
+            "label": "Salary — Barco NV",
+            "amount": 3100,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Rent — Immo Vandenberghe",
+            "amount": -950,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Colruyt & Delhaize",
+            "amount": -520,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Engie",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Proximus",
+            "amount": -55,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Transport — NMBS",
+            "amount": -70,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -600,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Notary fees (estimate)",
+            "amount": -9000,
+            "kind": "expense",
+            "source": "moment"
+          },
+          {
+            "label": "Moving costs (estimate)",
+            "amount": -2500,
+            "kind": "expense",
+            "source": "moment"
+          }
+        ]
+      },
+      {
+        "month": "2026-12",
+        "income": 3100,
+        "expenses": 2535,
+        "balance": 395,
+        "events": [
+          {
+            "label": "Salary — Barco NV",
+            "amount": 3100,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Colruyt & Delhaize",
+            "amount": -520,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Engie",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Proximus",
+            "amount": -55,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Transport — NMBS",
+            "amount": -70,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -600,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Mortgage payment — KBC home loan (estimate)",
+            "amount": -1150,
+            "kind": "expense",
+            "source": "moment"
+          }
+        ]
+      },
+      {
+        "month": "2027-01",
+        "income": 3100,
+        "expenses": 2715,
+        "balance": 780,
+        "events": [
+          {
+            "label": "Salary — Barco NV",
+            "amount": 3100,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Colruyt & Delhaize",
+            "amount": -520,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Engie",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Proximus",
+            "amount": -55,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Transport — NMBS",
+            "amount": -70,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -600,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Home contents insurance — KBC",
+            "amount": -180,
+            "kind": "expense",
+            "source": "scheduled"
+          },
+          {
+            "label": "Mortgage payment — KBC home loan (estimate)",
+            "amount": -1150,
+            "kind": "expense",
+            "source": "moment"
+          }
+        ]
+      },
+      {
+        "month": "2027-02",
+        "income": 3100,
+        "expenses": 2535,
+        "balance": 1345,
+        "events": [
+          {
+            "label": "Salary — Barco NV",
+            "amount": 3100,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Colruyt & Delhaize",
+            "amount": -520,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Engie",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Proximus",
+            "amount": -55,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Transport — NMBS",
+            "amount": -70,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -600,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Mortgage payment — KBC home loan (estimate)",
+            "amount": -1150,
+            "kind": "expense",
+            "source": "moment"
+          }
+        ]
+      },
+      {
+        "month": "2027-03",
+        "income": 3100,
+        "expenses": 2535,
+        "balance": 1910,
+        "events": [
+          {
+            "label": "Salary — Barco NV",
+            "amount": 3100,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Colruyt & Delhaize",
+            "amount": -520,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Engie",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Proximus",
+            "amount": -55,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Transport — NMBS",
+            "amount": -70,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -600,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Mortgage payment — KBC home loan (estimate)",
+            "amount": -1150,
+            "kind": "expense",
+            "source": "moment"
+          }
+        ]
+      },
+      {
+        "month": "2027-04",
+        "income": 3100,
+        "expenses": 2535,
+        "balance": 2475,
+        "events": [
+          {
+            "label": "Salary — Barco NV",
+            "amount": 3100,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Colruyt & Delhaize",
+            "amount": -520,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Engie",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Proximus",
+            "amount": -55,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Transport — NMBS",
+            "amount": -70,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -600,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Mortgage payment — KBC home loan (estimate)",
+            "amount": -1150,
+            "kind": "expense",
+            "source": "moment"
+          }
+        ]
+      },
+      {
+        "month": "2027-05",
+        "income": 5400,
+        "expenses": 2535,
+        "balance": 5340,
+        "events": [
+          {
+            "label": "Salary — Barco NV",
+            "amount": 3100,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Colruyt & Delhaize",
+            "amount": -520,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Engie",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Proximus",
+            "amount": -55,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Transport — NMBS",
+            "amount": -70,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -600,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Holiday pay — Barco NV",
+            "amount": 2300,
+            "kind": "income",
+            "source": "scheduled"
+          },
+          {
+            "label": "Mortgage payment — KBC home loan (estimate)",
+            "amount": -1150,
+            "kind": "expense",
+            "source": "moment"
+          }
+        ]
+      },
+      {
+        "month": "2027-06",
+        "income": 3100,
+        "expenses": 2535,
+        "balance": 5905,
+        "events": [
+          {
+            "label": "Salary — Barco NV",
+            "amount": 3100,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Colruyt & Delhaize",
+            "amount": -520,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Engie",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Proximus",
+            "amount": -55,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Transport — NMBS",
+            "amount": -70,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -600,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Mortgage payment — KBC home loan (estimate)",
+            "amount": -1150,
+            "kind": "expense",
+            "source": "moment"
+          }
+        ]
+      },
+      {
+        "month": "2027-07",
+        "income": 3100,
+        "expenses": 2535,
+        "balance": 6470,
+        "events": [
+          {
+            "label": "Salary — Barco NV",
+            "amount": 3100,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Colruyt & Delhaize",
+            "amount": -520,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Engie",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Proximus",
+            "amount": -55,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Transport — NMBS",
+            "amount": -70,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -600,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Mortgage payment — KBC home loan (estimate)",
+            "amount": -1150,
+            "kind": "expense",
+            "source": "moment"
+          }
+        ]
+      },
+      {
+        "month": "2027-08",
+        "income": 3100,
+        "expenses": 2535,
+        "balance": 7035,
+        "events": [
+          {
+            "label": "Salary — Barco NV",
+            "amount": 3100,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Colruyt & Delhaize",
+            "amount": -520,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Engie",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Proximus",
+            "amount": -55,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Transport — NMBS",
+            "amount": -70,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -600,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Mortgage payment — KBC home loan (estimate)",
+            "amount": -1150,
+            "kind": "expense",
+            "source": "moment"
+          }
+        ]
+      },
+      {
+        "month": "2027-09",
+        "income": 3100,
+        "expenses": 2535,
+        "balance": 7600,
+        "events": [
+          {
+            "label": "Salary — Barco NV",
+            "amount": 3100,
+            "kind": "income",
+            "source": "recurring"
+          },
+          {
+            "label": "Groceries — Colruyt & Delhaize",
+            "amount": -520,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Energy — Engie",
+            "amount": -140,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Telecom — Proximus",
+            "amount": -55,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Transport — NMBS",
+            "amount": -70,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Card spending",
+            "amount": -600,
+            "kind": "expense",
+            "source": "recurring"
+          },
+          {
+            "label": "Mortgage payment — KBC home loan (estimate)",
+            "amount": -1150,
+            "kind": "expense",
+            "source": "moment"
+          }
+        ]
+      }
+    ],
+    "pinch_points": [
+      {
+        "month": "2026-11",
+        "balance": -170,
+        "reason": "Notary fees (€9,000) and moving costs (€2,500) push your balance below the €250 buffer."
+      }
+    ]
+  },
+  "interventions": [
+    {
+      "id": 11,
+      "key": "moving_home_bundle",
+      "title": "Your move, sorted",
+      "message": "Congrats on the new place, Sara! Get your mortgage pre-approved in 10 minutes and have home insurance in place from the day you sign.",
+      "line": "banking",
+      "channel": "app",
+      "status": "delivered",
+      "deliver_at": "2026-09-30",
+      "reasons": [
+        "Detected life moment: moving home (87% confidence)",
+        "Signals: notary deposit of €15,000 to Notaris Peeters on 2026-09-18, Immoweb searches, mortgage simulator used 3 times",
+        "You allow offers and your proactivity is 'balanced' (needs 75% confidence)"
+      ],
+      "feedback": "helpful"
+    },
+    {
+      "id": 12,
+      "key": "pinch_point_bridge",
+      "title": "Heads-up for November",
+      "message": "Notary fees and your move will take your balance to about -€170 in November. Move €500 from savings now, or set up a short bridge loan in one tap.",
+      "line": "banking",
+      "channel": "app",
+      "status": "delivered",
+      "deliver_at": "2026-10-11",
+      "reasons": [
+        "Forecast: balance of -€170 at the end of 2026-11, below the €250 buffer",
+        "Largest expense that month: notary fees (€9,000)",
+        "Sent 21 days before the month starts, so there is time to act"
+      ],
+      "feedback": null
+    },
+    {
+      "id": 13,
+      "key": "premium_card_upgrade",
+      "title": "Upgrade to a premium card",
+      "message": "Enjoy travel insurance and higher limits with a premium card.",
+      "line": "banking",
+      "channel": "email",
+      "status": "dismissed",
+      "deliver_at": "2026-09-12",
+      "reasons": [
+        "Earlier weak travel signal (22% confidence)",
+        "Dismissed by an advisor: not relevant during a home purchase"
+      ],
+      "feedback": null
+    }
+  ]
+}

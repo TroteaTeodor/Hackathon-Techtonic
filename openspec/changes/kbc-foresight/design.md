@@ -150,7 +150,7 @@ interface ScaleStats {
 }
 ```
 
-Fixtures (`frontend/src/mocks/`): `me-customer.json`, `me-advisor.json`, `overview-sara.json`, `customers.json`, `customer-detail-sara.json`, `customer-detail-after-inject.json` and `scale.json`. They are the canonical examples of the types above. A contract test in A validates them against the Pydantic schemas, and the compose file mounts them read-only into the backend container at `/contract-fixtures`.
+Fixtures (`frontend/src/mocks/`): `me-customer.json`, `me-advisor.json`, `overview-sara.json`, `customers.json`, `customer-detail-sara.json`, `customer-detail-jan.json` (routine, before injection), `customer-detail-after-inject.json` (Jan after the notary deposit) and `scale.json`. They are the canonical examples of the types above. A contract test in A validates them against the Pydantic schemas, and the compose file mounts them read-only into the backend container at `/contract-fixtures`.
 
 ## Decisions
 
