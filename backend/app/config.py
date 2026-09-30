@@ -32,9 +32,13 @@ class Settings(BaseSettings):
     # "" = model default; "minimal" | "low" | "medium" | "high". Chosen from the evals (backend/evals/REPORT.md).
     gemini_thinking_level: str = "low"
 
-    # Jev via OpenRouter's Decisions API (eval variant).
+    # Detection pipeline (design.md decision 1): Jev first, Gemini when Jev is unsure, rules as the safety net.
+    #   cascade (default) | jev | gemini | rules
+    detector: str = "cascade"
+    jev_escalation_threshold: float = 0.75  # below this Jev confidence, ask Gemini (chosen from the evals)
     openrouter_api_key: str | None = None
     jev_model: str = "~typesafe/jev-latest"
+    jev_timeout_seconds: float = 10
 
     # Scale-view assumptions (shown in the UI next to the projection).
     price_per_million_input_tokens_eur: float = 0.30

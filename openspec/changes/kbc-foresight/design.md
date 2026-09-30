@@ -154,26 +154,52 @@ Fixtures (`frontend/src/mocks/`): `me-customer.json`, `me-advisor.json`, `overvi
 
 ## Decisions
 
-**1. Gemini for moment detection, with a rule-based fallback.**
-- *How:* use the `google-genai` SDK with structured output (a JSON response schema matching `Moment` minus the server-set fields). The model comes from `GEMINI_MODEL` (default `gemini-3.8-flash`, on Vertex location `global`). It runs only through Vertex AI with a service-account key (`GOOGLE_GENAI_USE_VERTEXAI=true`, `GOOGLE_CLOUD_PROJECT`, `GOOGLE_CLOUD_LOCATION`, key file at `secrets/gcp-sa.json`). API keys are disabled on the hackathon projects, so there is no API-key path.
-- *Why Gemini:* the team prefers it, credits are provided, and it understands free-text merchant descriptions well.
-- *Alternative:* Jev, which has calibrated probabilities and is cheaper. It was rejected because the team preferred Gemini, and a model that also generates text leaves room for message wording later.
-- *Fallback:* the keyword and amount rules are also what the generated population uses, so the scale view costs no API calls.
+**1. Moment detection is a Jev-first cascade: Gemini decides when Jev is unsure, and rules are the safety net.**
 
-**1b. Production Gemini settings come from the A/B evals** (`backend/evals/REPORT.md`: 340 labelled cases, of which 133 are hard traps and paraphrases).
+```
+signals ──► Jev (OpenRouter Decisions API: choice, noul and score questions)
+              │ confidence ≥ 75% ──► answer            (87% of customers, p50 0.3 s)
+              │ below 75% or error
+              ▼
+            Gemini 3.8 Flash, low thinking (Vertex AI, structured output)
+              │ ok ──► answer, "Escalated from Jev (x%)"  (the hardest ~13%)
+              │ error
+              ▼
+            Jev's own answer if it had one, else the keyword rules  (never fails)
+```
 
-| Variant | Accuracy | Hard cases | p95 latency | Cost / 1k analyses |
-|---|---|---|---|---|
-| Rules | 61.8% | 2.3% | — | €0 |
-| Jev | 94.1% | 96.2% | 0.5s | €0.10 |
-| Gemini 3.8 Flash, low thinking | 96.5% | 98.5% | 9.9s | €1.14 |
-| Gemini 3.8 Flash, default thinking | 95.9% | 96.2% | 16.5s | €1.99 |
-| Jev → Gemini-low cascade (simulated) | 96.5% | 98.5% | 4.0s | €0.23 |
+Why this design, from the A/B evals in `backend/evals/REPORT.md`. There were 340 labelled cases, including 133 hard traps and paraphrases; the `app` row is this pipeline running live:
 
-- *Chosen:* `gemini-3.8-flash` with `GEMINI_THINKING_LEVEL=low`. It's as accurate as default thinking or better, twice as fast and 43% cheaper, and it removes most of the timeouts to the rules fallback that the end-to-end run hit.
-- *Seeding:* gets a 30 s budget and 2 retries on transient 5xx/429 errors. Live requests keep the 10 s limit and don't retry.
-- *Guardrail invariants:* hold for every variant. No stressed customer and no customer without consent got a delivered sales offer.
-- *Proposed next step (not built):* the Jev-first cascade. It matches Gemini-low accuracy at a fifth of the cost and with a much lower latency. It needs a `jev` value for `Moment.source` in the contract. Gemini's lead over Jev alone isn't statistically significant (McNemar p = 0.077).
+| Design | Accuracy | Hard cases | Calibration error | p50 / p95 latency | Cost / 1k | Daily @ 2.3M × 5% |
+|---|---|---|---|---|---|---|
+| Keyword rules | 61.8% | 2.3% | 0.172 | — | €0 | €0 |
+| Jev only | 94.1% | 96.2% | 0.023 | 0.3 s / 0.5 s | €0.10 | €11 |
+| Gemini 3.8 Flash, low thinking only | 96.5% | 98.5% | 0.060 | 3.1 s / 9.9 s | €1.14 | €131 |
+| **Jev → Gemini cascade (chosen)** | **96.2%** | **97.7%** | **0.021** | **0.3 s / 3.8 s** | **€0.25** | **€28** |
+
+- **Detection is classification, not generation.** The policy asks typed questions about a fixed set of moments. Jev's Decisions API answers exactly that: a `choice` for the moment, a `noul` for stress, and a `score` for receptiveness.
+- **Calibration matters more than raw accuracy**, because the guardrail policy acts on the numbers (thresholds of 0.5 and 0.75, stress at 0.6 or above). The cascade has the lowest calibration error of any variant. When Jev is 75% or more confident, it is right 99.0% of the time.
+- **As accurate as Gemini alone.** The cascade and Gemini-low differ on only 7 cases, split 3 to 4 (exact McNemar p = 1). Against Jev alone, the cascade wins 10 cases to 3 (p = 0.092): the escalation is what recovers Gemini's edge on the ambiguous cases.
+- **About 10× faster at the median, and 5× cheaper.** The live inject in the demo feels instant, the projection for 2.3M customers drops from about €131 to about €28 a day, and far fewer calls come near the 10 s request limit.
+- **Resilient.** If OpenRouter is down, Gemini answers. If Vertex is down, Jev's calibrated answer is kept instead of falling to keyword rules. If both are down, the rules answer. Detection never fails, and the source is recorded (`jev`, `gemini`, `rules` or `customer`) and shown in the console.
+- **Explainable.** Jev returns probabilities, not prose, so its rationale lists the customer's distinctive recent signals. Escalated cases carry Gemini's one-sentence rationale, prefixed with "Escalated from Jev (x%)".
+
+Alternatives considered:
+- **Gemini only** (the previous default): as accurate, but about 5× the cost, 10× slower at the median, and worse calibrated.
+- **Jev only:** the cheapest and fastest, but 2 points less accurate, losing on the ambiguous cases.
+- **Gemini with default thinking:** slower and costlier than low thinking, with no accuracy gain.
+- **Keyword rules:** only a safety net (2.3% on hard cases).
+
+Trade-offs:
+- Two providers means two credentials: `OPENROUTER_API_KEY`, and the Vertex service account in `secrets/`.
+- The Decisions API is an alpha.
+- Jev's cost is what OpenRouter reports (USD, treated as EUR). Gemini's cost uses the configured `PRICE_PER_MILLION_*` placeholders.
+
+Settings:
+- `DETECTOR`: `cascade` (default), `jev`, `gemini` or `rules`.
+- `JEV_ESCALATION_THRESHOLD`: default `0.75`.
+- `GEMINI_MODEL`: `gemini-3.8-flash`, on Vertex location `global`, with `GEMINI_THINKING_LEVEL=low`.
+- Seeding gets a 30 s budget and 2 retries on transient 429/5xx errors. Live requests keep the 10 s limit.
 
 **2. The twin is deterministic arithmetic, not AI.**
 - *Why:* numbers a judge can check, instant recomputation, and zero cost at 2.3M customers.
@@ -235,7 +261,7 @@ The twin is computed on read from signals plus the current moment, and is not st
 
 ## Risks / Trade-offs
 
-- [Gemini probabilities are not calibrated] → Present them as "confidence", keep the thresholds conservative, and name calibration (for example with Jev) as a next step in the pitch.
+- [LLM probabilities are not calibrated] → Jev answers first with calibrated probabilities (calibration error 0.021); Gemini only decides the ~13% of cases where Jev is unsure, and its confidence is shown as "confidence" with conservative thresholds.
 - [No or failed Gemini credentials during the demo] → The rule-based fallback is scripted to recognize every story customer. The UI shows the source (`gemini`/`rules`).
 - [Contract drift between A and B] → Types and fixtures are frozen at 0:15, and the contract test runs in A's CI step (`pytest`). Integration starts at 2:15 at the latest, not at 2:55.
 - [Merge conflicts] → Directory ownership is strict. Only `README.md` and `CLAUDE.md` are shared, and only at the end.

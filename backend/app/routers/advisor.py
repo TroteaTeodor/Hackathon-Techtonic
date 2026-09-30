@@ -100,14 +100,16 @@ def scale(db: Session = Depends(get_db)):
     for status, count in db.execute(select(InterventionRecord.status, func.count()).group_by(InterventionRecord.status)):
         statuses[status] = count
 
-    tokens_in, tokens_out = db.execute(
-        select(func.avg(MomentRecord.input_tokens), func.avg(MomentRecord.output_tokens)).where(MomentRecord.source == "gemini")
+    ai = MomentRecord.source.in_(("jev", "gemini"))
+    tokens_in, tokens_out, avg_cost = db.execute(
+        select(func.avg(MomentRecord.input_tokens), func.avg(MomentRecord.output_tokens), func.avg(MomentRecord.cost_eur)).where(ai)
     ).one()
-    # Until Gemini has run, use the configured estimate (it is shown as an assumption).
+    # Until an AI analysis has run, use the configured estimate (it is shown as an assumption).
     tokens_in = float(tokens_in or settings.estimated_input_tokens_per_analysis)
     tokens_out = float(tokens_out or settings.estimated_output_tokens_per_analysis)
-    cost = (tokens_in * settings.price_per_million_input_tokens_eur
-            + tokens_out * settings.price_per_million_output_tokens_eur) / 1_000_000
+    cost = float(avg_cost) if avg_cost is not None else (
+        tokens_in * settings.price_per_million_input_tokens_eur
+        + tokens_out * settings.price_per_million_output_tokens_eur) / 1_000_000
     daily = settings.projection_customers * settings.daily_reevaluation_rate * cost
     handled = statuses["delivered"] + statuses["review"]
     return schemas.ScaleStats(

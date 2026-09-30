@@ -41,6 +41,7 @@ def persist(db: Session, customer: Customer, signals: list[Signal], detection: D
         source=detection.source,
         input_tokens=detection.input_tokens,
         output_tokens=detection.output_tokens,
+        cost_eur=detection.cost_eur,
         next_pinch_month=twin.pinch_points[0].month if twin.pinch_points else None,
     )
     db.add(record)

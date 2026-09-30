@@ -25,7 +25,7 @@ import {
   SIGNAL_KIND_LABEL,
   signedMoney,
 } from "@/lib/format";
-import type { CustomerDetail, Intervention, MomentKey, Signal, SignalCreate } from "@/lib/types";
+import type { CustomerDetail, Intervention, Moment, MomentKey, Signal, SignalCreate } from "@/lib/types";
 
 const PRESETS: { label: string; icon: typeof Landmark; signal: SignalCreate }[] = [
   {
@@ -272,11 +272,11 @@ function Fact({
   );
 }
 
-function SourceBadge({ source }: { source: "gemini" | "rules" | "customer" }) {
-  const text = { gemini: "Gemini", rules: "Rules fallback", customer: "Set by customer" }[source];
+function SourceBadge({ source }: { source: Moment["source"] }) {
+  const text = { jev: "Jev", gemini: "Gemini (escalated)", rules: "Rules fallback", customer: "Set by customer" }[source];
   return (
     <span className="inline-flex items-center gap-1.5 rounded-full bg-ice px-2.5 py-1 text-xs font-medium text-navy-700">
-      {source === "gemini" && <Sparkles className="size-3.5" aria-hidden />}
+      {(source === "jev" || source === "gemini") && <Sparkles className="size-3.5" aria-hidden />}
       {text}
     </span>
   );

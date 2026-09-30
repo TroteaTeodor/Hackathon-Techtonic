@@ -14,7 +14,7 @@ For a customer, the system SHALL produce a moment assessment containing:
 - a stress score between 0 and 1
 - a receptiveness level: 0 = not now, 1 = open to a light nudge, 2 = actively looking for help
 - a one-sentence rationale
-- the source (`gemini` or `rules`)
+- the source (`jev`, `gemini`, `rules` or `customer`)
 - the time of analysis
 
 #### Scenario: Story customer is recognized
@@ -26,17 +26,29 @@ For a customer, the system SHALL produce a moment assessment containing:
 - **THEN** the moment is `no_clear_moment`, or any other moment has a confidence below 0.5
 
 ### Requirement: AI-based detection
-When Gemini credentials are configured (a Vertex AI service account), the system SHALL detect moments with Gemini, using only the customer's profile and their most recent signals (at most 40) as input. It SHALL validate the structured response before using it.
+When AI credentials are configured, the system SHALL detect moments with a cascade:
+- Jev (a calibrated decision model) answers first.
+- When Jev's confidence is below the escalation threshold (default 0.75), or Jev fails, the system SHALL use Gemini.
+- Both models SHALL receive only the customer's profile and their most recent signals (at most 40). The system SHALL validate every structured response before using it.
+- The assessment SHALL record which model produced it (`jev`, `gemini`, `rules` or `customer`).
+
+#### Scenario: Confident Jev answer
+- **WHEN** Jev returns a moment with a confidence of at least the escalation threshold
+- **THEN** that assessment is used with source `jev`, and Gemini is not called
+
+#### Scenario: Unsure Jev escalates to Gemini
+- **WHEN** Jev's confidence is below the escalation threshold, and Gemini returns a valid assessment
+- **THEN** the Gemini assessment is used with source `gemini`, and its rationale notes that it was escalated from Jev
 
 #### Scenario: Malformed AI response
 - **WHEN** Gemini returns a response that is missing fields or uses an unknown moment key
-- **THEN** the system uses the rule-based result for that customer and records the source as `rules`
+- **THEN** the system uses Jev's answer if there was one, or otherwise the rule-based result, and records its source
 
 ### Requirement: Rule-based fallback
-The system SHALL produce a moment assessment without any AI service, using deterministic rules over signal descriptions and amounts. It SHALL do so whenever no Gemini credentials are configured, the AI call fails, or the AI call takes longer than 10 seconds.
+The system SHALL produce a moment assessment without any AI service, using deterministic rules over signal descriptions and amounts. It SHALL do so whenever no AI credentials are configured, or every AI call in the cascade fails or takes longer than 10 seconds.
 
-#### Scenario: No Gemini credentials configured
-- **WHEN** the backend runs without Vertex AI credentials and a customer is analyzed
+#### Scenario: No AI credentials configured
+- **WHEN** the backend runs without Jev or Vertex AI credentials and a customer is analyzed
 - **THEN** a complete assessment is returned with source `rules`, and no request is made to an external service
 
 ### Requirement: Detection stays within the customer's data
