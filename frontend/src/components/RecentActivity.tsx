@@ -38,7 +38,7 @@ const CATEGORIES: [RegExp, LucideIcon, string][] = [
   [/telecom|proximus|telenet|orange|base|mobile/i, Smartphone, "bg-ice text-navy-700"],
   [/nmbs|sncb|de lijn|stib|train|transport/i, TrainFront, "bg-ice text-navy-700"],
   [/fuel|totalenergies|shell|q8|esso/i, Fuel, "bg-ice text-navy-700"],
-  [/cars?|dealer|toyota|garage/i, Car, "bg-ice text-navy-700"],
+  [/\bcars?\b|dealer|toyota|garage/i, Car, "bg-ice text-navy-700"],
   [/baby|dreambaby|pharmacy/i, Baby, "bg-ice text-navy-700"],
   [/flight|airline|brussels airlines|ryanair|hotel|booking/i, Plane, "bg-ice text-navy-700"],
   [/insurance|ethias|ag insurance|premium/i, ShieldCheck, "bg-ice text-navy-700"],
