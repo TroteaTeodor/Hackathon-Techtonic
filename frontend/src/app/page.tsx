@@ -2,7 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { BrandMark, Spinner } from "@/components/shell";
+import { CoBrand } from "@/components/Brand";
+import { Spinner } from "@/components/shell";
 import { getMe } from "@/lib/api";
 
 export default function Home() {
@@ -15,7 +16,7 @@ export default function Home() {
 
   return (
     <main className="flex flex-1 flex-col items-center justify-center gap-6 bg-navy-900">
-      <BrandMark href={null} />
+      <CoBrand size="md" intro />
       <Spinner className="text-cyan-400" />
     </main>
   );

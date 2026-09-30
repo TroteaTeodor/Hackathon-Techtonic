@@ -255,7 +255,7 @@ The twin is computed on read from signals plus the current moment, and is not st
 **10. Frontend:**
 - The App Router with client components that fetch through `src/lib/api.ts`. When `NEXT_PUBLIC_USE_MOCKS=true`, `api.ts` returns fixtures instead of calling the backend (with a simulated 300 ms delay).
 - The twin chart is inline SVG or Recharts, whichever is faster for B.
-- Styling uses a KBC-like navy and cyan palette, without the KBC logo.
+- Styling uses a KBC-like navy and cyan palette. The header shows a KBC × Foresight lockup: the official KBC logo (Wikimedia Commons SVG, colours unchanged, white letters on navy), a hairline, then our Foresight mark. The login page labels it a proof of concept built at the hackathon.
 - Routes: `/login`, `/app`, `/advisor`, `/advisor/customers/[id]`, `/advisor/scale`.
 - Role routing happens client-side from `GET /auth/me`. The backend enforces access either way.
 
