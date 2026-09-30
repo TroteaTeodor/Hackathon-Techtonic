@@ -52,21 +52,21 @@ Groups 2–6 (A) and 7–10 (B) run in parallel and never touch each other's dir
 
 ## 7. Frontend foundation and login [B] (0:15–0:40)
 
-- [ ] 7.1 Write `src/lib/api.ts`: one typed function per contract endpoint, `credentials: "include"`, and a mock mode (`NEXT_PUBLIC_USE_MOCKS=true`) that returns fixtures after 300 ms. Mock inject returns `customer-detail-after-inject`. Verify with `pnpm lint` and `pnpm build`.
-- [ ] 7.2 Replace the starter page. `/` routes by `GET /auth/me` role (to `/app`, `/advisor` or `/login`). Add the `/login` form with a generic error message, a logout control in the layout, and the navy and cyan theme tokens. Verify in mock mode that logging in as a customer lands on `/app` and as an advisor lands on `/advisor`, with a screenshot via Playwright MCP.
-- [ ] 7.3 Add a reusable `TwinChart` component: balance line for 12 months, a €250 buffer line, pinch points marked, and `moment` events visually distinct. Verify it renders the `overview-sara` fixture with the March pinch point visible.
+- [x] 7.1 Write `src/lib/api.ts`: one typed function per contract endpoint, `credentials: "include"`, and a mock mode (`NEXT_PUBLIC_USE_MOCKS=true`) that returns fixtures after 300 ms. Mock inject returns `customer-detail-after-inject`. Verify with `pnpm lint` and `pnpm build`.
+- [x] 7.2 Replace the starter page. `/` routes by `GET /auth/me` role (to `/app`, `/advisor` or `/login`). Add the `/login` form with a generic error message, a logout control in the layout, and the navy and cyan theme tokens. Verify in mock mode that logging in as a customer lands on `/app` and as an advisor lands on `/advisor`, with a screenshot via Playwright MCP.
+- [x] 7.3 Add a reusable `TwinChart` component: balance line for 12 months, a €250 buffer line, pinch points marked, and `moment` events visually distinct. Verify it renders the `overview-sara` fixture with the March pinch point visible.
 
 ## 8. Customer app [B] (0:40–1:20)
 
-- [ ] 8.1 Build `/app` in a phone frame (max-width about 420px): name, balance, `TwinChart`, and upcoming events for the next 3 months. Verify with a Playwright screenshot at 375×812 with no horizontal scroll.
-- [ ] 8.2 Add the moment banner, shown only when confidence is at least 0.5, with friendly wording per moment key and a "Not right" button calling `POST /me/moment/reject`. Verify in mock mode that Sara sees "Looks like you're moving home".
-- [ ] 8.3 Add intervention cards (delivered only): title, message, line badge, date, a "Why am I seeing this?" toggle showing the reasons, and Helpful / Not relevant buttons (not relevant hides the card). Verify in mock mode that the reasons toggle works and dismiss hides the card.
-- [ ] 8.4 Add the proactivity selector (minimal, balanced, proactive) calling `PUT /me/preferences` and re-rendering. Verify in mock mode that the selector updates without a reload.
+- [x] 8.1 Build `/app` in a phone frame (max-width about 420px): name, balance, `TwinChart`, and upcoming events for the next 3 months. Verify with a Playwright screenshot at 375×812 with no horizontal scroll.
+- [x] 8.2 Add the moment banner, shown only when confidence is at least 0.5, with friendly wording per moment key and a "Not right" button calling `POST /me/moment/reject`. Verify in mock mode that Sara sees "Looks like you're moving home".
+- [x] 8.3 Add intervention cards (delivered only): title, message, line badge, date, a "Why am I seeing this?" toggle showing the reasons, and Helpful / Not relevant buttons (not relevant hides the card). Verify in mock mode that the reasons toggle works and dismiss hides the card.
+- [x] 8.4 Add the proactivity selector (minimal, balanced, proactive) calling `PUT /me/preferences` and re-rendering. Verify in mock mode that the selector updates without a reload.
 
 ## 9. Advisor console [B] (1:20–2:00)
 
-- [ ] 9.1 Build `/advisor`: a customer table (name, age, city, moment chip with confidence, stress indicator, next pinch month, review count), with a moment filter and a "needs review" toggle. Verify in mock mode that the filters narrow the fixture list correctly.
-- [ ] 9.2 Build `/advisor/customers/[id]` (via `useParams`):
+- [x] 9.1 Build `/advisor`: a customer table (name, age, city, moment chip with confidence, stress indicator, next pinch month, review count), with a moment filter and a "needs review" toggle. Verify in mock mode that the filters narrow the fixture list correctly.
+- [x] 9.2 Build `/advisor/customers/[id]` (via `useParams`):
   - profile, consent and proactivity
   - signal timeline
   - moment probability bars, with stress, receptiveness, rationale and a source badge
@@ -75,11 +75,11 @@ Groups 2–6 (A) and 7–10 (B) run in parallel and never touch each other's dir
   - Approve / Dismiss buttons on `review` items
 
   Verify in mock mode with a screenshot of Sara's detail.
-- [ ] 9.3 Add the inject-signal panel: presets (notary deposit -€15,000, baby-store purchase, missed loan payment, car dealer quote) and a free-form form (kind, description of at most 200 characters, amount). It updates the page in place from the response and highlights what changed. Verify in mock mode that the notary preset swaps in the after-inject fixture without a reload.
+- [x] 9.3 Add the inject-signal panel: presets (notary deposit -€15,000, baby-store purchase, missed loan payment, car dealer quote) and a free-form form (kind, description of at most 200 characters, amount). It updates the page in place from the response and highlights what changed. Verify in mock mode that the notary preset swaps in the after-inject fixture without a reload.
 
 ## 10. Scale view [B] (2:00–2:15) *(cut line: fold into the /advisor header)*
 
-- [ ] 10.1 Build `/advisor/scale`: population, moment distribution bars, interventions by status with the automation rate, average tokens and cost per analysis, and the projected daily and monthly cost for 2.3M customers, with every assumption printed. Verify in mock mode with a screenshot showing the projection and its assumptions.
+- [x] 10.1 Build `/advisor/scale`: population, moment distribution bars, interventions by status with the automation rate, average tokens and cost per analysis, and the projected daily and monthly cost for 2.3M customers, with every assumption printed. Verify in mock mode with a screenshot showing the projection and its assumptions.
 - [ ] 10.2 Write the README pitch section: the problem, the idea (moments + twin), the guardrails, scale, how to run, and what's unfinished. Open the `feat/frontend` → `main` PR. Verify `pnpm lint` and `pnpm build` pass and the PR is open.
 
 ## 11. Integration and security [Both] (2:15–2:40)
