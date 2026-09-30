@@ -78,7 +78,7 @@ class Moment(BaseModel):
     stress: float = Field(ge=0, le=1)
     receptiveness: Literal[0, 1, 2]
     rationale: str
-    source: Literal["gemini", "rules", "customer"]
+    source: Literal["jev", "gemini", "rules", "customer"]
     analyzed_at: dt.datetime
 
     @field_validator("probabilities")

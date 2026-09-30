@@ -1,7 +1,11 @@
-"""Jev (OpenRouter Decisions API) detector: typed questions with calibrated probabilities.
+"""Jev (OpenRouter Decisions API): typed questions with calibrated probabilities.
 
-Used as an A/B variant in the evals (`--variants jev`). Needs OPENROUTER_API_KEY.
+The first step of the detection cascade (see detect() in __init__.py and design.md decision 1).
+Needs OPENROUTER_API_KEY.
 """
+
+import logging
+import time
 
 import httpx
 
@@ -9,6 +13,8 @@ from app.config import settings
 from app.detection import Detection, normalize
 from app.detection.gemini import build_prompt
 from app.schemas import MOMENT_KEYS
+
+logger = logging.getLogger(__name__)
 
 DECISIONS_URL = "https://openrouter.ai/api/alpha/decisions"
 
@@ -45,7 +51,35 @@ QUESTIONS = {
 
 
 def is_configured() -> bool:
-    return bool(settings.openrouter_api_key)
+    return settings.ai_enabled and bool(settings.openrouter_api_key)
+
+
+def _evidence(signals, limit: int = 3) -> str:
+    """The most recent signals that aren't routine monthly payments, to explain Jev's answer."""
+    counts: dict[str, int] = {}
+    for s in signals:
+        counts[s.description] = counts.get(s.description, 0) + 1
+    distinctive = [
+        s for s in signals
+        if s.kind in ("search", "contact") or (s.kind != "app_event" and counts[s.description] == 1)
+    ]
+    picked = distinctive[:limit] or signals[:limit]
+    return "; ".join(s.description for s in picked)
+
+
+def detect_safe(customer, signals, *, timeout_seconds: float | None = None, retries: int = 0) -> Detection | None:
+    """detect() that returns None instead of raising; retries transient errors (429/5xx) when asked."""
+    for attempt in range(retries + 1):
+        try:
+            return detect(customer, signals, timeout_seconds=timeout_seconds or settings.jev_timeout_seconds)
+        except Exception as err:
+            transient = isinstance(err, httpx.TimeoutException) or any(c in str(err) for c in ("429", "500", "502", "503", "504"))
+            if transient and attempt < retries:
+                time.sleep(1 + attempt)
+                continue
+            logger.warning("Jev detection failed: %s", str(err)[:200])
+            return None
+    return None
 
 
 def detect(customer, signals, *, timeout_seconds: float = 30) -> Detection:
@@ -71,10 +105,12 @@ def detect(customer, signals, *, timeout_seconds: float = 30) -> Detection:
         probabilities=probs,
         stress=round(float(answers["stress"]["noul"]), 2),
         receptiveness=max(0, min(2, round(float(answers["receptiveness"]["score"])))),
-        rationale=f"Jev: {key} ({probs[key]:.0%})",
+        rationale=f"Based on {_evidence(signals)}.",
         source="jev",
         input_tokens=int(usage.get("input_tokens", 0)),
         output_tokens=int(usage.get("output_tokens", 0)),
     )
     detection.cost_usd = usage.get("cost")
+    # OpenRouter reports USD; the proof of concept treats it as EUR (≈ parity) for the scale view.
+    detection.cost_eur = float(detection.cost_usd) if detection.cost_usd is not None else None
     return detection

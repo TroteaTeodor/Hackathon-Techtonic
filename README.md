@@ -10,7 +10,7 @@
 | Step | What happens | How |
 |---|---|---|
 | **1. Signals** | Transactions, app events, searches and contacts with the bank | Synthetic data: 7 scripted story customers and 200 generated ones |
-| **2. Understand** | Which life moment is this customer in? Moving home, a baby, a new job, retirement, buying a car, travelling abroad, financial stress, or nothing special | **Gemini 3.8 Flash** (Vertex AI, structured output) returns a probability for every moment, plus a stress score and receptiveness. A rule-based fallback keeps it working without AI. |
+| **2. Understand** | Which life moment is this customer in? Moving home, a baby, a new job, retirement, buying a car, travelling abroad, financial stress, or nothing special | A **Jev-first cascade**. **Jev** (OpenRouter's Decisions API) answers typed questions with calibrated probabilities: the moment, stress and receptiveness. When Jev is under 75% sure, **Gemini 3.8 Flash** (Vertex AI) decides. Keyword rules are the safety net, so detection never fails. |
 | **3. Foresee** | A **financial twin**: a 12-month cash-flow forecast | Deterministic arithmetic (no AI, so every number is explainable): recurring and yearly payments, plus what the detected moment adds (notary fees, a mortgage, childcare…), with **pinch points** where the balance drops below €250 |
 | **4. Act** | The right help across banking, insurance and investing | An intervention catalog and an ordered **guardrail policy** (below). Pinch-point warnings go out 21 days before the month. |
 | **5. Explain** | Every card carries a "Why am I seeing this?" | The reasons name the signals, the probability and the rule that applied |
@@ -40,11 +40,17 @@ Full report: [`backend/evals/REPORT.md`](backend/evals/REPORT.md).
 |---|---|---|---|---|---|
 | Keyword rules | 61.8% | 2.3% | 0.172 | — | €0 |
 | Jev (OpenRouter Decisions API) | 94.1% | 96.2% | **0.023** | **0.5 s** | **€0.10** |
-| **Gemini 3.8 Flash, low thinking (used)** | **96.5%** | **98.5%** | 0.060 | 9.9 s | €1.14 |
+| Gemini 3.8 Flash, low thinking | 96.5% | 98.5% | 0.060 | 9.9 s | €1.14 |
 | Gemini 3.8 Flash, default thinking | 95.9% | 96.2% | 0.073 | 16.5 s | €1.99 |
-| Jev first, Gemini when unsure (simulated) | 96.5% | 98.5% | — | 4.0 s | €0.23 |
+| **Jev first, Gemini when unsure (used, measured live)** | **96.2%** | **97.7%** | **0.021** | **3.8 s** | **€0.25** |
 
 - Every AI detector beats the rules by a wide margin (exact McNemar test, p < 10⁻²¹).
+- **Why the cascade:**
+  - It's as accurate as Gemini alone: the two differ on 7 cases, 3 to 4 (p = 1).
+  - It's about **10× faster at the median** (0.3 s against 3.1 s) and **5× cheaper**, about €28 a day for 2.3M customers against €131.
+  - It's the best calibrated, which matters because the guardrails act on the probabilities.
+  - Jev answers 87% of customers and is right 99% of the time on those; only the hardest 13% go to Gemini.
+  - The full reasoning is in [design.md, decision 1](openspec/changes/kbc-foresight/design.md).
 - The guardrails held for every detector: **0** customers in financial stress and **0** customers without consent got a sales offer.
 
 \* Gemini costs use placeholder token prices (`PRICE_PER_MILLION_*` in `.env`). Jev reports its real cost.
@@ -73,7 +79,7 @@ cp .env.example .env
 # Fill in: POSTGRES_PASSWORD, SESSION_SECRET (≥32 chars), DEMO_PASSWORD, GOOGLE_CLOUD_PROJECT
 # Generate values with: python3 -c "import secrets; print(secrets.token_hex(24))"
 
-# Gemini runs through Vertex AI with a service-account key (no API keys):
+# Jev: set OPENROUTER_API_KEY. Gemini (for cases where Jev is unsure) runs through Vertex AI with a service-account key:
 mkdir -p secrets && cp ~/Downloads/<your-key>.json secrets/gcp-sa-<name>.json
 ./scripts/use-gcp.sh <name>       # activates the key, sets the project, tests one Gemini call
 
@@ -83,7 +89,7 @@ printf 'NEXT_PUBLIC_API_URL=http://localhost:8000\nNEXT_PUBLIC_USE_MOCKS=false\n
 pnpm dev                          # http://localhost:3000
 ```
 
-Without Gemini credentials everything still works on the rule-based fallback. `NEXT_PUBLIC_USE_MOCKS=true` runs the frontend on its own, with mock data.
+Without AI credentials everything still works on the rule-based fallback. `NEXT_PUBLIC_USE_MOCKS=true` runs the frontend on its own, with mock data.
 
 **Demo logins** (the password is `DEMO_PASSWORD` from your `.env`):
 
@@ -109,7 +115,7 @@ cd frontend && pnpm lint && pnpm build
 
 ```
 backend/            FastAPI + SQLAlchemy + Alembic (Postgres)
-  app/detection/    rules.py, gemini.py (Vertex, structured output), jev.py (eval variant)
+  app/detection/    __init__.py (the cascade), jev.py (first step), gemini.py (escalation), rules.py (safety net)
   app/twin.py       12-month forecast and pinch points
   app/interventions.py  catalog + guardrail policy
   app/routers/      /auth, /me (customer), advisor routes
@@ -123,7 +129,6 @@ scripts/use-gcp.sh  switch the Gemini service account
 ## What's unfinished
 
 - **Gemini on the organizers' project.** The hackathon project (`qwiklabs-gcp-02-…`) has an org policy (`vertexai.allowedModels`) that currently denies every model. Until it's lifted, detection there uses the rule-based fallback; our own project runs Gemini (`./scripts/use-gcp.sh <name>`).
-- **The Jev-first cascade** is simulated in the evals but not wired into the app. It would make live analysis about 10× faster at the median (0.3 s against 3.1 s) and 5× cheaper, at the same accuracy.
 - **Price assumptions:** the Gemini cost projection uses placeholder token prices.
 - **Proof-of-concept shortcuts:**
   - The rate limiters are in memory (one process).

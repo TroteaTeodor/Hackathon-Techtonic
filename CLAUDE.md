@@ -43,7 +43,10 @@ cd frontend && pnpm install && pnpm dev   # Next.js on :3000
 | `DEMO_PASSWORD` | Password for all demo accounts. Without it no demo users are created. |
 | `COOKIE_SECURE` | `true` only when served over HTTPS. |
 | `GOOGLE_GENAI_USE_VERTEXAI`, `GOOGLE_CLOUD_PROJECT`, `GOOGLE_CLOUD_LOCATION` | Gemini via Vertex AI with the service-account key mounted from `secrets/gcp-sa.json` (location `global` for Gemini 3.x). This is the only way Gemini is called: API keys are disabled on the hackathon projects. |
-| `GEMINI_MODEL` | Default `gemini-3.8-flash`. |
+| `DETECTOR` | `cascade` (default: Jev first, Gemini when Jev is unsure), `jev`, `gemini` or `rules`. See design.md decision 1. |
+| `JEV_ESCALATION_THRESHOLD` | Jev confidence below which Gemini decides (default `0.75`). |
+| `OPENROUTER_API_KEY` | Jev (OpenRouter Decisions API), the first step of detection. |
+| `GEMINI_MODEL` | Default `gemini-3.8-flash`, with `GEMINI_THINKING_LEVEL=low`. |
 
 ## Backend
 - Python deps in `backend/requirements.txt`; rebuild with `docker compose up -d --build backend`.
@@ -59,7 +62,7 @@ cd frontend && pnpm install && pnpm dev   # Next.js on :3000
 - Layout (`backend/app/`):
   - `schemas.py`: the API contract (mirrors `frontend/src/lib/types.ts`; change both together)
   - `models.py`: tables · `seed.py`: synthetic story customers + generated population
-  - `detection/`: `rules.py` (deterministic) and `gemini.py` (structured output, falls back to rules on any error)
+  - `detection/`: `__init__.py` has the cascade: `jev.py` first, `gemini.py` when Jev is unsure (<75%), and `rules.py` as the safety net
   - `twin.py`: 12-month forecast · `interventions.py`: catalog + ordered guardrail policy
   - `analysis.py`: detect → twin → policy, persisted; runs only on new signal, preference change or moment rejection
   - `auth.py`: scrypt hashes, JWT session cookie, login rate limit, `require_customer` / `require_advisor`

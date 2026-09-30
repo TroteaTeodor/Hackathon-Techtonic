@@ -53,7 +53,7 @@ export interface Moment {
   stress: number;
   receptiveness: 0 | 1 | 2;
   rationale: string;
-  source: "gemini" | "rules" | "customer";
+  source: "jev" | "gemini" | "rules" | "customer";
   analyzed_at: string; // ISO timestamp
 }
 

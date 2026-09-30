@@ -59,6 +59,7 @@ class MomentRecord(Base):
     source: Mapped[str] = mapped_column(String(20))
     input_tokens: Mapped[int] = mapped_column(Integer, default=0)
     output_tokens: Mapped[int] = mapped_column(Integer, default=0)
+    cost_eur: Mapped[float | None] = mapped_column(Float)  # provider cost of this analysis (None = rules)
     next_pinch_month: Mapped[str | None] = mapped_column(String(7))
     analyzed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 

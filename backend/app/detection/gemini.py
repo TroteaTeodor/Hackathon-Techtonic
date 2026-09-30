@@ -47,6 +47,12 @@ class _GeminiMoment(BaseModel):
     rationale: str = Field(min_length=1, max_length=400)
 
 
+def cost_eur(detection: Detection) -> float:
+    """Token cost at the configured prices (PRICE_PER_MILLION_*); see the scale view's assumptions."""
+    return (detection.input_tokens * settings.price_per_million_input_tokens_eur
+            + detection.output_tokens * settings.price_per_million_output_tokens_eur) / 1_000_000
+
+
 def is_configured() -> bool:
     if not settings.ai_enabled:
         return False

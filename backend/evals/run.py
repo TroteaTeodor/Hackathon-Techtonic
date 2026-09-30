@@ -3,7 +3,8 @@
     docker compose exec backend python -m evals.run                      # all variants
     docker compose exec backend python -m evals.run --variants rules,gemini:gemini-3.8-flash:low --limit 40
 
-Variants: "rules", "jev" (OpenRouter Decisions API), or "gemini:<model>[:<thinking level>]".
+Variants: "rules", "jev" (OpenRouter Decisions API), "gemini:<model>[:<thinking level>]", or "app"
+(the production pipeline as configured: by default the Jev → Gemini cascade).
 Add variants to an earlier run with --append evals/results/<file>.json. Writes evals/results/<timestamp>.json and evals/REPORT.md.
 """
 
@@ -15,7 +16,7 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 
 from app.config import settings
-from app.detection import gemini, jev, recent, rules
+from app.detection import detect, gemini, jev, recent, rules
 from app.interventions import plan
 from app.twin import build_twin
 from evals import metrics
@@ -33,6 +34,9 @@ def run_case(variant: str, case) -> dict:
     error = None
     if variant == "rules":
         det = rules.detect(case.customer, signals)
+    elif variant == "app":  # the production pipeline exactly as the backend runs it (settings.detector)
+        det = detect(case.customer, case.signals, timeout_seconds=EVAL_TIMEOUT_S, retries=2)
+        det.cost_usd = det.cost_eur
     elif variant == "jev":
         det = None
         for attempt in range(3):
@@ -275,9 +279,9 @@ def main():
         pop = [c for c in cases if c.group == "population"][: args.limit]
         cases = [c for c in cases if c.group != "population"] + pop
     variants = args.variants.split(",")
-    if any(v.startswith("gemini") for v in variants) and not gemini.is_configured():
+    if any(v.startswith("gemini") or v == "app" for v in variants) and not gemini.is_configured():
         raise SystemExit("Gemini is not configured")
-    if "jev" in variants and not jev.is_configured():
+    if ("jev" in variants or "app" in variants) and not jev.is_configured():
         raise SystemExit("OPENROUTER_API_KEY is not set")
 
     rows_by_variant, summaries = {}, []

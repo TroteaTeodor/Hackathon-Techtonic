@@ -121,3 +121,69 @@ def test_check_cases_refuses_paths_outside_evals(tmp_path):
         with pytest.raises(SystemExit):
             safe_path(bad)
     assert safe_path("evals/hard_cases.json").name == "hard_cases.json"
+
+
+# ---- the Jev -> Gemini cascade ----
+
+def _jev_answer(key, confidence):
+    from app.detection import Detection
+    probs = {k: 0.0 for k in __import__("app.schemas", fromlist=["MOMENT_KEYS"]).MOMENT_KEYS}
+    probs[key] = confidence
+    probs["no_clear_moment" if key != "no_clear_moment" else "moving_home"] += 1 - confidence
+    return Detection(key=key, confidence=confidence, probabilities=probs, stress=0.1, receptiveness=1,
+                     rationale="Based on test signals.", source="jev", cost_eur=0.0001)
+
+
+@pytest.fixture
+def cascade(monkeypatch):
+    from app.config import settings
+    from app.detection import jev
+
+    monkeypatch.setattr(settings, "detector", "cascade")
+    monkeypatch.setattr(jev, "is_configured", lambda: True)
+    monkeypatch.setattr(gemini, "is_configured", lambda: True)
+    calls = {"jev": 0, "gemini": 0}
+
+    def use(jev_answer=None, gemini_answer=None):
+        def fake_jev(*_, **__):
+            calls["jev"] += 1
+            return jev_answer
+        def fake_gemini(*_, **__):
+            calls["gemini"] += 1
+            return gemini_answer
+        monkeypatch.setattr(jev, "detect_safe", fake_jev)
+        monkeypatch.setattr(gemini, "detect", fake_gemini)
+        return calls
+    return use
+
+
+def test_confident_jev_answers_without_gemini(cascade):
+    calls = cascade(jev_answer=_jev_answer("moving_home", 0.93))
+    result = detect(customer(), story_signals("sara"))
+    assert result.source == "jev" and result.key == "moving_home"
+    assert calls == {"jev": 1, "gemini": 0}
+
+
+def test_unsure_jev_escalates_to_gemini(cascade):
+    calls = cascade(jev_answer=_jev_answer("travel_abroad", 0.55), gemini_answer=gemini.parse(VALID))
+    result = detect(customer(), story_signals("sara"))
+    assert result.source == "gemini" and result.key == "moving_home"
+    assert "Escalated from Jev" in result.rationale
+    assert calls == {"jev": 1, "gemini": 1}
+    assert result.cost_eur >= 0.0001
+
+
+def test_jev_failure_falls_to_gemini(cascade):
+    cascade(jev_answer=None, gemini_answer=gemini.parse(VALID))
+    assert detect(customer(), story_signals("sara")).source == "gemini"
+
+
+def test_unsure_jev_is_kept_when_gemini_is_down(cascade):
+    cascade(jev_answer=_jev_answer("moving_home", 0.6), gemini_answer=None)
+    result = detect(customer(), story_signals("sara"))
+    assert result.source == "jev" and result.confidence == 0.6
+
+
+def test_everything_down_uses_rules(cascade):
+    cascade(jev_answer=None, gemini_answer=None)
+    assert detect(customer(), story_signals("sara")).source == "rules"
