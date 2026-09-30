@@ -4,7 +4,9 @@ import clsx from "clsx";
 import { Check, ChevronDown, ThumbsDown, ThumbsUp, X } from "lucide-react";
 import { Button } from "@/components/Button";
 import { AnimatePresence, motion } from "motion/react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
+import { FluidBackdrop } from "@/components/FluidBackdrop";
 import { TwinChart } from "@/components/TwinChart";
 import { Money, Skeleton, StreamText } from "@/components/motion";
 import { BrandMark, ErrorNote, errorMessage, LogoutButton, MockBadge, useSession } from "@/components/shell";
@@ -58,9 +60,17 @@ function Overview({ data, onChange }: { data: CustomerOverview; onChange: (d: Cu
   const pinch = twin.pinch_points[0];
   const showMoment = moment && moment.key !== "no_clear_moment" && moment.confidence >= 0.5;
 
+  const headerRef = useRef<HTMLElement>(null);
+  const compact = useScrolledPast(headerRef);
+
   return (
     <>
-      <header className="bg-navy-900 px-5 pb-12 pt-[max(1.25rem,env(safe-area-inset-top))] text-white">
+      <CompactBar show={compact} name={customer.first_name} balance={customer.balance} tight={pinch} />
+      <header
+        ref={headerRef}
+        className="relative isolate overflow-hidden bg-navy-900 px-5 pb-12 pt-[max(1.25rem,env(safe-area-inset-top))] text-white"
+      >
+        <FluidBackdrop calm />
         <div className="flex items-center justify-between">
           <BrandMark href="/app" />
           <div className="flex items-center gap-1">
@@ -70,7 +80,7 @@ function Overview({ data, onChange }: { data: CustomerOverview; onChange: (d: Cu
         </div>
         <p className="mt-7 text-[15px] text-ice/70">Hi {customer.first_name}, your balance today</p>
         <p className="font-display mt-1 text-[2.75rem] font-semibold leading-none tracking-tight">
-          <Money value={customer.balance} />
+          <CountUpMoney value={customer.balance} />
         </p>
         {pinch ? (
           <p className="mt-3 inline-flex items-center gap-2 rounded-full bg-coral/15 px-3 py-1 text-sm text-[#ffb59e]">
@@ -87,7 +97,7 @@ function Overview({ data, onChange }: { data: CustomerOverview; onChange: (d: Cu
         <TwinChart twin={twin} variant="dark" height={190} className="mt-2" />
       </header>
 
-      <div className="-mt-6 flex flex-col gap-8 rounded-t-[1.75rem] bg-paper px-4 pb-[max(2rem,env(safe-area-inset-bottom))] pt-5">
+      <div className="stagger -mt-6 flex flex-col gap-8 rounded-t-[1.75rem] bg-paper px-4 pb-[max(2rem,env(safe-area-inset-bottom))] pt-5">
         <AnimatePresence initial={false}>
           {showMoment && (
             <motion.div key="moment" exit={{ opacity: 0, height: 0, marginBottom: -32 }} transition={{ duration: 0.3 }}>
@@ -168,6 +178,11 @@ function MomentBanner({ overview, onChange }: { overview: CustomerOverview; onCh
               setBusy(true);
               try {
                 onChange(await rejectMoment());
+                toast("Thanks, we’ve taken it out of your forecast", {
+                  description: "Tell us any time something changes.",
+                });
+              } catch (err) {
+                toast.error(errorMessage(err));
               } finally {
                 setBusy(false);
               }
@@ -191,6 +206,12 @@ function InterventionCard({ item, onChange }: { item: Intervention; onChange: (d
     setBusy(feedback);
     try {
       onChange(await sendFeedback(item.id, feedback));
+      buzz();
+      toast(feedback === "helpful" ? "Glad it helped" : "Hidden. We’ll show fewer like this", {
+        description: feedback === "helpful" ? "We’ll keep suggestions like this coming." : undefined,
+      });
+    } catch (err) {
+      toast.error(errorMessage(err));
     } finally {
       setBusy(null);
     }
@@ -387,6 +408,10 @@ function ProactivityControl({ value, onChange }: { value: Proactivity; onChange:
               setPending(p);
               try {
                 onChange(await setProactivity(p));
+                buzz();
+                toast(`${PROACTIVITY[p].label} it is`, { description: `${PROACTIVITY[p].hint}.` });
+              } catch (err) {
+                toast.error(errorMessage(err));
               } finally {
                 setPending(null);
               }
@@ -409,5 +434,72 @@ function ProactivityControl({ value, onChange }: { value: Proactivity; onChange:
       </div>
       <p className="mt-2 px-1 text-sm text-muted">{PROACTIVITY[current].hint}.</p>
     </section>
+  );
+}
+
+/** A tiny tap on phones that support it; silently nothing elsewhere. */
+function buzz() {
+  try {
+    navigator.vibrate?.(8);
+  } catch {
+    // Not supported.
+  }
+}
+
+/** Rolls the balance up from zero on first arrival, then follows real changes. */
+function CountUpMoney({ value }: { value: number }) {
+  const [shown, setShown] = useState(0);
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setShown(value));
+    return () => cancelAnimationFrame(id);
+  }, [value]);
+  return <Money value={shown} />;
+}
+
+/** True once the element has scrolled out of view at the top. */
+function useScrolledPast(ref: React.RefObject<HTMLElement | null>) {
+  const [past, setPast] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setPast(!e.isIntersecting && e.boundingClientRect.top < 0), {
+      rootMargin: "-72px 0px 0px 0px",
+    });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [ref]);
+  return past;
+}
+
+/** Once the big header scrolls away, the balance stays within reach in a slim bar. */
+function CompactBar({
+  show,
+  name,
+  balance,
+  tight,
+}: {
+  show: boolean;
+  name: string;
+  balance: number;
+  tight?: { month: string; balance: number };
+}) {
+  return (
+    <div
+      aria-hidden={!show}
+      className={clsx(
+        "fixed inset-x-0 top-0 z-30 mx-auto w-full max-w-[420px] px-3 pt-[max(0.5rem,env(safe-area-inset-top))] transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+        show ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-3 opacity-0",
+      )}
+    >
+      <div className="flex items-center justify-between rounded-2xl bg-navy-900/90 px-4 py-2.5 text-white shadow-[0_12px_30px_-14px_rgb(4_24_51/0.7)] backdrop-blur-md">
+        <span className="text-sm text-ice/75">{name}</span>
+        <span className="flex items-center gap-2">
+          {tight && <span className="size-1.5 rounded-full bg-coral" title={`Tight in ${monthLong(tight.month)}`} />}
+          <span className="font-display text-lg font-semibold">
+            <Money value={balance} />
+          </span>
+        </span>
+      </div>
+    </div>
   );
 }

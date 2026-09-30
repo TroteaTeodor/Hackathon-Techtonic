@@ -3,6 +3,7 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { CommandPalette } from "@/components/CommandPalette";
 import { BrandMark, LogoutButton, MockBadge, useSession } from "@/components/shell";
 import { CustomerDetailSkeleton, CustomerListSkeleton, ScaleSkeleton } from "@/components/skeletons";
 
@@ -34,6 +35,7 @@ export default function AdvisorLayout({ children }: LayoutProps<"/advisor">) {
           </div>
           <div className="flex items-center gap-2">
             <MockBadge />
+            {me && <CommandPalette />}
             <LogoutButton className="text-ice/80 hover:bg-white/10 hover:text-white" />
           </div>
         </div>
