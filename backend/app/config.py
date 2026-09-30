@@ -5,7 +5,8 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(extra="ignore")
 
-    database_url: str = "postgresql+psycopg://app:app@localhost:5432/app"
+    # No default on purpose: credentials come from the environment (docker-compose builds it from .env).
+    database_url: str
     cors_origins: list[str] = ["http://localhost:3000"]
 
     # Auth. SESSION_SECRET has no default on purpose: the app refuses to start without one.
@@ -13,6 +14,10 @@ class Settings(BaseSettings):
     session_hours: int = 8
     cookie_secure: bool = False
     demo_password: str | None = None
+
+    # Request limits (resource exhaustion).
+    max_body_bytes: int = 64 * 1024
+    write_rate_limit_per_minute: int = 120
 
     # Gemini runs only through Vertex AI with a service account (API keys are disabled on the hackathon projects).
     ai_enabled: bool = True

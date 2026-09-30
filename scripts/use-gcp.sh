@@ -8,6 +8,9 @@ set -eu
 cd "$(dirname "$0")/.."
 
 name="${1:-}"
+case "$name" in
+  ""|*[!a-z0-9_-]*) echo "name must be lowercase letters, digits, - or _" >&2; name="" ;;
+esac
 key="secrets/gcp-sa-${name}.json"
 if [ -z "$name" ] || [ ! -f "$key" ]; then
   echo "usage: $0 <name>   (available: $(ls secrets/gcp-sa-*.json 2>/dev/null | sed 's#secrets/gcp-sa-##; s#\.json##' | tr '\n' ' '))" >&2

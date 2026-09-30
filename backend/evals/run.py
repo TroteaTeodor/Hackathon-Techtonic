@@ -244,6 +244,15 @@ def report(summaries, pairs, cases_n, rows_by_variant) -> str:
     return "\n".join(lines) + "\n"
 
 
+def results_file(raw: str) -> Path:
+    """Only read results JSON produced by this runner (inside evals/results/)."""
+    path = Path(raw).resolve()
+    results = (OUT / "results").resolve()
+    if path.suffix != ".json" or not path.is_relative_to(results) or not path.is_file():
+        raise SystemExit(f"refusing {raw!r}: pass a .json file from {results}")
+    return path
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--variants", default=",".join(DEFAULT_VARIANTS))
@@ -254,7 +263,7 @@ def main():
     args = parser.parse_args()
 
     if args.report_only:
-        previous = json.loads(Path(args.report_only).read_text())
+        previous = json.loads(results_file(args.report_only).read_text())
         rows = previous["rows"]
         n = len(next(iter(rows.values())))
         (OUT / "REPORT.md").write_text(report(previous["summaries"], previous["pairs"], n, rows))
@@ -273,7 +282,7 @@ def main():
 
     rows_by_variant, summaries = {}, []
     if args.append:
-        previous = json.loads(Path(args.append).read_text())
+        previous = json.loads(results_file(args.append).read_text())
         rows_by_variant = previous["rows"]
         summaries = [s for s in previous["summaries"] if s["variant"] not in variants]
     for variant in variants:

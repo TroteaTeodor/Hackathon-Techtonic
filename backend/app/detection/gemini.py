@@ -107,7 +107,8 @@ def parse(raw: str) -> Detection | None:
         return None
     probs = normalize(probs)
     key = max(probs, key=probs.get)
-    assert set(probs) == set(MOMENT_KEYS)
+    if set(probs) != set(MOMENT_KEYS):
+        return None
     return Detection(
         key=key,
         confidence=probs[key],

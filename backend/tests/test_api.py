@@ -224,3 +224,23 @@ def test_rejected_moment_survives_a_new_signal(client, db):
         "kind": "transaction", "description": "Kruidvat — baby wipes", "amount": -12}).json()
     assert body["moment"]["key"] != "growing_family"
     assert "isn't right" in body["moment"]["rationale"]
+
+
+def test_oversized_body_is_rejected(client):
+    login(client, "advisor")
+    res = client.post("/customers/1/signals", content=b"x" * (70 * 1024), headers={"content-type": "application/json"})
+    assert res.status_code == 413
+
+
+def test_write_rate_limit(monkeypatch):
+    from app.limits import WriteRateLimiter
+
+    limiter = WriteRateLimiter(per_minute=3)
+    assert [limiter.allow("1.2.3.4") for _ in range(4)] == [True, True, True, False]
+    assert limiter.allow("5.6.7.8")
+
+
+def test_validation_errors_are_capped(client, db):
+    login(client, "advisor")
+    res = client.post(f"/customers/{customer_id(db, 'Jan')}/signals", json=[{"x": i} for i in range(500)])
+    assert res.status_code == 422 and len(res.json()["detail"]) < 2000

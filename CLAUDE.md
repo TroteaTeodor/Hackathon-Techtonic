@@ -20,7 +20,8 @@ docker compose up -d --build    # Postgres :5432, FastAPI :8000 (hot reload); mi
 cd frontend && pnpm install && pnpm dev   # Next.js on :3000
 ```
 - API docs: http://localhost:8000/docs · health: http://localhost:8000/health (`"ai": true` when Gemini is configured)
-- DB connection: `postgresql://app:app@localhost:5432/app`. Fresh start: `docker compose down -v`.
+- DB connection: `postgresql://app:<POSTGRES_PASSWORD>@localhost:5432/app` (password from `.env`). Fresh start: `docker compose down -v`
+  (also needed after changing `POSTGRES_PASSWORD`, because Postgres only sets it when the volume is created).
 - Frontend reads `NEXT_PUBLIC_API_URL` and `NEXT_PUBLIC_USE_MOCKS` from `frontend/.env.local`.
 - Demo logins (password = `DEMO_PASSWORD`): `advisor`, and customers `sara` (moving home), `lien` (baby),
   `ahmed` (new job, no marketing consent), `marc` (retirement), `julie` (financial stress), `pieter` (car), `jan` (routine).
@@ -36,6 +37,7 @@ cd frontend && pnpm install && pnpm dev   # Next.js on :3000
 ### Environment variables (root `.env`, see `.env.example`)
 | Variable | Purpose |
 |---|---|
+| `POSTGRES_PASSWORD` | Local Postgres password; docker-compose refuses to start without it. |
 | `SESSION_SECRET` | Signs session cookies. Required, ≥32 chars; the backend refuses to start without it. |
 | `DEMO_PASSWORD` | Password for all demo accounts. Without it no demo users are created. |
 | `COOKIE_SECURE` | `true` only when served over HTTPS. |

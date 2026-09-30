@@ -112,3 +112,12 @@ def test_transient_error_is_retried_when_asked(monkeypatch):
     assert detect(customer(), story_signals("sara"), retries=1).source == "gemini"
     calls.clear()
     assert detect(customer(), story_signals("sara")).source == "rules"  # live requests don't retry
+
+
+def test_check_cases_refuses_paths_outside_evals(tmp_path):
+    from evals.check_cases import safe_path
+
+    for bad in ["/etc/passwd", "../app/config.py", str(tmp_path / "x.json")]:
+        with pytest.raises(SystemExit):
+            safe_path(bad)
+    assert safe_path("evals/hard_cases.json").name == "hard_cases.json"

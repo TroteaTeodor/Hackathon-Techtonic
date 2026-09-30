@@ -1,10 +1,11 @@
 import os
 
 # Tests run against a separate database, with rules only (no AI calls) and a fixed demo password.
-_base = os.environ.get("DATABASE_URL", "postgresql+psycopg://app:app@db:5432/app")
+_base = os.environ["DATABASE_URL"]  # set by docker-compose from .env
 os.environ["DATABASE_URL"] = _base.rsplit("/", 1)[0] + "/app_test"
 os.environ["AI_ENABLED"] = "false"
 os.environ["DEMO_PASSWORD"] = "test-demo-password"
+os.environ["WRITE_RATE_LIMIT_PER_MINUTE"] = "100000"  # the suite makes many writes; limits are tested directly
 os.environ.setdefault("SESSION_SECRET", "test-session-secret-that-is-long-enough-123")
 
 import pytest  # noqa: E402
