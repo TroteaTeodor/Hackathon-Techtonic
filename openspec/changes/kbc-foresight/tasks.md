@@ -48,7 +48,7 @@ Groups 2–6 (A) and 7–10 (B) run in parallel and never touch each other's dir
 - [x] 6.1 Add sessions: scrypt password hashes, a PyJWT HS256 cookie (`HttpOnly`, `SameSite=Lax`, 8 h, `Secure` via `COOKIE_SECURE`), and a startup failure when `SESSION_SECRET` is missing or under 32 characters. Add a login rate limit of 5 failures per 5 minutes per username and IP, returning 429. Verify pytests for a good login, a bad login with a generic 401, the 6th attempt returning 429, and the missing secret failing startup.
 - [x] 6.2 Add `/auth/*` and `/me/*` routes with `require_customer` (no customer ID parameters; interventions filtered by `id` and `customer_id`). Verify pytests: no cookie gives 401, and Sara giving feedback on Julie's intervention gives 404 with Julie's intervention unchanged.
 - [x] 6.3 Add advisor routes (`/customers`, `/customers/{id}`, `/customers/{id}/signals`, `/interventions/{id}/decision`, `/scale`) with `require_advisor`, and restrict CORS to the configured origins with credentials. Verify pytests: a customer calling `/customers` gets 403; injecting the notary preset for Jan changes his moment to `moving_home`; a `/scale` response validates against `ScaleStats`.
-- [x] 6.4 Document backend run, env vars and demo users in `CLAUDE.md` under "Running locally", and open the `feat/backend` → `main` PR. Verify the full `pytest -q` is green and the PR is open.
+- [ ] 6.4 Document backend run, env vars and demo users in `CLAUDE.md` under "Running locally", and open the `feat/backend` → `main` PR. Verify the full `pytest -q` is green and the PR is open.
 
 ## 7. Frontend foundation and login [B] (0:15–0:40)
 
