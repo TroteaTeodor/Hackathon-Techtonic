@@ -123,12 +123,18 @@ def parse(raw: str) -> Detection | None:
     )
 
 
-def detect(customer, signals) -> Detection | None:
+def detect(
+    customer, signals, *, model: str | None = None, thinking: str | None = None,
+    timeout_seconds: float | None = None, raise_errors: bool = False,
+) -> Detection | None:
+    """model/thinking/timeout default to settings; the evals pass them explicitly to compare variants."""
     from google.genai import types
 
+    thinking = thinking if thinking is not None else settings.gemini_thinking_level
+    timeout = timeout_seconds or settings.gemini_timeout_seconds
     try:
         response = _client().models.generate_content(
-            model=settings.gemini_model,
+            model=model or settings.gemini_model,
             contents=build_prompt(customer, signals),
             config=types.GenerateContentConfig(
                 system_instruction=INSTRUCTIONS,
@@ -136,9 +142,13 @@ def detect(customer, signals) -> Detection | None:
                 response_schema=_GeminiMoment,
                 temperature=0,
                 automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
+                thinking_config=types.ThinkingConfig(thinking_level=thinking.upper()) if thinking else None,
+                http_options=types.HttpOptions(timeout=int(timeout * 1000)),
             ),
         )
     except Exception as err:  # network, auth, quota, timeout: fall back to rules
+        if raise_errors:
+            raise
         logger.warning("Gemini detection failed, using rules: %s", str(err)[:200])
         return None
 

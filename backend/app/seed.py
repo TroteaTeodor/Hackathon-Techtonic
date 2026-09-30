@@ -38,6 +38,7 @@ class Story:
     yearly: list = field(default_factory=list)  # (description, amount, month, day)
     recent: list = field(default_factory=list)  # (days_ago, kind, description, amount)
     history_only: list = field(default_factory=list)  # (description, amount, day, first_month_ago, last_month_ago)
+    label: str | None = None  # the moment the generator scripted (ground truth for the evals)
 
 
 def _months_back(today: date, n: int = 12):
@@ -201,6 +202,7 @@ def _population_story(rng: random.Random, n: int) -> Story:
         _base("Salary — employer", salary, "Rent — landlord", rent, "Energy — supplier", rng.randrange(90, 220, 5),
               "Telecom — provider", rng.randrange(30, 90, 5), "Groceries — supermarket", rng.randrange(350, 750, 10),
               rng.randrange(200, 800, 10)),
+        label=moment,
     )
     if moment != "no_clear_moment":
         pool = MOMENT_SIGNALS[moment]

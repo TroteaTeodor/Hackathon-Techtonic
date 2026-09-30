@@ -23,6 +23,8 @@ class Settings(BaseSettings):
     gemini_api_key: str | None = None
     gemini_model: str = "gemini-3.8-flash"
     gemini_timeout_seconds: float = 10
+    # "" = model default; "minimal" | "low" | "medium" | "high". Chosen from the evals (backend/evals/REPORT.md).
+    gemini_thinking_level: str = ""
 
     # Scale-view assumptions (shown in the UI next to the projection).
     price_per_million_input_tokens_eur: float = 0.30

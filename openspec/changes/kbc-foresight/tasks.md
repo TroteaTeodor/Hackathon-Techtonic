@@ -93,6 +93,12 @@ Groups 2–6 (A) and 7–10 (B) run in parallel and never touch each other's dir
 - [ ] 12.1 Record the demo video (under 3 minutes) following the script in the plan. Verify the length and that the upload link opens logged out.
 - [ ] 12.2 Fill in Builderbase: description, video link, public repo link, Aikido before and after screenshots. Verify the repo is public and every link opens in a private window.
 
+## 14. Detection evals and A/B test [A] (added on request)
+
+- [ ] 14.1 Build a labelled eval set in `backend/evals/`: the 7 stories, the 200 generated customers (the label is the moment the generator scripted), and hard cases (keyword traps and keyword-free paraphrases) written by parallel agents and validated by `evals/check_cases.py`. Verify the checker reports 0 errors on `evals/hard_cases.json`.
+- [ ] 14.2 Write the A/B runner `python -m evals.run`, covering rules versus Gemini variants (model and thinking level). Per variant it reports accuracy by group, macro-F1, stress recall, calibration (ECE), latency p50/p95, fallback rate and cost, plus an exact McNemar test against rules and guardrail invariants (stressed customers and customers without consent never get delivered sales). Verify `evals/REPORT.md` is written with every variant.
+- [ ] 14.3 Choose the production Gemini settings from the results and record the choice in design.md. Verify the backend default matches the report's recommendation.
+
 ## 13. Optional stretch [A or B, only if 11 is green]
 
 - [ ] 13.1 Gemini writes each card's message in the customer's tone (it replaces the catalog text; falls back to the catalog). Verify Sara's card text differs from the catalog template and still states the amount and date.
