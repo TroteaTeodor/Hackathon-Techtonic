@@ -48,7 +48,7 @@ Groups 2–6 (A) and 7–10 (B) run in parallel and never touch each other's dir
 - [x] 6.1 Add sessions: scrypt password hashes, a PyJWT HS256 cookie (`HttpOnly`, `SameSite=Lax`, 8 h, `Secure` via `COOKIE_SECURE`), and a startup failure when `SESSION_SECRET` is missing or under 32 characters. Add a login rate limit of 5 failures per 5 minutes per username and IP, returning 429. Verify pytests for a good login, a bad login with a generic 401, the 6th attempt returning 429, and the missing secret failing startup.
 - [x] 6.2 Add `/auth/*` and `/me/*` routes with `require_customer` (no customer ID parameters; interventions filtered by `id` and `customer_id`). Verify pytests: no cookie gives 401, and Sara giving feedback on Julie's intervention gives 404 with Julie's intervention unchanged.
 - [x] 6.3 Add advisor routes (`/customers`, `/customers/{id}`, `/customers/{id}/signals`, `/interventions/{id}/decision`, `/scale`) with `require_advisor`, and restrict CORS to the configured origins with credentials. Verify pytests: a customer calling `/customers` gets 403; injecting the notary preset for Jan changes his moment to `moving_home`; a `/scale` response validates against `ScaleStats`.
-- [ ] 6.4 Document backend run, env vars and demo users in `CLAUDE.md` under "Running locally", and open the `feat/backend` → `main` PR. Verify the full `pytest -q` is green and the PR is open.
+- [x] 6.4 Document backend run, env vars and demo users in `CLAUDE.md` under "Running locally", and open the `feat/backend` → `main` PR. Verify the full `pytest -q` is green and the PR is open.
 
 ## 7. Frontend foundation and login [B] (0:15–0:40)
 
@@ -95,9 +95,9 @@ Groups 2–6 (A) and 7–10 (B) run in parallel and never touch each other's dir
 
 ## 14. Detection evals and A/B test [A] (added on request)
 
-- [ ] 14.1 Build a labelled eval set in `backend/evals/`: the 7 stories, the 200 generated customers (the label is the moment the generator scripted), and hard cases (keyword traps and keyword-free paraphrases) written by parallel agents and validated by `evals/check_cases.py`. Verify the checker reports 0 errors on `evals/hard_cases.json`.
-- [ ] 14.2 Write the A/B runner `python -m evals.run`, covering rules versus Gemini variants (model and thinking level). Per variant it reports accuracy by group, macro-F1, stress recall, calibration (ECE), latency p50/p95, fallback rate and cost, plus an exact McNemar test against rules and guardrail invariants (stressed customers and customers without consent never get delivered sales). Verify `evals/REPORT.md` is written with every variant.
-- [ ] 14.3 Choose the production Gemini settings from the results and record the choice in design.md. Verify the backend default matches the report's recommendation.
+- [x] 14.1 Build a labelled eval set in `backend/evals/`: the 7 stories, the 200 generated customers (the label is the moment the generator scripted), and hard cases (keyword traps and keyword-free paraphrases) written by parallel agents and validated by `evals/check_cases.py`. Verify the checker reports 0 errors on `evals/hard_cases.json`.
+- [x] 14.2 Write the A/B runner `python -m evals.run`, covering rules versus Gemini variants (model and thinking level). Per variant it reports accuracy by group, macro-F1, stress recall, calibration (ECE), latency p50/p95, fallback rate and cost, plus an exact McNemar test against rules and guardrail invariants (stressed customers and customers without consent never get delivered sales). Verify `evals/REPORT.md` is written with every variant.
+- [x] 14.3 Choose the production Gemini settings from the results and record the choice in design.md. Verify the backend default matches the report's recommendation.
 
 ## 13. Optional stretch [A or B, only if 11 is green]
 

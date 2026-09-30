@@ -124,32 +124,27 @@ def parse(raw: str) -> Detection | None:
 
 def detect(
     customer, signals, *, model: str | None = None, thinking: str | None = None,
-    timeout_seconds: float | None = None, raise_errors: bool = False,
+    timeout_seconds: float | None = None, raise_errors: bool = False, retries: int = 0,
 ) -> Detection | None:
-    """model/thinking/timeout default to settings; the evals pass them explicitly to compare variants."""
+    """model/thinking/timeout default to settings; the evals pass them explicitly to compare variants.
+    retries: extra attempts on transient server errors (429/5xx), used when seeding, not for live requests."""
     from google.genai import types
 
     thinking = thinking if thinking is not None else settings.gemini_thinking_level
     timeout = timeout_seconds or settings.gemini_timeout_seconds
-    try:
-        response = _client().models.generate_content(
-            model=model or settings.gemini_model,
-            contents=build_prompt(customer, signals),
-            config=types.GenerateContentConfig(
-                system_instruction=INSTRUCTIONS,
-                response_mime_type="application/json",
-                response_schema=_GeminiMoment,
-                temperature=0,
-                automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
-                thinking_config=types.ThinkingConfig(thinking_level=thinking.upper()) if thinking else None,
-                http_options=types.HttpOptions(timeout=int(timeout * 1000)),
-            ),
-        )
-    except Exception as err:  # network, auth, quota, timeout: fall back to rules
-        if raise_errors:
-            raise
-        logger.warning("Gemini detection failed, using rules: %s", str(err)[:200])
-        return None
+    for attempt in range(retries + 1):
+        try:
+            response = _call(types, customer, signals, model, thinking, timeout)
+            break
+        except Exception as err:  # network, auth, quota, timeout: retry if transient, else fall back to rules
+            transient = any(code in str(err) for code in ("429", "500", "502", "503", "504"))
+            if transient and attempt < retries:
+                logger.info("Gemini transient error, retrying: %s", str(err)[:120])
+                continue
+            if raise_errors:
+                raise
+            logger.warning("Gemini detection failed, using rules: %s", str(err)[:200])
+            return None
 
     detection = parse(response.text or "")
     if detection is None:
@@ -160,6 +155,22 @@ def detect(
         detection.output_tokens = (usage.candidates_token_count or 0) + (usage.thoughts_token_count or 0)
     logger.info("Gemini: %s (%.2f) for customer %s", detection.key, detection.confidence, customer.id)
     return detection
+
+
+def _call(types, customer, signals, model, thinking, timeout):
+    return _client().models.generate_content(
+        model=model or settings.gemini_model,
+        contents=build_prompt(customer, signals),
+        config=types.GenerateContentConfig(
+            system_instruction=INSTRUCTIONS,
+            response_mime_type="application/json",
+            response_schema=_GeminiMoment,
+            temperature=0,
+            automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
+            thinking_config=types.ThinkingConfig(thinking_level=thinking.upper()) if thinking else None,
+            http_options=types.HttpOptions(timeout=int(timeout * 1000)),
+        ),
+    )
 
 
 __all__ = ["LABELS", "detect", "is_configured", "parse", "build_prompt"]

@@ -39,6 +39,11 @@ cd frontend && pnpm install && pnpm dev   # Next.js on :3000
 - Python deps in `backend/requirements.txt`; rebuild with `docker compose up -d --build backend`.
 - Tests: `docker compose exec backend pytest -q` (separate `app_test` database, rules only, no AI calls).
   `tests/test_contract.py` validates `frontend/src/mocks/*.json` against the Pydantic contract.
+- Evals (A/B of rules vs Jev vs Gemini variants, calibration, cost, guardrail invariants, McNemar tests):
+  `docker compose exec -e OPENROUTER_API_KEY backend python -m evals.run` (about 15 min, around 1,400 model calls).
+  It writes `backend/evals/REPORT.md`; raw results in `backend/evals/results/` are git-ignored.
+  Validate new hard cases with `python -m evals.check_cases evals/hard_cases.json`. Production Gemini settings
+  (`GEMINI_THINKING_LEVEL=low`) were chosen from the report; see design.md decision 1b.
 - Schema changes go through Alembic (`backend/migrations/`); migrations run on container start.
   New migration: `docker compose exec backend alembic revision --autogenerate -m "<message>"`, then review it.
 - Layout (`backend/app/`):
