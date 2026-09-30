@@ -24,7 +24,14 @@ cd frontend && pnpm install && pnpm dev   # Next.js on :3000
 ## Backend conventions
 - Python deps go in `backend/requirements.txt`; rebuild with `docker compose up -d --build backend`.
 - Models in `app/models.py`, Pydantic schemas in `app/schemas.py`, routes in `app/main.py`.
-- Tables are created on startup via `create_all`; introduce Alembic before changing existing tables.
+- Schema changes go through Alembic (`backend/migrations/`); migrations run automatically on container start.
+  - New migration: `docker compose exec backend alembic revision --autogenerate -m "<message>"`, then review the generated file.
+
+## Jev categorization
+- Items are sorted into categories by Jev (`~typesafe/jev-latest`) through OpenRouter's Decisions API (`app/jev.py`).
+- Categories and their descriptions live in `app/categories.py`; edit them there.
+- Needs `OPENROUTER_API_KEY` in the root `.env` (copy `.env.example`). Without it, items are saved with no category.
+- Jev failures never block saving an item; `POST /items/{id}/categorize` re-runs it.
 
 ## Git
 - Do not add `Co-Authored-By`, "Generated with Claude Code", session links, or any other AI attribution to commit messages or PR descriptions.
