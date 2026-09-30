@@ -288,7 +288,17 @@ function MomentDetail({ moment }: { moment: NonNullable<CustomerDetail["moment"]
           Analyzed {new Date(moment.analyzed_at).toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" })}
         </span>
       </div>
-      <p className="mt-3 max-w-prose text-[15px] leading-relaxed text-ink/85">{moment.rationale}</p>
+      <div className="mt-3 flex items-start gap-4">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          key={moment.key}
+          src={MOMENTS[moment.key].image}
+          alt=""
+          className="hidden aspect-[4/3] w-32 shrink-0 rounded-xl object-cover sm:block"
+          onError={(e) => (e.currentTarget.style.visibility = "hidden")}
+        />
+        <p className="max-w-prose text-[15px] leading-relaxed text-ink/85">{moment.rationale}</p>
+      </div>
 
       <div className="mt-4 grid gap-x-8 gap-y-4 sm:grid-cols-[minmax(0,1fr)_180px]">
         <ul className="space-y-2" aria-label="Probability per moment">
