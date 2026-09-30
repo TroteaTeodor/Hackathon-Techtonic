@@ -61,7 +61,7 @@ function Overview({ data, onChange }: { data: CustomerOverview; onChange: (d: Cu
     <>
       <header className="bg-navy-900 px-5 pb-12 pt-[max(1.25rem,env(safe-area-inset-top))] text-white">
         <div className="flex items-center justify-between">
-          <BrandMark />
+          <BrandMark href="/app" />
           <div className="flex items-center gap-1">
             <MockBadge />
             <LogoutButton className="text-ice/80 hover:bg-white/10 hover:text-white" />
@@ -343,7 +343,7 @@ function OverviewSkeleton() {
   return (
     <div aria-busy="true" aria-label="Loading your overview">
       <div className="bg-navy-900 px-5 pb-12 pt-[max(1.25rem,env(safe-area-inset-top))]">
-        <BrandMark />
+        <BrandMark href={null} />
         <Skeleton className="skeleton-dark mt-7 h-4 w-44" />
         <Skeleton className="skeleton-dark mt-3 h-11 w-40" />
         <Skeleton className="skeleton-dark mt-4 h-7 w-52 rounded-full" />

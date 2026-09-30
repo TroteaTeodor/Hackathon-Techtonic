@@ -99,12 +99,10 @@ a[href].press:active {
 @keyframes page-in {
   from {
     opacity: 0;
-    transform: translateY(10px);
-    filter: blur(3px);
   }
 }
 .page-in {
-  animation: page-in 520ms var(--ease-out-expo) both;
+  animation: page-in 260ms ease-out both;
 }
 
 /* Words written by the model arrive one after another. */

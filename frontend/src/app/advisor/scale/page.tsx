@@ -3,7 +3,8 @@
 import clsx from "clsx";
 import { useCallback, useEffect, useState } from "react";
 import { STATUS_TONE } from "@/components/advisor";
-import { Num, Skeleton } from "@/components/motion";
+import { Num } from "@/components/motion";
+import { ScaleSkeleton } from "@/components/skeletons";
 import { ErrorNote, errorMessage } from "@/components/shell";
 import { getScale } from "@/lib/api";
 import { count, money, moneyCents, MOMENT_KEYS, MOMENTS, percent, STATUS_LABEL } from "@/lib/format";
@@ -33,13 +34,7 @@ export default function ScalePage() {
   useEffect(load, [load]);
 
   if (error) return <ErrorNote message={error} onRetry={load} />;
-  if (!data)
-    return (
-      <div aria-busy="true" aria-label="Loading scale view" className="flex flex-col gap-5">
-        <Skeleton className="h-80 w-full rounded-[1.75rem]" />
-        <Skeleton className="h-72 w-full rounded-[var(--radius-card)]" />
-      </div>
-    );
+  if (!data) return <ScaleSkeleton />;
 
   const a = data.assumptions;
   const analysesPerDay = a.customers * a.daily_reevaluation_rate;

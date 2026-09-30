@@ -6,7 +6,8 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { MomentChip, Panel, StatusBadge } from "@/components/advisor";
-import { Money, Skeleton, StreamText } from "@/components/motion";
+import { Money, StreamText } from "@/components/motion";
+import { CustomerDetailSkeleton } from "@/components/skeletons";
 import { ErrorNote, errorMessage, Spinner } from "@/components/shell";
 import { TwinChart } from "@/components/TwinChart";
 import { decideIntervention, getCustomer, injectSignal } from "@/lib/api";
@@ -108,7 +109,7 @@ export default function CustomerDetailPage() {
   if (!validId)
     return <ErrorNote message="This customer link isn't valid. Go back to the list and pick a customer." />;
   if (error) return <ErrorNote message={error} onRetry={load} />;
-  if (!data) return <DetailSkeleton />;
+  if (!data) return <CustomerDetailSkeleton />;
 
   const { customer, moment, twin, interventions, signals } = data;
   const flash = (on: boolean) => flashKey > 0 && on;
@@ -571,19 +572,3 @@ function SignalTimeline({ signals, highlight }: { signals: Signal[]; highlight?:
   );
 }
 
-function DetailSkeleton() {
-  return (
-    <div aria-busy="true" aria-label="Loading customer">
-      <Skeleton className="h-4 w-28" />
-      <Skeleton className="mt-4 h-9 w-56" />
-      <Skeleton className="mt-2 h-4 w-32" />
-      <div className="mt-6 grid gap-5 lg:grid-cols-[minmax(0,1fr)_340px]">
-        <div className="flex flex-col gap-5">
-          <Skeleton className="h-72 w-full rounded-[var(--radius-card)]" />
-          <Skeleton className="h-80 w-full rounded-[var(--radius-card)]" />
-        </div>
-        <Skeleton className="h-96 w-full rounded-[var(--radius-card)]" />
-      </div>
-    </div>
-  );
-}

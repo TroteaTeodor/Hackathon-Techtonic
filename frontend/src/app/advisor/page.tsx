@@ -5,7 +5,7 @@ import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { MomentChip, StressMeter } from "@/components/advisor";
-import { Skeleton } from "@/components/motion";
+import { CustomerRowsSkeleton } from "@/components/skeletons";
 import { ErrorNote, errorMessage } from "@/components/shell";
 import { listCustomers } from "@/lib/api";
 import { MOMENT_KEYS, MOMENTS, monthLong } from "@/lib/format";
@@ -73,20 +73,7 @@ export default function CustomersPage() {
 
       <div className="mt-5">
         {error && <ErrorNote message={error} onRetry={load} />}
-        {!rows && !error && (
-          <ul aria-busy="true" aria-label="Loading customers" className="flex flex-col gap-2">
-            {Array.from({ length: 6 }, (_, i) => (
-              <li key={i} className="flex items-center gap-4 rounded-2xl border border-line bg-white p-4">
-                <div className="flex-1 space-y-2">
-                  <Skeleton className="h-4 w-40" />
-                  <Skeleton className="h-3 w-24" />
-                </div>
-                <Skeleton className="h-6 w-28 rounded-full" />
-                <Skeleton className="hidden h-3 w-20 md:block" />
-              </li>
-            ))}
-          </ul>
-        )}
+        {!rows && !error && <CustomerRowsSkeleton />}
         {rows && rows.length === 0 && (
           <p className="rounded-[var(--radius-card)] border border-dashed border-line bg-white px-4 py-10 text-center text-sm text-muted">
             No customers match these filters. Clear a filter to see more.
