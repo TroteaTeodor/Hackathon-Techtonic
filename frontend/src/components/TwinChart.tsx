@@ -1,7 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import { useId, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import {
   Area,
   ComposedChart,
@@ -244,19 +244,14 @@ export function TwinChart({
         <span className="ml-auto hidden sm:inline">Hover or tap a month</span>
       </div>
 
-      {/* Every month's details sit in one grid cell, so the box is always as tall as the busiest month
-          and hovering from month to month never pushes the page. Only the chosen one is visible. */}
-      <div
-        className={clsx(
-          "mt-3 grid grid-cols-[minmax(0,1fr)] rounded-2xl p-3.5 text-sm",
-          dark ? "bg-white/[0.07] text-ice" : "border border-line bg-white",
-        )}
-        aria-live="polite"
-      >
+      {/* The box is exactly as tall as the chosen month and eases to the next month's height, so a
+          month with more lines expands smoothly instead of jumping. Only the chosen month is in flow;
+          the others wait out of flow, invisible, ready to crossfade in. */}
+      <MonthBox dark={dark}>
         <div
           className={clsx(
-            "col-start-1 row-start-1 min-w-0 transition-opacity duration-200",
-            selectedMonth ? "invisible opacity-0" : "opacity-100",
+            "min-w-0 transition-opacity duration-200",
+            selectedMonth ? "invisible absolute inset-x-3.5 top-3.5 opacity-0" : "relative opacity-100",
             dark ? "text-ice/60" : "text-muted",
           )}
         >
@@ -271,6 +266,33 @@ export function TwinChart({
             active={m.month === shown}
           />
         ))}
+      </MonthBox>
+    </div>
+  );
+}
+
+/** A panel whose height follows its content with an eased transition. */
+function MonthBox({ dark, children }: { dark: boolean; children: React.ReactNode }) {
+  const inner = useRef<HTMLDivElement>(null);
+  const [height, setHeight] = useState<number | null>(null);
+  useEffect(() => {
+    const el = inner.current;
+    if (!el) return;
+    const ro = new ResizeObserver(([entry]) => setHeight(Math.ceil(entry.borderBoxSize[0]?.blockSize ?? el.offsetHeight)));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  return (
+    <div
+      aria-live="polite"
+      style={height == null ? undefined : { height }}
+      className={clsx(
+        "month-box mt-3 overflow-hidden rounded-2xl text-sm transition-[height] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+        dark ? "bg-white/[0.07] text-ice" : "border border-line bg-white",
+      )}
+    >
+      <div ref={inner} className="relative p-3.5">
+        {children}
       </div>
     </div>
   );
@@ -292,8 +314,8 @@ function MonthDetails({
     <div
       aria-hidden={!active}
       className={clsx(
-        "col-start-1 row-start-1 min-w-0 transition-[opacity,transform] duration-200 ease-out",
-        active ? "translate-y-0 opacity-100" : "invisible translate-y-0.5 opacity-0",
+        "min-w-0 transition-[opacity,transform] duration-200 ease-out",
+        active ? "relative translate-y-0 opacity-100" : "invisible absolute inset-x-3.5 top-3.5 translate-y-0.5 opacity-0",
       )}
     >
       <div className="flex items-baseline justify-between gap-3">
