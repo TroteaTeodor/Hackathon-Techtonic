@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { MomentChip, Panel, StatusBadge } from "@/components/advisor";
+import { Money, Skeleton, StreamText } from "@/components/motion";
 import { ErrorNote, errorMessage, Spinner } from "@/components/shell";
 import { TwinChart } from "@/components/TwinChart";
 import { decideIntervention, getCustomer, injectSignal } from "@/lib/api";
@@ -107,12 +108,7 @@ export default function CustomerDetailPage() {
   if (!validId)
     return <ErrorNote message="This customer link isn't valid. Go back to the list and pick a customer." />;
   if (error) return <ErrorNote message={error} onRetry={load} />;
-  if (!data)
-    return (
-      <div className="flex justify-center py-24">
-        <Spinner className="text-navy-700" />
-      </div>
-    );
+  if (!data) return <DetailSkeleton />;
 
   const { customer, moment, twin, interventions, signals } = data;
   const flash = (on: boolean) => flashKey > 0 && on;
@@ -133,7 +129,7 @@ export default function CustomerDetailPage() {
           </p>
         </div>
         <dl className="flex flex-wrap gap-2 text-sm">
-          <Fact label="Balance" value={money(customer.balance)} flash={flash(!!change?.balance)} k={flashKey} />
+          <Fact label="Balance" value={<Money value={customer.balance} />} flash={flash(!!change?.balance)} k={flashKey} />
           <Fact label="Proactivity" value={PROACTIVITY[customer.proactivity].label} />
           <Fact
             label="Marketing"
@@ -253,7 +249,19 @@ export default function CustomerDetailPage() {
   );
 }
 
-function Fact({ label, value, tone, flash, k }: { label: string; value: string; tone?: string; flash?: boolean; k?: number }) {
+function Fact({
+  label,
+  value,
+  tone,
+  flash,
+  k,
+}: {
+  label: string;
+  value: React.ReactNode;
+  tone?: string;
+  flash?: boolean;
+  k?: number;
+}) {
   return (
     <div key={flash ? k : undefined} className={clsx("rounded-2xl border border-line bg-white px-3.5 py-2", flash && "flash-change")}>
       <dt className="text-xs text-muted">{label}</dt>
@@ -291,7 +299,9 @@ function MomentDetail({ moment }: { moment: NonNullable<CustomerDetail["moment"]
           className="hidden aspect-[4/3] w-32 shrink-0 rounded-xl object-cover sm:block"
           onError={(e) => (e.currentTarget.style.visibility = "hidden")}
         />
-        <p className="max-w-prose text-[15px] leading-relaxed text-ink/85">{moment.rationale}</p>
+        <p className="max-w-prose text-[15px] leading-relaxed text-ink/85">
+          <StreamText text={moment.rationale} id={moment.analyzed_at} />
+        </p>
       </div>
 
       <div className="mt-4 grid gap-x-8 gap-y-4 sm:grid-cols-[minmax(0,1fr)_180px]">
@@ -557,6 +567,23 @@ function SignalTimeline({ signals, highlight }: { signals: Signal[]; highlight?:
           {showAll ? "Show fewer" : `Show all ${signals.length}`}
         </button>
       )}
+    </div>
+  );
+}
+
+function DetailSkeleton() {
+  return (
+    <div aria-busy="true" aria-label="Loading customer">
+      <Skeleton className="h-4 w-28" />
+      <Skeleton className="mt-4 h-9 w-56" />
+      <Skeleton className="mt-2 h-4 w-32" />
+      <div className="mt-6 grid gap-5 lg:grid-cols-[minmax(0,1fr)_340px]">
+        <div className="flex flex-col gap-5">
+          <Skeleton className="h-72 w-full rounded-[var(--radius-card)]" />
+          <Skeleton className="h-80 w-full rounded-[var(--radius-card)]" />
+        </div>
+        <Skeleton className="h-96 w-full rounded-[var(--radius-card)]" />
+      </div>
     </div>
   );
 }

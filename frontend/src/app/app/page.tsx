@@ -5,7 +5,8 @@ import { Check, ChevronDown, ThumbsDown, ThumbsUp } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useEffect, useState } from "react";
 import { TwinChart } from "@/components/TwinChart";
-import { BrandMark, ErrorNote, errorMessage, LogoutButton, MockBadge, Spinner, useSession } from "@/components/shell";
+import { Money, Skeleton, StreamText } from "@/components/motion";
+import { BrandMark, ErrorNote, errorMessage, LogoutButton, MockBadge, useSession } from "@/components/shell";
 import { getOverview, rejectMoment, sendFeedback, setProactivity } from "@/lib/api";
 import {
   dayMonth,
@@ -39,11 +40,7 @@ export default function CustomerApp() {
   return (
     <main className="flex flex-1 justify-center bg-[#dfe8f1]">
       <div className="relative flex min-h-svh w-full max-w-[420px] flex-col bg-paper sm:my-6 sm:min-h-0 sm:overflow-hidden sm:rounded-[2.25rem] sm:shadow-[0_30px_80px_-30px_rgba(6,34,74,0.45)]">
-        {!data && !error && (
-          <div className="flex flex-1 items-center justify-center bg-navy-900 py-40">
-            <Spinner className="text-cyan-400" />
-          </div>
-        )}
+        {!data && !error && <OverviewSkeleton />}
         {error && (
           <div className="p-5">
             <ErrorNote message={error} onRetry={load} />
@@ -71,8 +68,8 @@ function Overview({ data, onChange }: { data: CustomerOverview; onChange: (d: Cu
           </div>
         </div>
         <p className="mt-7 text-[15px] text-ice/70">Hi {customer.first_name}, your balance today</p>
-        <p className="font-display tabular mt-1 text-[2.75rem] font-semibold leading-none tracking-tight">
-          {money(customer.balance)}
+        <p className="font-display mt-1 text-[2.75rem] font-semibold leading-none tracking-tight">
+          <Money value={customer.balance} />
         </p>
         {pinch ? (
           <p className="mt-3 inline-flex items-center gap-2 rounded-full bg-coral/15 px-3 py-1 text-sm text-[#ffb59e]">
@@ -153,7 +150,9 @@ function MomentBanner({ overview, onChange }: { overview: CustomerOverview; onCh
         <img src={meta.image} alt="" className="aspect-[16/8] w-full object-cover" onError={() => setImgOk(false)} />
       )}
       <div className="p-4">
-        <p className="font-display text-lg font-semibold leading-snug tracking-tight text-navy-900">{meta.headline}</p>
+        <p className="font-display text-lg font-semibold leading-snug tracking-tight text-navy-900">
+          <StreamText text={meta.headline} id={moment.analyzed_at} />
+        </p>
         <p className="mt-1.5 text-[15px] leading-relaxed text-muted">{meta.body}</p>
         <div className="mt-4 flex items-center justify-between gap-3">
           <span className={clsx("text-xs", support ? "text-mint" : "text-muted")}>
@@ -290,21 +289,28 @@ function UpcomingEvents({ months, pinchMonths }: { months: TwinMonth[]; pinchMon
       <h2 id="coming-up" className="font-display px-1 text-xl font-semibold tracking-tight text-navy-900">
         Coming up
       </h2>
-      <ol className="mt-3 flex flex-col gap-3">
-        {months.map((m) => {
+      <ol className="relative mt-3 rounded-[var(--radius-card)] bg-white px-4 py-1">
+        {months.map((m, idx) => {
           const special = m.events.filter((e) => e.source !== "recurring");
           const usual = m.events.filter((e) => e.source === "recurring");
           const usualNet = usual.reduce((sum, e) => sum + e.amount, 0);
           const tight = pinchMonths.includes(m.month);
           return (
-            <li key={m.month} className="rounded-[var(--radius-card)] border border-line bg-white p-4">
+            <li key={m.month} className={clsx("relative py-4 pl-6", idx > 0 && "border-t border-line")}>
+              <span
+                aria-hidden
+                className={clsx(
+                  "absolute left-0 top-[1.4rem] size-2.5 rounded-full ring-4",
+                  tight ? "bg-coral ring-coral-soft" : "bg-navy-500 ring-ice",
+                )}
+              />
               <div className="flex items-baseline justify-between gap-3">
                 <span className="font-semibold text-navy-900">{monthLong(m.month)}</span>
                 <span className={clsx("tabular text-sm", tight ? "font-semibold text-coral" : "text-muted")}>
                   ends at {money(m.balance)}
                 </span>
               </div>
-              <ul className="mt-2.5 space-y-2 text-[15px]">
+              <ul className="mt-2 space-y-1.5 text-[15px]">
                 {special.map((e) => (
                   <li key={e.label} className="flex items-center justify-between gap-3">
                     <span className="flex min-w-0 items-center gap-2">
@@ -313,16 +319,14 @@ function UpcomingEvents({ months, pinchMonths }: { months: TwinMonth[]; pinchMon
                           Estimate
                         </span>
                       ) : (
-                        <span className="shrink-0 rounded-md bg-ice px-1.5 text-[11px] font-medium text-navy-700">
-                          Planned
-                        </span>
+                        <span className="shrink-0 rounded-md bg-ice px-1.5 text-[11px] font-medium text-navy-700">Planned</span>
                       )}
                       <span className="truncate">{e.label.replace(/ \(estimate\)$/, "")}</span>
                     </span>
                     <span className={clsx("tabular shrink-0", e.amount > 0 && "text-mint")}>{signedMoney(e.amount)}</span>
                   </li>
                 ))}
-                <li className="flex items-center justify-between gap-3 text-muted">
+                <li className="flex items-center justify-between gap-3 text-sm text-muted">
                   <span>Usual income and bills ({usual.length})</span>
                   <span className="tabular">{signedMoney(usualNet)}</span>
                 </li>
@@ -332,6 +336,25 @@ function UpcomingEvents({ months, pinchMonths }: { months: TwinMonth[]; pinchMon
         })}
       </ol>
     </section>
+  );
+}
+
+function OverviewSkeleton() {
+  return (
+    <div aria-busy="true" aria-label="Loading your overview">
+      <div className="bg-navy-900 px-5 pb-12 pt-[max(1.25rem,env(safe-area-inset-top))]">
+        <BrandMark />
+        <Skeleton className="skeleton-dark mt-7 h-4 w-44" />
+        <Skeleton className="skeleton-dark mt-3 h-11 w-40" />
+        <Skeleton className="skeleton-dark mt-4 h-7 w-52 rounded-full" />
+        <Skeleton className="skeleton-dark mt-9 h-[190px] w-full rounded-2xl" />
+      </div>
+      <div className="-mt-6 space-y-4 rounded-t-[1.75rem] bg-paper px-4 pt-5">
+        <Skeleton className="h-60 w-full rounded-[var(--radius-card)]" />
+        <Skeleton className="h-6 w-28" />
+        <Skeleton className="h-44 w-full rounded-[var(--radius-card)]" />
+      </div>
+    </div>
   );
 }
 

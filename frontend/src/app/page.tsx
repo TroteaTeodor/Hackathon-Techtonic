@@ -15,7 +15,7 @@ export default function Home() {
 
   return (
     <main className="flex flex-1 flex-col items-center justify-center gap-6 bg-navy-900">
-      <BrandMark />
+      <BrandMark href={null} />
       <Spinner className="text-cyan-400" />
     </main>
   );

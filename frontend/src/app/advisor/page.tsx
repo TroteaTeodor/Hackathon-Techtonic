@@ -5,7 +5,8 @@ import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { MomentChip, StressMeter } from "@/components/advisor";
-import { ErrorNote, errorMessage, Spinner } from "@/components/shell";
+import { Skeleton } from "@/components/motion";
+import { ErrorNote, errorMessage } from "@/components/shell";
 import { listCustomers } from "@/lib/api";
 import { MOMENT_KEYS, MOMENTS, monthLong } from "@/lib/format";
 import type { CustomerSummary, MomentKey } from "@/lib/types";
@@ -73,9 +74,18 @@ export default function CustomersPage() {
       <div className="mt-5">
         {error && <ErrorNote message={error} onRetry={load} />}
         {!rows && !error && (
-          <div className="flex justify-center py-16">
-            <Spinner className="text-navy-700" />
-          </div>
+          <ul aria-busy="true" aria-label="Loading customers" className="flex flex-col gap-2">
+            {Array.from({ length: 6 }, (_, i) => (
+              <li key={i} className="flex items-center gap-4 rounded-2xl border border-line bg-white p-4">
+                <div className="flex-1 space-y-2">
+                  <Skeleton className="h-4 w-40" />
+                  <Skeleton className="h-3 w-24" />
+                </div>
+                <Skeleton className="h-6 w-28 rounded-full" />
+                <Skeleton className="hidden h-3 w-20 md:block" />
+              </li>
+            ))}
+          </ul>
         )}
         {rows && rows.length === 0 && (
           <p className="rounded-[var(--radius-card)] border border-dashed border-line bg-white px-4 py-10 text-center text-sm text-muted">
@@ -90,7 +100,7 @@ export default function CustomersPage() {
                 <li key={c.id}>
                   <Link
                     href={`/advisor/customers/${c.id}`}
-                    className="flex items-center gap-3 rounded-2xl border border-line bg-white p-4 active:bg-paper"
+                    className="press flex items-center gap-3 rounded-2xl border border-line bg-white p-4 hover:border-navy-500/40 active:bg-paper"
                   >
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2">
@@ -130,9 +140,12 @@ export default function CustomersPage() {
                 </thead>
                 <tbody>
                   {rows.map((c) => (
-                    <tr key={c.id} className="group relative border-b border-line last:border-0 hover:bg-paper">
+                    <tr key={c.id} className="group relative cursor-pointer border-b border-line transition-colors last:border-0 hover:bg-ice/60">
                       <td className="px-5 py-3.5">
-                        <Link href={`/advisor/customers/${c.id}`} className="font-semibold text-navy-900 after:absolute after:inset-0">
+                        <Link
+                          href={`/advisor/customers/${c.id}`}
+                          className="font-semibold text-navy-900 underline-offset-4 after:absolute after:inset-0 group-hover:underline"
+                        >
                           {c.name}
                         </Link>
                         <div className="text-xs text-muted">

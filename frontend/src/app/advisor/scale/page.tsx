@@ -3,11 +3,13 @@
 import clsx from "clsx";
 import { useCallback, useEffect, useState } from "react";
 import { STATUS_TONE } from "@/components/advisor";
-import { ErrorNote, errorMessage, Spinner } from "@/components/shell";
+import { Num, Skeleton } from "@/components/motion";
+import { ErrorNote, errorMessage } from "@/components/shell";
 import { getScale } from "@/lib/api";
 import { count, money, moneyCents, MOMENT_KEYS, MOMENTS, percent, STATUS_LABEL } from "@/lib/format";
 import type { Intervention, ScaleStats } from "@/lib/types";
 
+const EUR2 = { style: "currency", currency: "EUR", minimumFractionDigits: 2, maximumFractionDigits: 2 } as const;
 const STATUS_ORDER: Intervention["status"][] = ["delivered", "review", "held", "dismissed"];
 const STATUS_BAR: Record<Intervention["status"], string> = {
   delivered: "bg-mint",
@@ -33,8 +35,9 @@ export default function ScalePage() {
   if (error) return <ErrorNote message={error} onRetry={load} />;
   if (!data)
     return (
-      <div className="flex justify-center py-24">
-        <Spinner className="text-navy-700" />
+      <div aria-busy="true" aria-label="Loading scale view" className="flex flex-col gap-5">
+        <Skeleton className="h-80 w-full rounded-[1.75rem]" />
+        <Skeleton className="h-72 w-full rounded-[var(--radius-card)]" />
       </div>
     );
 
@@ -54,13 +57,13 @@ export default function ScalePage() {
           <div>
             <p className="text-sm text-ice/65">Projected AI cost per day</p>
             <p className="font-display tabular mt-1 text-5xl font-semibold tracking-tight text-cyan-300 sm:text-6xl">
-              {moneyCents(data.projected_daily_cost_eur)}
+              <Num value={data.projected_daily_cost_eur} format={EUR2} />
             </p>
           </div>
           <div>
             <p className="text-sm text-ice/65">Per month</p>
             <p className="font-display tabular mt-1 text-5xl font-semibold tracking-tight sm:text-6xl">
-              {moneyCents(data.projected_monthly_cost_eur)}
+              <Num value={data.projected_monthly_cost_eur} format={EUR2} />
             </p>
           </div>
         </div>
