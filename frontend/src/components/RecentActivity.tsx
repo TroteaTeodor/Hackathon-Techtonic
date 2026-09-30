@@ -105,7 +105,7 @@ export function RecentActivity() {
         {rows && rows.length > 0 && <span className="text-sm text-muted">Current account</span>}
       </div>
 
-      <div className="mt-3 overflow-hidden rounded-[var(--radius-card)] bg-white">
+      <div className="elev-1 mt-3 overflow-hidden rounded-[var(--radius-card)] bg-white">
         {rows === undefined && !failed && (
           <ul aria-busy="true" aria-label="Loading transactions">
             {Array.from({ length: 4 }, (_, i) => (

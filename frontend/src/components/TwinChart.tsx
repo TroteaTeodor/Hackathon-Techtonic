@@ -101,8 +101,6 @@ export function TwinChart({
       };
 
   const selectedMonth = twin.months.find((m) => m.month === shown);
-  const selectedPinch = twin.pinch_points.find((p) => p.month === shown);
-  const notable = selectedMonth?.events.filter((e) => e.source !== "recurring") ?? [];
 
   return (
     <div className={clsx("w-full select-none", className)}>
@@ -246,44 +244,82 @@ export function TwinChart({
         <span className="ml-auto hidden sm:inline">Hover or tap a month</span>
       </div>
 
-      {selectedMonth && (
+      {/* Every month's details sit in one grid cell, so the box is always as tall as the busiest month
+          and hovering from month to month never pushes the page. Only the chosen one is visible. */}
+      <div
+        className={clsx(
+          "mt-3 grid grid-cols-[minmax(0,1fr)] rounded-2xl p-3.5 text-sm",
+          dark ? "bg-white/[0.07] text-ice" : "border border-line bg-white",
+        )}
+        aria-live="polite"
+      >
         <div
-          key={selectedMonth.month}
           className={clsx(
-            "fade-up mt-3 rounded-2xl p-3.5 text-sm",
-            dark ? "bg-white/[0.07] text-ice" : "border border-line bg-white",
+            "col-start-1 row-start-1 min-w-0 transition-opacity duration-200",
+            selectedMonth ? "invisible opacity-0" : "opacity-100",
+            dark ? "text-ice/60" : "text-muted",
           )}
         >
-          <div className="flex items-baseline justify-between gap-3">
-            <span className="font-semibold">{monthLong(selectedMonth.month)}</span>
-            <span className={clsx("tabular font-semibold", selectedMonth.balance < BUFFER && "text-coral")}>
-              {money(selectedMonth.balance)}
-            </span>
-          </div>
-          {selectedPinch && (
-            <p className={clsx("mt-1.5 leading-snug", dark ? "text-ice/80" : "text-muted")}>{selectedPinch.reason}</p>
-          )}
-          {notable.length > 0 && (
-            <ul className="mt-2 space-y-1">
-              {notable.map((e) => (
-                <li key={e.label} className="flex items-center justify-between gap-3">
-                  <span className="flex min-w-0 items-center gap-2">
-                    {e.source === "moment" ? (
-                      <span className="size-1.5 shrink-0 rotate-45 border-[1.5px] border-cyan-500" />
-                    ) : (
-                      <span className={clsx("size-1.5 shrink-0 rounded-full", dark ? "bg-ice/50" : "bg-muted/60")} />
-                    )}
-                    <span className="truncate">{e.label}</span>
-                  </span>
-                  <span className="tabular shrink-0">{signedMoney(e.amount)}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-          {!selectedPinch && notable.length === 0 && (
-            <p className={clsx("mt-1", dark ? "text-ice/60" : "text-muted")}>Only your usual income and bills.</p>
-          )}
+          Hover or tap a month to see what happens in it.
         </div>
+        {twin.months.map((m) => (
+          <MonthDetails
+            key={m.month}
+            month={m}
+            pinch={twin.pinch_points.find((p) => p.month === m.month)}
+            dark={dark}
+            active={m.month === shown}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MonthDetails({
+  month,
+  pinch,
+  dark,
+  active,
+}: {
+  month: Twin["months"][number];
+  pinch?: Twin["pinch_points"][number];
+  dark: boolean;
+  active: boolean;
+}) {
+  const notable = month.events.filter((e) => e.source !== "recurring");
+  return (
+    <div
+      aria-hidden={!active}
+      className={clsx(
+        "col-start-1 row-start-1 min-w-0 transition-[opacity,transform] duration-200 ease-out",
+        active ? "translate-y-0 opacity-100" : "invisible translate-y-0.5 opacity-0",
+      )}
+    >
+      <div className="flex items-baseline justify-between gap-3">
+        <span className="font-semibold">{monthLong(month.month)}</span>
+        <span className={clsx("tabular font-semibold", month.balance < BUFFER && "text-coral")}>{money(month.balance)}</span>
+      </div>
+      {pinch && <p className={clsx("mt-1.5 leading-snug", dark ? "text-ice/80" : "text-muted")}>{pinch.reason}</p>}
+      {notable.length > 0 && (
+        <ul className="mt-2 space-y-1">
+          {notable.map((e) => (
+            <li key={e.label} className="flex items-center justify-between gap-3">
+              <span className="flex min-w-0 items-center gap-2">
+                {e.source === "moment" ? (
+                  <span className="size-1.5 shrink-0 rotate-45 border-[1.5px] border-cyan-500" />
+                ) : (
+                  <span className={clsx("size-1.5 shrink-0 rounded-full", dark ? "bg-ice/50" : "bg-muted/60")} />
+                )}
+                <span className="truncate">{e.label}</span>
+              </span>
+              <span className="tabular shrink-0">{signedMoney(e.amount)}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+      {!pinch && notable.length === 0 && (
+        <p className={clsx("mt-1", dark ? "text-ice/60" : "text-muted")}>Only your usual income and bills.</p>
       )}
     </div>
   );
