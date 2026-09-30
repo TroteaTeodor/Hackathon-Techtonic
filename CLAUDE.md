@@ -14,24 +14,43 @@
 
 ## Running locally
 ```bash
-docker compose up -d --build   # Postgres on :5432, FastAPI on :8000 (hot reload)
+cp .env.example .env            # then fill in GOOGLE_CLOUD_PROJECT, SESSION_SECRET, DEMO_PASSWORD
+# put the GCP service-account key at secrets/gcp-sa.json (git-ignored)
+docker compose up -d --build    # Postgres :5432, FastAPI :8000 (hot reload); migrates + seeds on start
 cd frontend && pnpm install && pnpm dev   # Next.js on :3000
 ```
-- API docs: http://localhost:8000/docs
-- DB connection: `postgresql://app:app@localhost:5432/app`
-- Frontend reads the API base URL from `NEXT_PUBLIC_API_URL` (`frontend/.env.local`).
+- API docs: http://localhost:8000/docs · health: http://localhost:8000/health (`"ai": true` when Gemini is configured)
+- DB connection: `postgresql://app:app@localhost:5432/app`. Fresh start: `docker compose down -v`.
+- Frontend reads `NEXT_PUBLIC_API_URL` and `NEXT_PUBLIC_USE_MOCKS` from `frontend/.env.local`.
+- Demo logins (password = `DEMO_PASSWORD`): `advisor`, and customers `sara` (moving home), `lien` (baby),
+  `ahmed` (new job, no marketing consent), `marc` (retirement), `julie` (financial stress), `pieter` (car), `jan` (routine).
 
-## Backend conventions
-- Python deps go in `backend/requirements.txt`; rebuild with `docker compose up -d --build backend`.
-- Models in `app/models.py`, Pydantic schemas in `app/schemas.py`, routes in `app/main.py`.
-- Schema changes go through Alembic (`backend/migrations/`); migrations run automatically on container start.
-  - New migration: `docker compose exec backend alembic revision --autogenerate -m "<message>"`, then review the generated file.
+### Environment variables (root `.env`, see `.env.example`)
+| Variable | Purpose |
+|---|---|
+| `SESSION_SECRET` | Signs session cookies. Required, ≥32 chars; the backend refuses to start without it. |
+| `DEMO_PASSWORD` | Password for all demo accounts. Without it no demo users are created. |
+| `COOKIE_SECURE` | `true` only when served over HTTPS. |
+| `GOOGLE_GENAI_USE_VERTEXAI`, `GOOGLE_CLOUD_PROJECT`, `GOOGLE_CLOUD_LOCATION` | Gemini via Vertex AI (location `global` for Gemini 3.x). Key file mounted from `secrets/gcp-sa.json`. |
+| `GEMINI_MODEL` | Default `gemini-3.8-flash`. |
+| `GEMINI_API_KEY` | AI Studio key, used only when Vertex is off. |
 
-## Jev categorization
-- Items are sorted into categories by Jev (`~typesafe/jev-latest`) through OpenRouter's Decisions API (`app/jev.py`).
-- Categories and their descriptions live in `app/categories.py`; edit them there.
-- Needs `OPENROUTER_API_KEY` in the root `.env` (copy `.env.example`). Without it, items are saved with no category.
-- Jev failures never block saving an item; `POST /items/{id}/categorize` re-runs it.
+## Backend
+- Python deps in `backend/requirements.txt`; rebuild with `docker compose up -d --build backend`.
+- Tests: `docker compose exec backend pytest -q` (separate `app_test` database, rules only, no AI calls).
+  `tests/test_contract.py` validates `frontend/src/mocks/*.json` against the Pydantic contract.
+- Schema changes go through Alembic (`backend/migrations/`); migrations run on container start.
+  New migration: `docker compose exec backend alembic revision --autogenerate -m "<message>"`, then review it.
+- Layout (`backend/app/`):
+  - `schemas.py`: the API contract (mirrors `frontend/src/lib/types.ts`; change both together)
+  - `models.py`: tables · `seed.py`: synthetic story customers + generated population
+  - `detection/`: `rules.py` (deterministic) and `gemini.py` (structured output, falls back to rules on any error)
+  - `twin.py`: 12-month forecast · `interventions.py`: catalog + ordered guardrail policy
+  - `analysis.py`: detect → twin → policy, persisted; runs only on new signal, preference change or moment rejection
+  - `auth.py`: scrypt hashes, JWT session cookie, login rate limit, `require_customer` / `require_advisor`
+  - `routers/`: `auth.py` (`/auth/*`), `me.py` (`/me/*`, customer from session only), `advisor.py`
+- Security rules: customer routes never take a customer ID; lookups filter by the session's customer and
+  return 404 for anything else. Every advisor route depends on `require_advisor`.
 
 ## Git
 - Do not add `Co-Authored-By`, "Generated with Claude Code", session links, or any other AI attribution to commit messages or PR descriptions.

@@ -1,0 +1,3944 @@
+[
+ {
+  "id": "move_van_ikea_fluvius",
+  "label": "moving_home",
+  "type": "paraphrase",
+  "note": "Van rental, flat-pack furniture to a different address and a new grid connection; no explicit move word",
+  "age": 31,
+  "balance": 2140.55,
+  "signals": [
+   {
+    "days_ago": 12,
+    "kind": "transaction",
+    "description": "Hertz Van Rental Gent — bestelwagen 20m3, 2 dagen",
+    "amount": -189.0
+   },
+   {
+    "days_ago": 11,
+    "kind": "transaction",
+    "description": "IKEA Gent — levering Kerkstraat 14, 9050 Gentbrugge",
+    "amount": -1246.3
+   },
+   {
+    "days_ago": 9,
+    "kind": "transaction",
+    "description": "Fluvius — aansluiting en meteropname nieuw leveringspunt",
+    "amount": -62.0
+   },
+   {
+    "days_ago": 4,
+    "kind": "app_event",
+    "description": "Updated postal address in app profile to Kerkstraat 14, Gentbrugge",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "move_rental_guarantee_blocked_account",
+  "label": "moving_home",
+  "type": "paraphrase",
+  "note": "Blocked rental-guarantee account plus internet installation and commune registration",
+  "age": 26,
+  "balance": 380.1,
+  "signals": [
+   {
+    "days_ago": 20,
+    "kind": "contact",
+    "description": "Branch visit: open blocked huurwaarborgrekening, 2 months' rent, landlord as co-beneficiary",
+    "amount": null
+   },
+   {
+    "days_ago": 19,
+    "kind": "transaction",
+    "description": "Transfer to huurwaarborgrekening — Lange Lozanastraat app. 3B",
+    "amount": -1700.0
+   },
+   {
+    "days_ago": 8,
+    "kind": "transaction",
+    "description": "Proximus — installatie internet en tv, nieuw adres",
+    "amount": -79.0
+   },
+   {
+    "days_ago": 5,
+    "kind": "transaction",
+    "description": "Stad Antwerpen — dienst bevolking, inschrijving nieuwe verblijfplaats",
+    "amount": -25.0
+   }
+  ]
+ },
+ {
+  "id": "move_immo_agency_commission_tenant",
+  "label": "moving_home",
+  "type": "paraphrase",
+  "note": "Agency commission and lease registration phrased in Dutch vastgoed terms, no English keyword",
+  "age": 35,
+  "balance": 4820.0,
+  "signals": [
+   {
+    "days_ago": 25,
+    "kind": "search",
+    "description": "huurcontract registreren binnen 2 maanden wie betaalt",
+    "amount": null
+   },
+   {
+    "days_ago": 22,
+    "kind": "transaction",
+    "description": "Vastgoedkantoor Dewaele — bemiddelingskost huurcontract Mechelen",
+    "amount": -450.0
+   },
+   {
+    "days_ago": 22,
+    "kind": "transaction",
+    "description": "Eigenaar J. V. — eerste maand huur + plaatsbeschrijving intrede",
+    "amount": -1180.0
+   },
+   {
+    "days_ago": 3,
+    "kind": "transaction",
+    "description": "Brico Mechelen — verhuisdozen, tape, schilderstape",
+    "amount": -54.2
+   }
+  ]
+ },
+ {
+  "id": "move_handover_cleaning_key_deposit",
+  "label": "moving_home",
+  "type": "paraphrase",
+  "note": "End-of-lease cleaning and key deposit signal leaving the old flat, not a routine clean",
+  "age": 29,
+  "balance": 1655.4,
+  "signals": [
+   {
+    "days_ago": 14,
+    "kind": "transaction",
+    "description": "Net & Proper BV — eindschoonmaak appartement voor plaatsbeschrijving uittrede",
+    "amount": -240.0
+   },
+   {
+    "days_ago": 13,
+    "kind": "transaction",
+    "description": "Syndicus Residentie Parkzicht — waarborg sleutels en badge nieuwe bewoner",
+    "amount": -75.0
+   },
+   {
+    "days_ago": 10,
+    "kind": "transaction",
+    "description": "Vorige verhuurder — terugbetaling huurwaarborg",
+    "amount": 1350.0
+   },
+   {
+    "days_ago": 6,
+    "kind": "search",
+    "description": "wijkagent controle domicilie hoe lang wachten",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "move_demenagement_lift_engie",
+  "label": "moving_home",
+  "type": "paraphrase",
+  "note": "French-language removal firm and furniture lift; 'déménagement' is not a rule keyword",
+  "age": 42,
+  "balance": 3390.75,
+  "signals": [
+   {
+    "days_ago": 18,
+    "kind": "transaction",
+    "description": "Déménagements Lambert SPRL — acompte 30% transport 3 chambres",
+    "amount": -420.0
+   },
+   {
+    "days_ago": 7,
+    "kind": "transaction",
+    "description": "Location Lift Namur — monte-meubles 4 heures, rue de Fer",
+    "amount": -210.0
+   },
+   {
+    "days_ago": 7,
+    "kind": "transaction",
+    "description": "Déménagements Lambert SPRL — solde",
+    "amount": -980.0
+   },
+   {
+    "days_ago": 5,
+    "kind": "transaction",
+    "description": "Engie — ouverture compteur gaz et électricité, nouveau point de fourniture",
+    "amount": -35.0
+   }
+  ]
+ },
+ {
+  "id": "move_registration_duties_purchase",
+  "label": "moving_home",
+  "type": "paraphrase",
+  "note": "House purchase shown only via registration duties and deed costs, avoiding the obvious keyword",
+  "age": 38,
+  "balance": 12450.0,
+  "signals": [
+   {
+    "days_ago": 28,
+    "kind": "transaction",
+    "description": "Transfer to derdenrekening — voorschot aktekosten aankoop woning Leuven",
+    "amount": -24800.0
+   },
+   {
+    "days_ago": 27,
+    "kind": "search",
+    "description": "verlaagd tarief registratierechten enige eigen woning 2%",
+    "amount": null
+   },
+   {
+    "days_ago": 15,
+    "kind": "contact",
+    "description": "Phone call: asked when the housing loan funds are released for the signing of the deed",
+    "amount": null
+   },
+   {
+    "days_ago": 3,
+    "kind": "transaction",
+    "description": "Slotenmaker Vandenbroeck — vervangen cilindersloten voordeur en achterdeur",
+    "amount": -265.0
+   }
+  ]
+ },
+ {
+  "id": "move_bpost_forwarding_watergroep",
+  "label": "moving_home",
+  "type": "paraphrase",
+  "note": "Mail forwarding and water meter closing/opening; mundane admin that implies a relocation",
+  "age": 47,
+  "balance": 2210.3,
+  "signals": [
+   {
+    "days_ago": 16,
+    "kind": "transaction",
+    "description": "bpost — doorzendservice post 6 maanden",
+    "amount": -44.0
+   },
+   {
+    "days_ago": 12,
+    "kind": "transaction",
+    "description": "De Watergroep — eindafrekening meterstand Hasselt",
+    "amount": -118.4
+   },
+   {
+    "days_ago": 11,
+    "kind": "transaction",
+    "description": "Water-link — opening klantdossier Mortsel",
+    "amount": -20.0
+   },
+   {
+    "days_ago": 2,
+    "kind": "app_event",
+    "description": "Changed correspondence address from Hasselt to Mortsel",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "move_first_flat_fridge_deposit",
+  "label": "moving_home",
+  "type": "paraphrase",
+  "note": "Young adult leaving parents: first rent, deposit and appliances, only everyday merchant names",
+  "age": 23,
+  "balance": 610.85,
+  "signals": [
+   {
+    "days_ago": 21,
+    "kind": "transaction",
+    "description": "Transfer from parents — 'voor je eerste eigen stekje'",
+    "amount": 1500.0
+   },
+   {
+    "days_ago": 20,
+    "kind": "transaction",
+    "description": "Verhuurder M. D. — waarborg + huur oktober studio Kortrijk",
+    "amount": -1560.0
+   },
+   {
+    "days_ago": 9,
+    "kind": "transaction",
+    "description": "Coolblue — koelkast en wasmachine, levering en installatie",
+    "amount": -689.0
+   },
+   {
+    "days_ago": 8,
+    "kind": "transaction",
+    "description": "Luminus — nieuw energiecontract, voorschot eerste maand",
+    "amount": -85.0
+   }
+  ]
+ },
+ {
+  "id": "move_senior_serviceflat_downsize",
+  "label": "moving_home",
+  "type": "paraphrase",
+  "note": "Elderly customer downsizing to a service flat; age might mislead a model toward retirement",
+  "age": 79,
+  "balance": 38720.0,
+  "signals": [
+   {
+    "days_ago": 26,
+    "kind": "transaction",
+    "description": "Vzw Woonzorg Ter Linde — instapwaarborg assistentiewoning",
+    "amount": -2500.0
+   },
+   {
+    "days_ago": 19,
+    "kind": "transaction",
+    "description": "Kringwinkel Brugge — ophaling inboedel woning",
+    "amount": -150.0
+   },
+   {
+    "days_ago": 14,
+    "kind": "transaction",
+    "description": "Woonzorg Ter Linde — eerste maandprijs serviceflat",
+    "amount": -1340.0
+   },
+   {
+    "days_ago": 6,
+    "kind": "contact",
+    "description": "Daughter came to branch with her father to update his address to the service flat",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "move_brussels_sibelga_vivaqua",
+  "label": "moving_home",
+  "type": "paraphrase",
+  "note": "Brussels utilities and commune fee in French; needs local knowledge of Sibelga/Vivaqua",
+  "age": 33,
+  "balance": 1890.6,
+  "signals": [
+   {
+    "days_ago": 17,
+    "kind": "transaction",
+    "description": "Sibelga — frais de réouverture compteur, chaussée de Wavre",
+    "amount": -54.0
+   },
+   {
+    "days_ago": 16,
+    "kind": "transaction",
+    "description": "Vivaqua — ouverture contrat eau, nouvel occupant",
+    "amount": -30.0
+   },
+   {
+    "days_ago": 10,
+    "kind": "transaction",
+    "description": "Commune d'Ixelles — changement de domicile, nouvelle carte d'identité",
+    "amount": -24.5
+   },
+   {
+    "days_ago": 4,
+    "kind": "search",
+    "description": "stationnement carte riverain Ixelles délai",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "move_house_sale_and_new_lease",
+  "label": "moving_home",
+  "type": "paraphrase",
+  "note": "Proceeds from selling a house arriving plus paint and curtains for a new place",
+  "age": 55,
+  "balance": 214300.0,
+  "signals": [
+   {
+    "days_ago": 24,
+    "kind": "transaction",
+    "description": "Derdenrekening Kantoor Peeters — saldo verkoopprijs woning Lindenlaan",
+    "amount": 198500.0
+   },
+   {
+    "days_ago": 23,
+    "kind": "transaction",
+    "description": "Aflossing woonkrediet — vervroegde volledige terugbetaling",
+    "amount": -61200.0
+   },
+   {
+    "days_ago": 12,
+    "kind": "transaction",
+    "description": "Gamma Aalst — muurverf 30L, rollers, afdekfolie",
+    "amount": -312.45
+   },
+   {
+    "days_ago": 5,
+    "kind": "transaction",
+    "description": "Deco Home Aalst — gordijnen op maat, plaatsing",
+    "amount": -890.0
+   }
+  ]
+ },
+ {
+  "id": "move_cohabitation_combining_households",
+  "label": "moving_home",
+  "type": "paraphrase",
+  "note": "Partners moving in together: one lease ends, shared account opened, second person's registration",
+  "age": 30,
+  "balance": 2745.0,
+  "signals": [
+   {
+    "days_ago": 27,
+    "kind": "contact",
+    "description": "Asked to open a joint account with partner for shared rent from next month",
+    "amount": null
+   },
+   {
+    "days_ago": 15,
+    "kind": "transaction",
+    "description": "Transport Van Hoof — vervoer meubels Leuven naar Heverlee",
+    "amount": -360.0
+   },
+   {
+    "days_ago": 14,
+    "kind": "transaction",
+    "description": "Verhuurder oude studio — verbrekingsvergoeding huurcontract 1 maand",
+    "amount": -720.0
+   },
+   {
+    "days_ago": 3,
+    "kind": "search",
+    "description": "verklaring wettelijke samenwoning aanvragen gemeente Leuven",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "family_kind_en_gezin_luiers",
+  "label": "growing_family",
+  "type": "paraphrase",
+  "note": "Diapers, infant formula and a Kind en Gezin consultation; no English family keyword",
+  "age": 32,
+  "balance": 1420.8,
+  "signals": [
+   {
+    "days_ago": 18,
+    "kind": "transaction",
+    "description": "Kruidvat Leuven — Pampers maat 1, billendoekjes",
+    "amount": -38.7
+   },
+   {
+    "days_ago": 12,
+    "kind": "app_event",
+    "description": "Calendar reminder saved: consultatie Kind en Gezin 6 weken",
+    "amount": null
+   },
+   {
+    "days_ago": 9,
+    "kind": "transaction",
+    "description": "Apotheek De Linde — Nutrilon 1 zuigelingenvoeding 2x800g",
+    "amount": -41.9
+   },
+   {
+    "days_ago": 4,
+    "kind": "transaction",
+    "description": "Kruidvat Leuven — Pampers maat 2, zalf",
+    "amount": -29.15
+   }
+  ]
+ },
+ {
+  "id": "family_groeipakket_startbedrag",
+  "label": "growing_family",
+  "type": "paraphrase",
+  "note": "Groeipakket start amount plus adding a newborn to the health fund; Flemish admin only",
+  "age": 34,
+  "balance": 3210.0,
+  "signals": [
+   {
+    "days_ago": 15,
+    "kind": "transaction",
+    "description": "FONS Groeipakket — startbedrag eerste kind",
+    "amount": 1283.73
+   },
+   {
+    "days_ago": 13,
+    "kind": "contact",
+    "description": "Asked how to add their newborn daughter as beneficiary on their savings account",
+    "amount": null
+   },
+   {
+    "days_ago": 8,
+    "kind": "transaction",
+    "description": "CM Leuven — aansluiting kind als persoon ten laste, hospitalisatieverzekering",
+    "amount": -12.5
+   },
+   {
+    "days_ago": 2,
+    "kind": "transaction",
+    "description": "FONS Groeipakket — basisbedrag september",
+    "amount": 173.2
+   }
+  ]
+ },
+ {
+  "id": "family_pediatrician_vaccines",
+  "label": "growing_family",
+  "type": "paraphrase",
+  "note": "Pediatrician and infant vaccine payments; must infer a new infant from medical context",
+  "age": 29,
+  "balance": 860.25,
+  "signals": [
+   {
+    "days_ago": 22,
+    "kind": "transaction",
+    "description": "Dr. Kinderarts Groepspraktijk Gent — consultatie zuigeling 1 maand",
+    "amount": -45.0
+   },
+   {
+    "days_ago": 20,
+    "kind": "transaction",
+    "description": "Apotheek Sint-Pieters — Rotarix vaccin, orale dosis",
+    "amount": -82.0
+   },
+   {
+    "days_ago": 11,
+    "kind": "transaction",
+    "description": "Helan — terugbetaling consultatie kinderarts",
+    "amount": 30.0
+   },
+   {
+    "days_ago": 6,
+    "kind": "search",
+    "description": "koorts zuigeling 8 weken wanneer naar spoed",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "family_gyneco_echo_kinderopvang",
+  "label": "growing_family",
+  "type": "paraphrase",
+  "note": "Expecting: ultrasound, NIPT and daycare waitlist, all in Dutch without 'pregnant'",
+  "age": 30,
+  "balance": 2980.4,
+  "signals": [
+   {
+    "days_ago": 29,
+    "kind": "transaction",
+    "description": "AZ Groeninge — NIPT-test, remgeld",
+    "amount": -8.68
+   },
+   {
+    "days_ago": 21,
+    "kind": "transaction",
+    "description": "Gynaecologie Dr. V. — echografie 12 weken",
+    "amount": -65.0
+   },
+   {
+    "days_ago": 14,
+    "kind": "search",
+    "description": "kinderopvang Kortrijk inschrijven hoeveel maanden op voorhand",
+    "amount": null
+   },
+   {
+    "days_ago": 7,
+    "kind": "app_event",
+    "description": "Opened simulation: impact of moederschapsrust on monthly net income",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "family_kraamzorg_geboortelijst",
+  "label": "growing_family",
+  "type": "paraphrase",
+  "note": "Postnatal home care and incoming gifts from a geboortelijst; Dutch 'geboorte' avoids the keyword",
+  "age": 33,
+  "balance": 4150.0,
+  "signals": [
+   {
+    "days_ago": 10,
+    "kind": "transaction",
+    "description": "Kraamzorg Kraamhulp Vlaanderen — 5 bezoeken thuis na bevalling",
+    "amount": -96.0
+   },
+   {
+    "days_ago": 9,
+    "kind": "transaction",
+    "description": "Overschrijving van tante — 'voor de kleine Lotte, proficiat!'",
+    "amount": 150.0
+   },
+   {
+    "days_ago": 8,
+    "kind": "transaction",
+    "description": "Geboortelijst Dreumes & Co — uitbetaling saldo lijst",
+    "amount": 640.0
+   },
+   {
+    "days_ago": 5,
+    "kind": "transaction",
+    "description": "Drukkerij Kaartje — geboortekaartjes 120 stuks",
+    "amount": -148.0
+   }
+  ]
+ },
+ {
+  "id": "family_wallonia_one_famiwal",
+  "label": "growing_family",
+  "type": "paraphrase",
+  "note": "Walloon system in French: ONE, Famiwal, mutuelle; 'naissance' is not a rule keyword",
+  "age": 27,
+  "balance": 1190.35,
+  "signals": [
+   {
+    "days_ago": 19,
+    "kind": "transaction",
+    "description": "Famiwal — allocation de naissance",
+    "amount": 1200.0
+   },
+   {
+    "days_ago": 17,
+    "kind": "transaction",
+    "description": "Solidaris — inscription enfant à charge, cotisation complémentaire",
+    "amount": -9.6
+   },
+   {
+    "days_ago": 12,
+    "kind": "app_event",
+    "description": "Bookmark: consultation ONE Charleroi, pesée et suivi nourrisson",
+    "amount": null
+   },
+   {
+    "days_ago": 3,
+    "kind": "transaction",
+    "description": "Delhaize Charleroi — lait infantile, langes, tire-lait",
+    "amount": -74.3
+   }
+  ]
+ },
+ {
+  "id": "family_nursery_furniture_carseat",
+  "label": "growing_family",
+  "type": "paraphrase",
+  "note": "Nursery furniture and an infant car seat purchase with no explicit arrival signal",
+  "age": 31,
+  "balance": 2335.9,
+  "signals": [
+   {
+    "days_ago": 25,
+    "kind": "transaction",
+    "description": "Maxi-Cosi webshop — autostoeltje groep 0+ met isofix basis",
+    "amount": -389.0
+   },
+   {
+    "days_ago": 24,
+    "kind": "transaction",
+    "description": "Kinderkamerwinkel Bopita — ledikant, commode en kast",
+    "amount": -1124.0
+   },
+   {
+    "days_ago": 13,
+    "kind": "search",
+    "description": "vanaf hoeveel weken zwangerschapsverlof aanvragen werkgever",
+    "amount": null
+   },
+   {
+    "days_ago": 6,
+    "kind": "transaction",
+    "description": "Hema — rompertjes maat 50/56, slaapzakje",
+    "amount": -46.8
+   }
+  ]
+ },
+ {
+  "id": "family_adoption_process",
+  "label": "growing_family",
+  "type": "paraphrase",
+  "note": "Growth via adoption: agency fees and preparation course, no pregnancy or medical signals",
+  "age": 41,
+  "balance": 9870.0,
+  "signals": [
+   {
+    "days_ago": 28,
+    "kind": "transaction",
+    "description": "Vlaams Centrum voor Adoptie — voorbereidingscursus kandidaat-adoptanten",
+    "amount": -350.0
+   },
+   {
+    "days_ago": 20,
+    "kind": "transaction",
+    "description": "Adoptiedienst Het Kinderhuis vzw — dossierkosten matching",
+    "amount": -2200.0
+   },
+   {
+    "days_ago": 11,
+    "kind": "search",
+    "description": "adoptieverlof duur en vergoeding RIZIV",
+    "amount": null
+   },
+   {
+    "days_ago": 4,
+    "kind": "contact",
+    "description": "Asked whether a 3-year-old adopted son can be added to their family health insurance",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "family_fertility_to_first_trimester",
+  "label": "growing_family",
+  "type": "paraphrase",
+  "note": "Fertility clinic payments followed by first-trimester follow-up; clinical wording only",
+  "age": 36,
+  "balance": 5120.45,
+  "signals": [
+   {
+    "days_ago": 30,
+    "kind": "transaction",
+    "description": "UZ Brussel Centrum Reproductieve Geneeskunde — IVF-cyclus, medicatie",
+    "amount": -640.0
+   },
+   {
+    "days_ago": 16,
+    "kind": "transaction",
+    "description": "UZ Brussel — bloedafname hCG, positieve controle",
+    "amount": -18.0
+   },
+   {
+    "days_ago": 9,
+    "kind": "transaction",
+    "description": "Apotheek — foliumzuur en vitamine D voor zwangeren",
+    "amount": -21.4
+   },
+   {
+    "days_ago": 2,
+    "kind": "search",
+    "description": "vroedvrouw zoeken thuisbegeleiding Brussel Nederlandstalig",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "family_father_geboorteverlof",
+  "label": "growing_family",
+  "type": "paraphrase",
+  "note": "Father's perspective: leave request and hospital stay payment; no mother-side signals",
+  "age": 35,
+  "balance": 1780.0,
+  "signals": [
+   {
+    "days_ago": 14,
+    "kind": "transaction",
+    "description": "AZ Sint-Jan Brugge — voorschot opname kraamafdeling partner",
+    "amount": -500.0
+   },
+   {
+    "days_ago": 12,
+    "kind": "search",
+    "description": "geboorteverlof 20 dagen opnemen in blokken",
+    "amount": null
+   },
+   {
+    "days_ago": 10,
+    "kind": "transaction",
+    "description": "Zorgpunt Brugge — aangifte kind bij burgerlijke stand, uittreksel akte",
+    "amount": -5.0
+   },
+   {
+    "days_ago": 3,
+    "kind": "transaction",
+    "description": "Aldi Brugge — luiers maat 1, flesjes, sterilisator",
+    "amount": -52.6
+   }
+  ]
+ },
+ {
+  "id": "family_twins_double_pram",
+  "label": "growing_family",
+  "type": "paraphrase",
+  "note": "Twins: double pram and doubled supplies; Dutch 'kinderwagen' instead of the English keyword",
+  "age": 28,
+  "balance": 640.1,
+  "signals": [
+   {
+    "days_ago": 23,
+    "kind": "transaction",
+    "description": "Kids Corner Hasselt — duo kinderwagen tweeling",
+    "amount": -899.0
+   },
+   {
+    "days_ago": 18,
+    "kind": "transaction",
+    "description": "Groeipakket MyFamily — startbedrag 2 kinderen",
+    "amount": 2567.46
+   },
+   {
+    "days_ago": 10,
+    "kind": "transaction",
+    "description": "Colruyt Hasselt — luiers newborn x4 pakken, flesvoeding x2",
+    "amount": -96.4
+   },
+   {
+    "days_ago": 5,
+    "kind": "search",
+    "description": "tweeling tegelijk voeden tips",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "family_second_child_bigger_car_seat",
+  "label": "growing_family",
+  "type": "paraphrase",
+  "note": "Second child: toddler moves to a bigger seat, new infant seat bought; ignoring car-purchase angle",
+  "age": 37,
+  "balance": 2890.0,
+  "signals": [
+   {
+    "days_ago": 21,
+    "kind": "transaction",
+    "description": "Dreumes Online — autostoel groep 1/2 voor peuter",
+    "amount": -229.0
+   },
+   {
+    "days_ago": 20,
+    "kind": "transaction",
+    "description": "Tweedehands Kapaza — reiswieg en maxicosi van zus",
+    "amount": -60.0
+   },
+   {
+    "days_ago": 9,
+    "kind": "transaction",
+    "description": "Kinderopvang De Kleine Beer — inschrijvingsvoorschot tweede kind",
+    "amount": -150.0
+   },
+   {
+    "days_ago": 4,
+    "kind": "app_event",
+    "description": "Added a second child profile in the family savings goals section",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "trap_notary_inheritance",
+  "label": "no_clear_moment",
+  "type": "trap",
+  "note": "Notary is for settling a late parent's estate, not a property purchase; no move follows",
+  "age": 46,
+  "balance": 18230.0,
+  "signals": [
+   {
+    "days_ago": 25,
+    "kind": "transaction",
+    "description": "Notaris De Smet — provisie aangifte van nalatenschap vader",
+    "amount": -1500.0
+   },
+   {
+    "days_ago": 18,
+    "kind": "transaction",
+    "description": "FOD Financiën — erfbelasting voorschot",
+    "amount": -3200.0
+   },
+   {
+    "days_ago": 9,
+    "kind": "transaction",
+    "description": "Notaris De Smet — uitkering aandeel nalatenschap spaartegoeden",
+    "amount": 14750.0
+   },
+   {
+    "days_ago": 3,
+    "kind": "contact",
+    "description": "Asked to close the deceased father's joint card and keep his statements archived",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "trap_baby_gift_for_friend",
+  "label": "no_clear_moment",
+  "type": "trap",
+  "note": "Baby items are gifts for a friend's newborn; customer is single, no other family signals",
+  "age": 27,
+  "balance": 1560.0,
+  "signals": [
+   {
+    "days_ago": 12,
+    "kind": "transaction",
+    "description": "Dreambaby Antwerpen — cadeaubon 50 EUR",
+    "amount": -50.0
+   },
+   {
+    "days_ago": 12,
+    "kind": "transaction",
+    "description": "Tikkie groepscadeau — baby shower Sarah, deel van 8 vrienden",
+    "amount": -25.0
+   },
+   {
+    "days_ago": 6,
+    "kind": "transaction",
+    "description": "Standaard Boekhandel — kraamcadeau voor collega",
+    "amount": -19.99
+   },
+   {
+    "days_ago": 2,
+    "kind": "transaction",
+    "description": "Café Kulminator — verjaardag vriend",
+    "amount": -42.5
+   }
+  ]
+ },
+ {
+  "id": "trap_routine_mortgage_insurance_renewal",
+  "label": "no_clear_moment",
+  "type": "trap",
+  "note": "Mortgage and home insurance are routine for a 14-year-old loan; nothing new is happening",
+  "age": 52,
+  "balance": 3480.0,
+  "signals": [
+   {
+    "days_ago": 27,
+    "kind": "transaction",
+    "description": "Mortgage instalment — loan ref 2012/HL/0843, month 166 of 240",
+    "amount": -912.4
+   },
+   {
+    "days_ago": 15,
+    "kind": "transaction",
+    "description": "AG Insurance — home insurance annual renewal, Beukenlaan 7 (since 2012)",
+    "amount": -486.2
+   },
+   {
+    "days_ago": 10,
+    "kind": "transaction",
+    "description": "Brandweerzone — jaarlijkse bijdrage",
+    "amount": -38.0
+   },
+   {
+    "days_ago": 5,
+    "kind": "transaction",
+    "description": "Colruyt Lier — boodschappen",
+    "amount": -96.3
+   }
+  ]
+ },
+ {
+  "id": "trap_grandparent_babysitter",
+  "label": "no_clear_moment",
+  "type": "trap",
+  "note": "Retired grandmother paying a babysitter and buying a travel cot for grandchildren's visits",
+  "age": 69,
+  "balance": 24100.0,
+  "signals": [
+   {
+    "days_ago": 28,
+    "kind": "transaction",
+    "description": "Federale Pensioendienst — rustpensioen september",
+    "amount": 1870.0
+   },
+   {
+    "days_ago": 16,
+    "kind": "transaction",
+    "description": "Babysitdienst Gezinsbond — oppas kleinkinderen zaterdagavond",
+    "amount": -40.0
+   },
+   {
+    "days_ago": 15,
+    "kind": "transaction",
+    "description": "Hema — reisbedje voor logeerpartij kleinkinderen",
+    "amount": -59.0
+   },
+   {
+    "days_ago": 4,
+    "kind": "transaction",
+    "description": "Transfer to grandson — birthday gift 'voor je 7de verjaardag'",
+    "amount": -50.0
+   }
+  ]
+ },
+ {
+  "id": "trap_real_estate_holiday_rental_spain",
+  "label": "travel_abroad",
+  "type": "trap",
+  "note": "'Real estate' agency only rents a holiday villa in Spain; the trip is the moment, not a move",
+  "age": 44,
+  "balance": 5620.0,
+  "signals": [
+   {
+    "days_ago": 26,
+    "kind": "transaction",
+    "description": "Costa Blanca Real Estate SL — holiday villa Jávea, 14 nights, deposit",
+    "amount": -950.0
+   },
+   {
+    "days_ago": 25,
+    "kind": "transaction",
+    "description": "Vueling — BRU-ALC 4 passengers, return",
+    "amount": -712.0
+   },
+   {
+    "days_ago": 12,
+    "kind": "transaction",
+    "description": "Sunny Cars — huurwagen Alicante 14 dagen",
+    "amount": -398.0
+   },
+   {
+    "days_ago": 3,
+    "kind": "app_event",
+    "description": "Enabled card usage worldwide for Spain, 12–26 October",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "trap_mortgage_instalment_rejected",
+  "label": "financial_stress",
+  "type": "trap",
+  "note": "Mortgage keyword appears, but a bounced instalment and short-term loans show stress, not a move",
+  "age": 39,
+  "balance": -412.6,
+  "signals": [
+   {
+    "days_ago": 24,
+    "kind": "transaction",
+    "description": "Mortgage instalment — rejected, insufficient funds",
+    "amount": -1045.0
+   },
+   {
+    "days_ago": 22,
+    "kind": "transaction",
+    "description": "Cofidis — mini-krediet uitbetaling",
+    "amount": 1500.0
+   },
+   {
+    "days_ago": 20,
+    "kind": "transaction",
+    "description": "Mortgage instalment — second attempt",
+    "amount": -1045.0
+   },
+   {
+    "days_ago": 8,
+    "kind": "search",
+    "description": "kan bank aflossing woonlening tijdelijk uitstellen bij werkloosheid",
+    "amount": null
+   },
+   {
+    "days_ago": 5,
+    "kind": "contact",
+    "description": "Called about temporarily lowering monthly instalments after being put on temporary unemployment",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "nj_departure_settlement_then_other_payroll",
+  "label": "new_job",
+  "type": "paraphrase",
+  "note": "Old firm pays final settlement, a different company pays the wage; no job words used",
+  "age": 29,
+  "balance": 4120.55,
+  "signals": [
+   {
+    "days_ago": 27,
+    "kind": "transaction",
+    "description": "Vandenbroucke Bouw BV — eindafrekening + vertrekvakantiegeld (holiday pay on departure)",
+    "amount": 1842.3
+   },
+   {
+    "days_ago": 20,
+    "kind": "search",
+    "description": "how is departure holiday pay taxed belgium",
+    "amount": null
+   },
+   {
+    "days_ago": 2,
+    "kind": "transaction",
+    "description": "SD Worx payroll — Loon 09/2026 Brightlane Logistics NV",
+    "amount": 2984.1
+   }
+  ]
+ },
+ {
+  "id": "nj_sign_on_bonus_home_office",
+  "label": "new_job",
+  "type": "paraphrase",
+  "note": "Sign-on bonus plus home-office setup; must infer a hire without contract words",
+  "age": 34,
+  "balance": 11870.0,
+  "signals": [
+   {
+    "days_ago": 12,
+    "kind": "transaction",
+    "description": "Qelvio Software BV — welcome bonus (sign-on), ref HR-2026-114",
+    "amount": 5000.0
+   },
+   {
+    "days_ago": 11,
+    "kind": "search",
+    "description": "tax on sign-on bonus belgium bedrijfsvoorheffing",
+    "amount": null
+   },
+   {
+    "days_ago": 9,
+    "kind": "transaction",
+    "description": "Coolblue BE — ergonomic desk chair + monitor arm",
+    "amount": -329.98
+   },
+   {
+    "days_ago": 3,
+    "kind": "transaction",
+    "description": "Qelvio Software BV — home office allowance 09/2026",
+    "amount": 148.73
+   }
+  ]
+ },
+ {
+  "id": "nj_commute_route_changed",
+  "label": "new_job",
+  "type": "paraphrase",
+  "note": "Only the commute changes: old bus pass stopped, new train route, pro-rata pay from another firm",
+  "age": 27,
+  "balance": 1730.4,
+  "signals": [
+   {
+    "days_ago": 29,
+    "kind": "app_event",
+    "description": "Standing order stopped: De Lijn — Buzzy Pazz Gent zone",
+    "amount": null
+   },
+   {
+    "days_ago": 26,
+    "kind": "transaction",
+    "description": "NMBS/SNCB — Trajecttreinkaart Leuven–Mechelen, 1 month (80% refunded by werkgever)",
+    "amount": -148.0
+   },
+   {
+    "days_ago": 5,
+    "kind": "transaction",
+    "description": "Blue-bike Mechelen — annual membership",
+    "amount": -12.0
+   },
+   {
+    "days_ago": 1,
+    "kind": "transaction",
+    "description": "Loon pro rata 08/09–30/09 — Vitalis Pharma NV via Group S",
+    "amount": 2210.64
+   }
+  ]
+ },
+ {
+  "id": "nj_company_vehicle_cancel_private_insurance",
+  "label": "new_job",
+  "type": "paraphrase",
+  "note": "Company car + fuel card look like a car purchase, but the payroll source changed",
+  "age": 41,
+  "balance": 6390.12,
+  "signals": [
+   {
+    "days_ago": 24,
+    "kind": "transaction",
+    "description": "Hoviq Consulting BV — last wage + pro rata end-of-year bonus",
+    "amount": 4380.9
+   },
+   {
+    "days_ago": 15,
+    "kind": "search",
+    "description": "benefit in kind company car 2026 calculation electric",
+    "amount": null
+   },
+   {
+    "days_ago": 8,
+    "kind": "contact",
+    "description": "Branch visit: wants to cancel private car cover from 1/10, a vehicle and fuel card are now provided by Arcelis Engineering",
+    "amount": null
+   },
+   {
+    "days_ago": 2,
+    "kind": "transaction",
+    "description": "Partena Professional — Salaris september, Arcelis Engineering NV",
+    "amount": 4105.33
+   }
+  ]
+ },
+ {
+  "id": "nj_dimona_letter_payout_account",
+  "label": "new_job",
+  "type": "paraphrase",
+  "note": "Dimona registration letter is a hire signal only a domain-aware reader recognises",
+  "age": 37,
+  "balance": 2290.0,
+  "signals": [
+   {
+    "days_ago": 18,
+    "kind": "contact",
+    "description": "Phone: customer got a Partena letter confirming Dimona IN declaration by Hoogland Engineering and asks which IBAN to give their payroll",
+    "amount": null
+   },
+   {
+    "days_ago": 16,
+    "kind": "app_event",
+    "description": "Downloaded account certificate (RIB/IBAN attestation) PDF",
+    "amount": null
+   },
+   {
+    "days_ago": 1,
+    "kind": "transaction",
+    "description": "Partena — Loon/Salaire 09/2026 Hoogland Engineering BV",
+    "amount": 3120.47
+   }
+  ]
+ },
+ {
+  "id": "nj_meal_vouchers_new_issuer",
+  "label": "new_job",
+  "type": "paraphrase",
+  "note": "Only perks change: meal-voucher card from a new issuer and a pro-rata wage",
+  "age": 32,
+  "balance": 1480.75,
+  "signals": [
+   {
+    "days_ago": 22,
+    "kind": "search",
+    "description": "pluxee card activation how long do meal vouchers take",
+    "amount": null
+   },
+   {
+    "days_ago": 20,
+    "kind": "app_event",
+    "description": "Blocked and removed saved card: Edenred meal voucher card (card closed by issuer)",
+    "amount": null
+   },
+   {
+    "days_ago": 4,
+    "kind": "transaction",
+    "description": "Securex — salaire prorata 15/09-30/09, Delvaux Retail SA",
+    "amount": 1215.2
+   },
+   {
+    "days_ago": 3,
+    "kind": "transaction",
+    "description": "Delvaux Retail SA — advance travel costs week 1 onboarding",
+    "amount": 86.4
+   }
+  ]
+ },
+ {
+  "id": "nj_graduate_suit_and_account_upgrade",
+  "label": "new_job",
+  "type": "paraphrase",
+  "note": "Recent graduate: first real wage, suit purchase, student account converted",
+  "age": 23,
+  "balance": 2605.18,
+  "signals": [
+   {
+    "days_ago": 28,
+    "kind": "transaction",
+    "description": "Suitsupply Antwerpen — suit and two shirts",
+    "amount": -468.0
+   },
+   {
+    "days_ago": 25,
+    "kind": "app_event",
+    "description": "Requested conversion of student account to standard current account",
+    "amount": null
+   },
+   {
+    "days_ago": 14,
+    "kind": "search",
+    "description": "what is gross to net for 3100 euro junior consultant",
+    "amount": null
+   },
+   {
+    "days_ago": 2,
+    "kind": "transaction",
+    "description": "Acerta — Loon september, Arvesta Advisory CV, functie junior consultant",
+    "amount": 2388.55
+   }
+  ]
+ },
+ {
+  "id": "nj_freelancer_becomes_employee",
+  "label": "new_job",
+  "type": "paraphrase",
+  "note": "Self-employed stops activity (social fund refund) and starts receiving payroll",
+  "age": 39,
+  "balance": 8760.0,
+  "signals": [
+   {
+    "days_ago": 26,
+    "kind": "transaction",
+    "description": "Xerius — refund provisional social contributions after cessation of self-employed activity",
+    "amount": 1120.66
+   },
+   {
+    "days_ago": 21,
+    "kind": "search",
+    "description": "stop vat number when going from freelance to salaried",
+    "amount": null
+   },
+   {
+    "days_ago": 19,
+    "kind": "app_event",
+    "description": "Closed business sub-account 'Freelance BE68 xxxx' and moved balance",
+    "amount": null
+   },
+   {
+    "days_ago": 1,
+    "kind": "transaction",
+    "description": "Liantis payroll — Salaris 09/2026 Norbex NV",
+    "amount": 3452.8
+   }
+  ]
+ },
+ {
+  "id": "nj_benefit_stops_wage_starts",
+  "label": "new_job",
+  "type": "paraphrase",
+  "note": "Unemployment allowance replaced by a wage from a metal firm, plus safety shoes",
+  "age": 46,
+  "balance": 910.25,
+  "signals": [
+   {
+    "days_ago": 29,
+    "kind": "transaction",
+    "description": "HVW-CAPAC — werkloosheidsuitkering augustus 2026",
+    "amount": 1152.0
+   },
+   {
+    "days_ago": 17,
+    "kind": "transaction",
+    "description": "Vandeputte Safety — S3 safety shoes + work trousers",
+    "amount": -134.9
+   },
+   {
+    "days_ago": 10,
+    "kind": "contact",
+    "description": "Chat: asks whether the HVW will still pay for the first days of September",
+    "amount": null
+   },
+   {
+    "days_ago": 2,
+    "kind": "transaction",
+    "description": "Securex — Loon september, Ferrant Metaalbouw NV",
+    "amount": 2604.15
+   }
+  ]
+ },
+ {
+  "id": "nj_nurse_switches_hospital",
+  "label": "new_job",
+  "type": "paraphrase",
+  "note": "Same profession, different hospital pays; parking and uniform hint at a start",
+  "age": 31,
+  "balance": 3320.9,
+  "signals": [
+   {
+    "days_ago": 27,
+    "kind": "transaction",
+    "description": "ZNA Middelheim — eindafrekening wedde + niet-opgenomen verlofdagen",
+    "amount": 1605.4
+   },
+   {
+    "days_ago": 14,
+    "kind": "transaction",
+    "description": "AZ Groeninge Kortrijk — staff parking badge deposit",
+    "amount": -35.0
+   },
+   {
+    "days_ago": 6,
+    "kind": "contact",
+    "description": "Asked to change income info in credit file: works at AZ Groeninge since 1 September",
+    "amount": null
+   },
+   {
+    "days_ago": 1,
+    "kind": "transaction",
+    "description": "AZ Groeninge — wedde september 2026",
+    "amount": 2790.12
+   }
+  ]
+ },
+ {
+  "id": "nj_hospitalisation_cover_continuation",
+  "label": "new_job",
+  "type": "paraphrase",
+  "note": "Continuation offer for old employer's health cover and wage from another company",
+  "age": 36,
+  "balance": 5044.6,
+  "signals": [
+   {
+    "days_ago": 23,
+    "kind": "search",
+    "description": "do I need to continue DKV hospitalisation insurance after leaving Colruyt",
+    "amount": null
+   },
+   {
+    "days_ago": 21,
+    "kind": "contact",
+    "description": "Email: customer forwards AG offer for individual continuation of group hospital cover, asks if needed as Tessaro NV covers it",
+    "amount": null
+   },
+   {
+    "days_ago": 3,
+    "kind": "transaction",
+    "description": "SD Worx — Loon 09/2026 Tessaro NV",
+    "amount": 3180.0
+   }
+  ]
+ },
+ {
+  "id": "nj_byod_laptop_refund_job_hunt_over",
+  "label": "new_job",
+  "type": "paraphrase",
+  "note": "Laptop bought and refunded by a company, job-hunting subscription ends",
+  "age": 30,
+  "balance": 2870.35,
+  "signals": [
+   {
+    "days_ago": 25,
+    "kind": "transaction",
+    "description": "LinkedIn Ireland — Premium Career, final month (cancelled)",
+    "amount": -39.99
+   },
+   {
+    "days_ago": 19,
+    "kind": "transaction",
+    "description": "Fnac Brussel — MacBook Air 13 (bring-your-own-device)",
+    "amount": -1299.0
+   },
+   {
+    "days_ago": 8,
+    "kind": "transaction",
+    "description": "Brevik Tech BV — reimbursement BYOD laptop onboarding",
+    "amount": 1299.0
+   },
+   {
+    "days_ago": 1,
+    "kind": "transaction",
+    "description": "Brevik Tech BV via Acerta — Loon september",
+    "amount": 3015.7
+   }
+  ]
+ },
+ {
+  "id": "ar_group_insurance_capital",
+  "label": "approaching_retirement",
+  "type": "paraphrase",
+  "note": "Group-insurance capital paid out at 65 and a question about spreading it",
+  "age": 65,
+  "balance": 91240.0,
+  "signals": [
+   {
+    "days_ago": 9,
+    "kind": "transaction",
+    "description": "AG Insurance — group insurance payout contract 7781, capital at end of career",
+    "amount": 86400.0
+   },
+   {
+    "days_ago": 6,
+    "kind": "search",
+    "description": "how to spread a large lump sum over funds and a term account",
+    "amount": null
+   },
+   {
+    "days_ago": 4,
+    "kind": "app_event",
+    "description": "Booked appointment: 'Investment advice — large one-off amount'",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "ar_final_wage_career_end_bonus_farewell",
+  "label": "approaching_retirement",
+  "type": "paraphrase",
+  "note": "Last wage with end-of-career bonus and a farewell reception, never naming it",
+  "age": 64,
+  "balance": 14320.8,
+  "signals": [
+   {
+    "days_ago": 21,
+    "kind": "transaction",
+    "description": "Brasserie De Markt Aalst — farewell reception, 42 guests",
+    "amount": -612.5
+   },
+   {
+    "days_ago": 20,
+    "kind": "transaction",
+    "description": "Hallmark cards & Co — thank-you cards colleagues",
+    "amount": -38.2
+   },
+   {
+    "days_ago": 3,
+    "kind": "transaction",
+    "description": "Securex — last wage + loopbaaneindepremie (end-of-career bonus) after 41 years, Solvane NV",
+    "amount": 7980.44
+   }
+  ]
+ },
+ {
+  "id": "ar_swt_bridging_scheme_start",
+  "label": "approaching_retirement",
+  "type": "paraphrase",
+  "note": "SWT bridging scheme: RVA allowance plus company supplement at 60",
+  "age": 60,
+  "balance": 5210.3,
+  "signals": [
+   {
+    "days_ago": 27,
+    "kind": "transaction",
+    "description": "Aurubis Belgium — last wage and holiday pay on departure",
+    "amount": 3890.0
+   },
+   {
+    "days_ago": 5,
+    "kind": "transaction",
+    "description": "RVA/ONEM via ACV — SWT allowance september (unemployment with company supplement)",
+    "amount": 1484.0
+   },
+   {
+    "days_ago": 4,
+    "kind": "transaction",
+    "description": "Aurubis Belgium — SWT company supplement 09/2026",
+    "amount": 622.1
+   },
+   {
+    "days_ago": 2,
+    "kind": "search",
+    "description": "can I do volunteer work or a flexi job while on SWT",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "ar_federal_service_start_date_letter",
+  "label": "approaching_retirement",
+  "type": "paraphrase",
+  "note": "Federal service letter on statutory old-age benefit start date, described indirectly",
+  "age": 66,
+  "balance": 23150.0,
+  "signals": [
+   {
+    "days_ago": 14,
+    "kind": "contact",
+    "description": "Branch: got a letter from the FPD/SFP confirming statutory old-age benefit starts 1 December; asks which account it will be paid into",
+    "amount": null
+   },
+   {
+    "days_ago": 12,
+    "kind": "search",
+    "description": "net amount statutory benefit after 44 career years married rate",
+    "amount": null
+   },
+   {
+    "days_ago": 7,
+    "kind": "app_event",
+    "description": "Viewed page 'Your finances after your working life'",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "ar_commuter_pass_refund_last_day",
+  "label": "approaching_retirement",
+  "type": "paraphrase",
+  "note": "Annual train pass refunded and a farewell gift from colleagues arrives at 64",
+  "age": 64,
+  "balance": 9870.4,
+  "signals": [
+   {
+    "days_ago": 18,
+    "kind": "transaction",
+    "description": "NMBS/SNCB — refund remaining months annual pass Aalst–Brussel-Centraal",
+    "amount": 312.6
+   },
+   {
+    "days_ago": 16,
+    "kind": "transaction",
+    "description": "Collega's afdeling logistiek — cadeau afscheid na 38 jaar",
+    "amount": 450.0
+   },
+   {
+    "days_ago": 9,
+    "kind": "search",
+    "description": "senior train ticket nmbs from what age",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "ar_spread_capital_before_stopping_work",
+  "label": "approaching_retirement",
+  "type": "paraphrase",
+  "note": "Advisor contact about annuity vs funds; stops working end of November",
+  "age": 63,
+  "balance": 18420.0,
+  "signals": [
+   {
+    "days_ago": 20,
+    "kind": "contact",
+    "description": "Advisor meeting: stops working end of November, wants to compare annuity vs funds for the capital from the employer plan",
+    "amount": null
+   },
+   {
+    "days_ago": 15,
+    "kind": "search",
+    "description": "tax on capital supplementary employer plan paid at 63",
+    "amount": null
+   },
+   {
+    "days_ago": 11,
+    "kind": "app_event",
+    "description": "Used simulator 'monthly income from a lump sum' — 20 years",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "ar_landingsbaan_part_time_career_end",
+  "label": "approaching_retirement",
+  "type": "paraphrase",
+  "note": "Landingsbaan (4/5 career-end time credit) allowance at 60; wage drops",
+  "age": 60,
+  "balance": 7630.15,
+  "signals": [
+   {
+    "days_ago": 25,
+    "kind": "transaction",
+    "description": "RVA/ONEM — onderbrekingsuitkering landingsbaan 4/5 (career-end time credit)",
+    "amount": 234.6
+   },
+   {
+    "days_ago": 2,
+    "kind": "transaction",
+    "description": "SD Worx — Loon 09/2026 Colana NV (4/5 regime)",
+    "amount": 2410.3
+   },
+   {
+    "days_ago": 1,
+    "kind": "search",
+    "description": "when can I stop working completely with 42 career years",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "ar_senior_association_last_payslip",
+  "label": "approaching_retirement",
+  "type": "paraphrase",
+  "note": "Senior association membership and golf club after last payslip; no age words",
+  "age": 65,
+  "balance": 12900.0,
+  "signals": [
+   {
+    "days_ago": 28,
+    "kind": "transaction",
+    "description": "Partena — last payslip + departure holiday pay, Van Hool Metaal NV",
+    "amount": 5210.75
+   },
+   {
+    "days_ago": 19,
+    "kind": "transaction",
+    "description": "Okra vzw — membership trefpunt 55+ Lokeren",
+    "amount": -28.0
+   },
+   {
+    "days_ago": 12,
+    "kind": "transaction",
+    "description": "Golfclub Damme — weekday membership",
+    "amount": -890.0
+   },
+   {
+    "days_ago": 6,
+    "kind": "app_event",
+    "description": "Changed income category in profile from 'employee' to 'no longer working'",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "ar_anticipatory_levy_at_sixty",
+  "label": "approaching_retirement",
+  "type": "paraphrase",
+  "note": "8% anticipatory levy on long-term savings at 60 plus career-length questions",
+  "age": 60,
+  "balance": 16780.9,
+  "signals": [
+   {
+    "days_ago": 22,
+    "kind": "transaction",
+    "description": "Anticipatory tax 8% on long-term savings contract (60 years) — withheld by insurer",
+    "amount": -2140.0
+   },
+   {
+    "days_ago": 15,
+    "kind": "search",
+    "description": "how many career years do I need to stop at 63 belgium",
+    "amount": null
+   },
+   {
+    "days_ago": 10,
+    "kind": "app_event",
+    "description": "Registered for webinar 'Preparing the end of your career'",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "ar_city_employee_end_of_service",
+  "label": "approaching_retirement",
+  "type": "paraphrase",
+  "note": "Civil servant's last pay, then questions about keeping health cover after work",
+  "age": 65,
+  "balance": 20430.0,
+  "signals": [
+   {
+    "days_ago": 29,
+    "kind": "transaction",
+    "description": "Stad Gent — laatste wedde, einde dienst",
+    "amount": 3620.4
+   },
+   {
+    "days_ago": 17,
+    "kind": "contact",
+    "description": "Phone: asks how to keep the city's group hospital cover individually now that working life has ended",
+    "amount": null
+   },
+   {
+    "days_ago": 8,
+    "kind": "search",
+    "description": "volunteer work Gent for people who stopped working",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "ar_baker_sells_business",
+  "label": "approaching_retirement",
+  "type": "paraphrase",
+  "note": "Self-employed baker sells shop at 64 and asks how to invest proceeds safely",
+  "age": 64,
+  "balance": 104300.0,
+  "signals": [
+   {
+    "days_ago": 24,
+    "kind": "transaction",
+    "description": "Bakkerij Verlinden BV — overnameprijs handelszaak (goodwill + material)",
+    "amount": 95000.0
+   },
+   {
+    "days_ago": 20,
+    "kind": "transaction",
+    "description": "Liantis — cessation of self-employed activity, final social contributions",
+    "amount": -1380.55
+   },
+   {
+    "days_ago": 13,
+    "kind": "contact",
+    "description": "Branch: stopped the bakery after 36 years, wants low-risk options for the sale proceeds to live on",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "ar_handover_work_phone_and_tools",
+  "label": "approaching_retirement",
+  "type": "paraphrase",
+  "note": "Work phone number taken over privately, final wage with gratification, 60+ hobby course",
+  "age": 65,
+  "balance": 8120.45,
+  "signals": [
+   {
+    "days_ago": 26,
+    "kind": "transaction",
+    "description": "Proximus — number takeover from company line to private plan",
+    "amount": -25.0
+   },
+   {
+    "days_ago": 23,
+    "kind": "transaction",
+    "description": "Infrabel — final wage + end-of-career gratification",
+    "amount": 6120.0
+   },
+   {
+    "days_ago": 11,
+    "kind": "search",
+    "description": "what to do with free time after working life hobby courses Brugge",
+    "amount": null
+   },
+   {
+    "days_ago": 4,
+    "kind": "transaction",
+    "description": "Vormingplus — course enrolment 'Painting for 60+'",
+    "amount": -75.0
+   }
+  ]
+ },
+ {
+  "id": "trap_yearly_pension_savings_age_30",
+  "label": "no_clear_moment",
+  "type": "trap",
+  "note": "Routine tax-deductible pension saving at 30 — not approaching the end of career",
+  "age": 30,
+  "balance": 3410.0,
+  "signals": [
+   {
+    "days_ago": 12,
+    "kind": "transaction",
+    "description": "Pension savings fund — yearly contribution 2026 (tax deductible)",
+    "amount": -1050.0
+   },
+   {
+    "days_ago": 11,
+    "kind": "search",
+    "description": "pension savings max amount 2026 tax",
+    "amount": null
+   },
+   {
+    "days_ago": 5,
+    "kind": "transaction",
+    "description": "Delhaize — groceries",
+    "amount": -86.4
+   }
+  ]
+ },
+ {
+  "id": "trap_colleague_retirement_gift",
+  "label": "no_clear_moment",
+  "type": "trap",
+  "note": "Customer chips in for a colleague's retirement gift; the customer is 41",
+  "age": 41,
+  "balance": 2150.3,
+  "signals": [
+   {
+    "days_ago": 9,
+    "kind": "transaction",
+    "description": "Payconiq — collection retirement gift team leader Marc",
+    "amount": -20.0
+   },
+   {
+    "days_ago": 8,
+    "kind": "search",
+    "description": "original retirement gift ideas for colleague",
+    "amount": null
+   },
+   {
+    "days_ago": 3,
+    "kind": "transaction",
+    "description": "Standaard Boekhandel — card and wrapping paper",
+    "amount": -7.9
+   }
+  ]
+ },
+ {
+  "id": "trap_bank_switch_same_job",
+  "label": "no_clear_moment",
+  "type": "trap",
+  "note": "Salary account switching asked by someone only changing banks, same job for 9 years",
+  "age": 35,
+  "balance": 1260.0,
+  "signals": [
+   {
+    "days_ago": 15,
+    "kind": "contact",
+    "description": "Chat: asks about salary account switching from their old bank, same job for 9 years, wants lower fees",
+    "amount": null
+   },
+   {
+    "days_ago": 14,
+    "kind": "app_event",
+    "description": "Started Bankoverstapservice (bank switching service) request",
+    "amount": null
+   },
+   {
+    "days_ago": 2,
+    "kind": "transaction",
+    "description": "Transfer from own account at other bank — closing balance",
+    "amount": 740.0
+   }
+  ]
+ },
+ {
+  "id": "trap_long_retired_monthly_pension",
+  "label": "no_clear_moment",
+  "type": "trap",
+  "note": "85-year-old receiving the usual monthly pension for decades — routine, no moment",
+  "age": 85,
+  "balance": 14820.0,
+  "signals": [
+   {
+    "days_ago": 8,
+    "kind": "transaction",
+    "description": "Federale Pensioendienst — monthly pension 10/2026",
+    "amount": 1682.4
+   },
+   {
+    "days_ago": 6,
+    "kind": "transaction",
+    "description": "Apotheek Lemmens — pharmacy",
+    "amount": -23.6
+   },
+   {
+    "days_ago": 3,
+    "kind": "transaction",
+    "description": "Home care Familiehulp — monthly invoice",
+    "amount": -96.0
+   }
+  ]
+ },
+ {
+  "id": "trap_employment_contract_for_rental",
+  "label": "moving_home",
+  "type": "trap",
+  "note": "Employment contract only requested by a landlord; the real moment is renting a flat",
+  "age": 28,
+  "balance": 2940.0,
+  "signals": [
+   {
+    "days_ago": 20,
+    "kind": "search",
+    "description": "appartement te huur Gent 2 slaapkamers",
+    "amount": null
+   },
+   {
+    "days_ago": 14,
+    "kind": "contact",
+    "description": "Landlord asks for copy of employment contract and 3 payslips before signing lease",
+    "amount": null
+   },
+   {
+    "days_ago": 10,
+    "kind": "transaction",
+    "description": "Rental guarantee blocked account — huurwaarborg 3 months",
+    "amount": -2550.0
+   },
+   {
+    "days_ago": 3,
+    "kind": "transaction",
+    "description": "Hubo Gent — paint, boxes and tape",
+    "amount": -118.4
+   }
+  ]
+ },
+ {
+  "id": "trap_pension_guesthouse_tirol",
+  "label": "travel_abroad",
+  "type": "trap",
+  "note": "'Pension' is an Austrian guesthouse: this is a trip, not the end of career",
+  "age": 34,
+  "balance": 3870.2,
+  "signals": [
+   {
+    "days_ago": 21,
+    "kind": "transaction",
+    "description": "Pension Alpenrose Mayrhofen — deposit 5 nights",
+    "amount": -350.0
+   },
+   {
+    "days_ago": 20,
+    "kind": "transaction",
+    "description": "ÖBB Nightjet — Brussels–Innsbruck return, 2 persons",
+    "amount": -412.0
+   },
+   {
+    "days_ago": 4,
+    "kind": "transaction",
+    "description": "Spar Mayrhofen AT — card payment",
+    "amount": -46.8
+   }
+  ]
+ },
+ {
+  "id": "car_2dehands_private_seller_div",
+  "label": "buying_car",
+  "type": "paraphrase",
+  "note": "Used car bought from a private seller: 2dehands searches, cash deposit and DIV plate fee, no car vocabulary",
+  "age": 34,
+  "balance": 3120.55,
+  "signals": [
+   {
+    "days_ago": 19,
+    "kind": "search",
+    "description": "2dehands.be — Skoda Octavia break diesel 2019 onder 15000 km-stand",
+    "amount": null
+   },
+   {
+    "days_ago": 12,
+    "kind": "transaction",
+    "description": "Overschrijving — voorschot Octavia combi 1-ABC-123, verkoper particulier",
+    "amount": -1000.0
+   },
+   {
+    "days_ago": 9,
+    "kind": "transaction",
+    "description": "Overschrijving — saldo overname Skoda Octavia, mededeling: aankoop volgens verkoopcontract",
+    "amount": -11400.0
+   },
+   {
+    "days_ago": 7,
+    "kind": "transaction",
+    "description": "FOD Mobiliteit DIV — inschrijving nummerplaat",
+    "amount": -30.0
+   }
+  ]
+ },
+ {
+  "id": "car_ev_order_charger_cable",
+  "label": "buying_car",
+  "type": "paraphrase",
+  "note": "New EV order implied only by garage down payment, home wallbox and a Type 2 charging cable",
+  "age": 46,
+  "balance": 8740.1,
+  "signals": [
+   {
+    "days_ago": 24,
+    "kind": "transaction",
+    "description": "Garage Verbeke NV Kortrijk — voorschot bestelbon Kia EV3 Air",
+    "amount": -2500.0
+   },
+   {
+    "days_ago": 15,
+    "kind": "transaction",
+    "description": "Bol.com — laadkabel Type 2 naar Type 2, 7,5 m, 22 kW",
+    "amount": -189.0
+   },
+   {
+    "days_ago": 10,
+    "kind": "search",
+    "description": "premie laadpaal thuis installatie keuring AREI",
+    "amount": null
+   },
+   {
+    "days_ago": 4,
+    "kind": "transaction",
+    "description": "Elektro Wallbox Service BV — installatie laadpunt oprit",
+    "amount": -1450.0
+   }
+  ]
+ },
+ {
+  "id": "car_inspection_before_sale_gocar",
+  "label": "buying_car",
+  "type": "paraphrase",
+  "note": "Technical inspection 'for sale' of the old car plus Gocar browsing signals replacing it",
+  "age": 52,
+  "balance": 6210.0,
+  "signals": [
+   {
+    "days_ago": 22,
+    "kind": "transaction",
+    "description": "AIBV Keuringsstation Mechelen — keuring tweedehands verkoop",
+    "amount": -45.0
+   },
+   {
+    "days_ago": 18,
+    "kind": "search",
+    "description": "gocar.be — Toyota Corolla hybrid touring sports 2021",
+    "amount": null
+   },
+   {
+    "days_ago": 14,
+    "kind": "transaction",
+    "description": "Overschrijving van particulier — verkoop Ford Focus 2014, mededeling: overname wagen",
+    "amount": 4200.0
+   },
+   {
+    "days_ago": 6,
+    "kind": "app_event",
+    "description": "Opened personal loan simulator — purpose: vehicle, amount 16000 EUR, term 48 months",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "car_insurer_swap_old_vehicle",
+  "label": "buying_car",
+  "type": "paraphrase",
+  "note": "Old vehicle struck off insurance with premium refund while plate moves to a newly paid Yaris",
+  "age": 61,
+  "balance": 12880.4,
+  "signals": [
+   {
+    "days_ago": 16,
+    "kind": "transaction",
+    "description": "Garage Claes Hasselt — saldo aankoop Toyota Yaris Cross hybride",
+    "amount": -26450.0
+   },
+   {
+    "days_ago": 13,
+    "kind": "transaction",
+    "description": "AG Insurance — terugbetaling premie, schrapping voertuig Peugeot 308",
+    "amount": 212.36
+   },
+   {
+    "days_ago": 13,
+    "kind": "contact",
+    "description": "Branch visit: asked how to transfer existing number plate to the replacement vehicle",
+    "amount": null
+   },
+   {
+    "days_ago": 11,
+    "kind": "transaction",
+    "description": "AG Insurance — nieuwe polis BA + omnium, voertuig Yaris Cross",
+    "amount": -398.2
+   }
+  ]
+ },
+ {
+  "id": "car_import_germany_transport",
+  "label": "buying_car",
+  "type": "paraphrase",
+  "note": "Car imported from Germany: Autohaus payment, transport company and conformity check",
+  "age": 39,
+  "balance": 2150.75,
+  "signals": [
+   {
+    "days_ago": 27,
+    "kind": "search",
+    "description": "mobile.de BMW 320d touring gebraucht Scheckheft",
+    "amount": null
+   },
+   {
+    "days_ago": 21,
+    "kind": "transaction",
+    "description": "SEPA transfer — Autohaus Kessler GmbH Aachen, Kaufvertrag Fzg-Nr 88213",
+    "amount": -21900.0
+   },
+   {
+    "days_ago": 17,
+    "kind": "transaction",
+    "description": "Autotransport Peeters BV — ophaling voertuig Aachen naar Lier",
+    "amount": -380.0
+   },
+   {
+    "days_ago": 8,
+    "kind": "transaction",
+    "description": "Autosécurité — keuring ingevoerd voertuig, gelijkvormigheid",
+    "amount": -120.0
+   },
+   {
+    "days_ago": 5,
+    "kind": "transaction",
+    "description": "Vlaamse Belastingdienst — belasting op inverkeerstelling",
+    "amount": -615.0
+   }
+  ]
+ },
+ {
+  "id": "car_branch_financing_used_volvo",
+  "label": "buying_car",
+  "type": "paraphrase",
+  "note": "Only a bank contact about financing a specific second-hand model plus Car-Pass check",
+  "age": 43,
+  "balance": 4380.2,
+  "signals": [
+   {
+    "days_ago": 11,
+    "kind": "search",
+    "description": "car-pass controle kilometerstand betrouwbaar",
+    "amount": null
+   },
+   {
+    "days_ago": 9,
+    "kind": "contact",
+    "description": "Appointment request: wants to finance a second-hand Volvo XC40 of 24.000 EUR over 5 years",
+    "amount": null
+   },
+   {
+    "days_ago": 3,
+    "kind": "app_event",
+    "description": "Uploaded document: purchase order Volvo XC40 T3 Momentum, occasion",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "car_young_driver_first_polo",
+  "label": "buying_car",
+  "type": "paraphrase",
+  "note": "Young driver passes exam, pays a deposit for a used Polo and a starter insurance premium",
+  "age": 19,
+  "balance": 640.3,
+  "signals": [
+   {
+    "days_ago": 26,
+    "kind": "transaction",
+    "description": "GOCA Examencentrum Gent — praktisch rijexamen categorie B",
+    "amount": -36.0
+   },
+   {
+    "days_ago": 20,
+    "kind": "search",
+    "description": "goedkope tweedehands VW Polo benzine eerste wagen",
+    "amount": null
+   },
+   {
+    "days_ago": 12,
+    "kind": "transaction",
+    "description": "Overschrijving — voorschot VW Polo 2016, verkoper Aalst",
+    "amount": -500.0
+   },
+   {
+    "days_ago": 10,
+    "kind": "transaction",
+    "description": "Overschrijving van ouders — bijdrage eerste auto",
+    "amount": 3000.0
+   },
+   {
+    "days_ago": 6,
+    "kind": "transaction",
+    "description": "Baloise — premie BA jonge bestuurder, eerste inschrijving",
+    "amount": -612.0
+   }
+  ]
+ },
+ {
+  "id": "car_proefrit_loan_simulation",
+  "label": "buying_car",
+  "type": "paraphrase",
+  "note": "Dutch 'proefrit' and 'autolening' instead of the English rule phrases",
+  "age": 36,
+  "balance": 5520.0,
+  "signals": [
+   {
+    "days_ago": 17,
+    "kind": "search",
+    "description": "autolening simulatie 20000 euro 60 maanden rentevoet",
+    "amount": null
+   },
+   {
+    "days_ago": 13,
+    "kind": "app_event",
+    "description": "Calendar sync: 'proefrit Hyundai Tucson — Garage Motors Genk' Saturday 10:00",
+    "amount": null
+   },
+   {
+    "days_ago": 8,
+    "kind": "transaction",
+    "description": "Garage Motors Genk NV — voorschot bestelbon Hyundai Tucson",
+    "amount": -1500.0
+   }
+  ]
+ },
+ {
+  "id": "car_trade_in_kia_order",
+  "label": "buying_car",
+  "type": "paraphrase",
+  "note": "Trade-in valuation, signed order form and registration tax; no rule wording",
+  "age": 57,
+  "balance": 9310.6,
+  "signals": [
+   {
+    "days_ago": 25,
+    "kind": "app_event",
+    "description": "Viewed article in app: 'Occasie of nieuw? Wat kost een wagen echt per maand'",
+    "amount": null
+   },
+   {
+    "days_ago": 20,
+    "kind": "contact",
+    "description": "Chat: asked whether trade-in value of current Opel Astra can be deducted before financing",
+    "amount": null
+   },
+   {
+    "days_ago": 14,
+    "kind": "transaction",
+    "description": "Autobedrijf De Wilde — voorschot Kia Sportage, overname Opel Astra verrekend",
+    "amount": -3000.0
+   },
+   {
+    "days_ago": 2,
+    "kind": "transaction",
+    "description": "Autobedrijf De Wilde — saldo factuur Kia Sportage 1.6 T-GDi",
+    "amount": -18750.0
+   }
+  ]
+ },
+ {
+  "id": "car_french_occasion_acompte",
+  "label": "buying_car",
+  "type": "paraphrase",
+  "note": "French-language used-car purchase: acompte, immatriculation and assurance auto devis",
+  "age": 29,
+  "balance": 1870.45,
+  "signals": [
+   {
+    "days_ago": 21,
+    "kind": "search",
+    "description": "2ememain Dacia Sandero Stepway occasion Namur",
+    "amount": null
+   },
+   {
+    "days_ago": 15,
+    "kind": "transaction",
+    "description": "Virement — acompte Dacia Sandero, vendeur particulier Jambes",
+    "amount": -800.0
+   },
+   {
+    "days_ago": 11,
+    "kind": "transaction",
+    "description": "Virement — solde achat véhicule d'occasion Sandero",
+    "amount": -7200.0
+   },
+   {
+    "days_ago": 10,
+    "kind": "transaction",
+    "description": "SPF Mobilité DIV — immatriculation plaque",
+    "amount": -30.0
+   },
+   {
+    "days_ago": 9,
+    "kind": "search",
+    "description": "assurance auto devis omnium partielle Sandero 2020",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "car_tesla_final_payment_scrap_old",
+  "label": "buying_car",
+  "type": "paraphrase",
+  "note": "Brand-only payment for a new EV plus scrapping the old diesel at a recycler",
+  "age": 50,
+  "balance": 15420.0,
+  "signals": [
+   {
+    "days_ago": 18,
+    "kind": "transaction",
+    "description": "Tesla Belgium BVBA — reservatie Model Y",
+    "amount": -250.0
+   },
+   {
+    "days_ago": 9,
+    "kind": "transaction",
+    "description": "Tesla Belgium BVBA — eindbetaling Model Y Long Range",
+    "amount": -44740.0
+   },
+   {
+    "days_ago": 7,
+    "kind": "transaction",
+    "description": "Autorecyclage Febelauto Lokeren — vergoeding sloop Renault Megane diesel",
+    "amount": 150.0
+   },
+   {
+    "days_ago": 5,
+    "kind": "app_event",
+    "description": "Card linked to charging app: Electra / Shell Recharge",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "car_family_van_second_hand",
+  "label": "buying_car",
+  "type": "paraphrase",
+  "note": "Seven-seater bought via a used-car platform; kids context could distract toward family",
+  "age": 41,
+  "balance": 3960.8,
+  "signals": [
+   {
+    "days_ago": 23,
+    "kind": "search",
+    "description": "7-zitter occasie Citroen Berlingo XL gocar vergelijken",
+    "amount": null
+   },
+   {
+    "days_ago": 16,
+    "kind": "transaction",
+    "description": "Garage Van Hoof Turnhout — voorschot Berlingo XL 7pl occasie",
+    "amount": -1000.0
+   },
+   {
+    "days_ago": 12,
+    "kind": "transaction",
+    "description": "Garage Van Hoof Turnhout — saldo Berlingo XL, garantie 12 maanden",
+    "amount": -17500.0
+   },
+   {
+    "days_ago": 11,
+    "kind": "transaction",
+    "description": "Ethias — nieuwe autopolis, vervangt polis Fiat Punto",
+    "amount": -455.0
+   }
+  ]
+ },
+ {
+  "id": "travel_lisbon_card_spend",
+  "label": "travel_abroad",
+  "type": "paraphrase",
+  "note": "Customer is currently in Portugal: only local card payments and an ATM withdrawal",
+  "age": 31,
+  "balance": 2240.15,
+  "signals": [
+   {
+    "days_ago": 5,
+    "kind": "transaction",
+    "description": "Pingo Doce Alfama LISBOA PT — kaartbetaling",
+    "amount": -23.4
+   },
+   {
+    "days_ago": 4,
+    "kind": "transaction",
+    "description": "Multibanco ATM Rua Augusta LISBOA PT — geldopname",
+    "amount": -100.0
+   },
+   {
+    "days_ago": 4,
+    "kind": "transaction",
+    "description": "Uber *TRIP LISBOA PT",
+    "amount": -11.8
+   },
+   {
+    "days_ago": 3,
+    "kind": "transaction",
+    "description": "Pasteis de Belem LISBOA PT — contactloos",
+    "amount": -9.6
+   },
+   {
+    "days_ago": 2,
+    "kind": "transaction",
+    "description": "CP Comboios de Portugal SINTRA PT",
+    "amount": -4.5
+   }
+  ]
+ },
+ {
+  "id": "travel_klm_kenya_visa_vaccines",
+  "label": "travel_abroad",
+  "type": "paraphrase",
+  "note": "Long-haul trip evidenced by KLM ticket, Kenyan eTA fee and tropical-medicine vaccine visit",
+  "age": 44,
+  "balance": 5610.0,
+  "signals": [
+   {
+    "days_ago": 28,
+    "kind": "transaction",
+    "description": "KLM Royal Dutch Airlines — e-ticket BRU-AMS-NBO",
+    "amount": -1386.0
+   },
+   {
+    "days_ago": 20,
+    "kind": "transaction",
+    "description": "Instituut voor Tropische Geneeskunde Antwerpen — reisconsult + gele koorts vaccin",
+    "amount": -95.0
+   },
+   {
+    "days_ago": 14,
+    "kind": "transaction",
+    "description": "ETA KENYA GOV KE — electronic travel authorisation",
+    "amount": -32.5
+   },
+   {
+    "days_ago": 9,
+    "kind": "search",
+    "description": "Masai Mara safari lodge august weather",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "travel_tui_crete_luggage",
+  "label": "travel_abroad",
+  "type": "paraphrase",
+  "note": "Package holiday deposit, suitcase purchase and destination search; no rule keywords",
+  "age": 38,
+  "balance": 3470.9,
+  "signals": [
+   {
+    "days_ago": 27,
+    "kind": "transaction",
+    "description": "TUI Belgium — voorschot pakketreis Kreta, 4 pers., all-in",
+    "amount": -900.0
+   },
+   {
+    "days_ago": 12,
+    "kind": "transaction",
+    "description": "TUI Belgium — saldo reis Heraklion, vertrek Oostende",
+    "amount": -2780.0
+   },
+   {
+    "days_ago": 8,
+    "kind": "transaction",
+    "description": "Samsonite Store Wijnegem — koffer Spinner 75 cm",
+    "amount": -219.0
+   },
+   {
+    "days_ago": 3,
+    "kind": "search",
+    "description": "Heraklion weer volgende week zee temperatuur",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "travel_eurostar_london_weekend",
+  "label": "travel_abroad",
+  "type": "paraphrase",
+  "note": "Eurostar tickets, a UK hotel charged in GBP and a plug adapter",
+  "age": 27,
+  "balance": 1580.35,
+  "signals": [
+   {
+    "days_ago": 18,
+    "kind": "transaction",
+    "description": "EUROSTAR INTERNATIONAL — Brussel-Zuid > London St Pancras, 2 pers. retour",
+    "amount": -312.0
+   },
+   {
+    "days_ago": 15,
+    "kind": "transaction",
+    "description": "Premier Inn London Kings Cross GB — prepaid GBP 268,00 koers 1,1790",
+    "amount": -315.97
+   },
+   {
+    "days_ago": 6,
+    "kind": "transaction",
+    "description": "Hema Leuven — reisstekker UK type G",
+    "amount": -8.0
+   },
+   {
+    "days_ago": 4,
+    "kind": "app_event",
+    "description": "Card settings: enabled payments in United Kingdom for 7 days",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "travel_esta_new_york",
+  "label": "travel_abroad",
+  "type": "paraphrase",
+  "note": "US visa waiver (ESTA) fee and transatlantic flight with a non-keyword carrier",
+  "age": 55,
+  "balance": 7120.0,
+  "signals": [
+   {
+    "days_ago": 25,
+    "kind": "transaction",
+    "description": "United Airlines — BRU-EWR ticket 016 2258133 retour",
+    "amount": -1124.0
+   },
+   {
+    "days_ago": 19,
+    "kind": "transaction",
+    "description": "U.S. CBP ESTA APPLICATION WASHINGTON US",
+    "amount": -19.2
+   },
+   {
+    "days_ago": 10,
+    "kind": "search",
+    "description": "subway pass new york 7 day unlimited price",
+    "amount": null
+   },
+   {
+    "days_ago": 2,
+    "kind": "contact",
+    "description": "Phone: asked to temporarily raise credit card limit for hotel deposits in the US",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "travel_iceland_driving_permit",
+  "label": "travel_abroad",
+  "type": "paraphrase",
+  "note": "International driving permit at city hall plus a prepaid rental car in Reykjavik",
+  "age": 33,
+  "balance": 4050.25,
+  "signals": [
+   {
+    "days_ago": 22,
+    "kind": "transaction",
+    "description": "Icelandair — BRU-KEF 2 pers.",
+    "amount": -598.0
+   },
+   {
+    "days_ago": 17,
+    "kind": "transaction",
+    "description": "Stad Gent Dienst Burgerzaken — internationaal rijbewijs",
+    "amount": -16.0
+   },
+   {
+    "days_ago": 13,
+    "kind": "transaction",
+    "description": "Blue Car Rental REYKJAVIK IS — ISK 142.000 koers 0,00667",
+    "amount": -947.14
+   },
+   {
+    "days_ago": 7,
+    "kind": "search",
+    "description": "ring road iceland 10 days itinerary gravel roads",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "travel_japan_esim_yen",
+  "label": "travel_abroad",
+  "type": "paraphrase",
+  "note": "eSIM for Japan, JR rail pass and a yen cash order at the branch",
+  "age": 26,
+  "balance": 2890.6,
+  "signals": [
+   {
+    "days_ago": 20,
+    "kind": "transaction",
+    "description": "JAPAN RAIL PASS ONLINE — 14 dagen ordinary",
+    "amount": -432.0
+   },
+   {
+    "days_ago": 11,
+    "kind": "contact",
+    "description": "Branch: ordered 60.000 JPY banknotes for pickup next Thursday",
+    "amount": null
+   },
+   {
+    "days_ago": 6,
+    "kind": "transaction",
+    "description": "Airalo — eSIM Japan 10 GB / 15 days",
+    "amount": -26.0
+   },
+   {
+    "days_ago": 6,
+    "kind": "transaction",
+    "description": "Deviezenaankoop — 60.000 JPY",
+    "amount": -372.4
+   }
+  ]
+ },
+ {
+  "id": "travel_transavia_marrakech_riad",
+  "label": "travel_abroad",
+  "type": "paraphrase",
+  "note": "Transavia flight and a riad deposit charged in dirham",
+  "age": 48,
+  "balance": 3310.0,
+  "signals": [
+   {
+    "days_ago": 24,
+    "kind": "transaction",
+    "description": "Transavia — CRL-RAK 2 volw. + ruimbagage",
+    "amount": -436.0
+   },
+   {
+    "days_ago": 21,
+    "kind": "transaction",
+    "description": "RIAD DAR SAFRAN MARRAKECH MA — acompte MAD 1.800",
+    "amount": -166.5
+   },
+   {
+    "days_ago": 12,
+    "kind": "search",
+    "description": "hammam medina marrakech prijs koppel",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "travel_thailand_card_unblock",
+  "label": "travel_abroad",
+  "type": "paraphrase",
+  "note": "Bank contact about card use in Thailand plus flight and vaccines; region never named generically",
+  "age": 23,
+  "balance": 2610.7,
+  "signals": [
+   {
+    "days_ago": 29,
+    "kind": "transaction",
+    "description": "Qatar Airways — BRU-DOH-BKK economy retour",
+    "amount": -842.0
+   },
+   {
+    "days_ago": 16,
+    "kind": "transaction",
+    "description": "Apotheek Centrum Leuven — malariapillen + reisapotheek",
+    "amount": -54.3
+   },
+   {
+    "days_ago": 9,
+    "kind": "contact",
+    "description": "Chat: wants debit card to work in Thailand and Cambodia from next Monday for 5 weeks",
+    "amount": null
+   },
+   {
+    "days_ago": 3,
+    "kind": "transaction",
+    "description": "Decathlon Brussel — backpack 50L",
+    "amount": -79.99
+   }
+  ]
+ },
+ {
+  "id": "travel_interrail_central_europe",
+  "label": "travel_abroad",
+  "type": "paraphrase",
+  "note": "Interrail pass followed by card payments in Czech koruna and forint",
+  "age": 21,
+  "balance": 940.2,
+  "signals": [
+   {
+    "days_ago": 14,
+    "kind": "transaction",
+    "description": "Interrail — Global Pass 7 reisdagen in 1 maand, jongere",
+    "amount": -283.0
+   },
+   {
+    "days_ago": 6,
+    "kind": "transaction",
+    "description": "HOSTEL ONE PRAHA CZ — CZK 1.450",
+    "amount": -58.3
+   },
+   {
+    "days_ago": 5,
+    "kind": "transaction",
+    "description": "BILLA PRAHA 1 CZ — CZK 312",
+    "amount": -12.55
+   },
+   {
+    "days_ago": 2,
+    "kind": "transaction",
+    "description": "MAV START BUDAPEST HU — HUF 9.800",
+    "amount": -25.1
+   }
+  ]
+ },
+ {
+  "id": "travel_france_road_trip_tolls",
+  "label": "travel_abroad",
+  "type": "paraphrase",
+  "note": "Road trip visible only via French motorway tolls, fuel and a hotel in Provence",
+  "age": 59,
+  "balance": 6780.45,
+  "signals": [
+   {
+    "days_ago": 6,
+    "kind": "transaction",
+    "description": "APRR PEAGE A6 BEAUNE FR",
+    "amount": -38.4
+   },
+   {
+    "days_ago": 6,
+    "kind": "transaction",
+    "description": "TOTALENERGIES AIRE DE MACON FR — carburant",
+    "amount": -92.15
+   },
+   {
+    "days_ago": 5,
+    "kind": "transaction",
+    "description": "VINCI AUTOROUTES A7 FR — télépéage",
+    "amount": -44.7
+   },
+   {
+    "days_ago": 3,
+    "kind": "transaction",
+    "description": "HOTEL LE MAS DES OLIVIERS GORDES FR — 3 nuits",
+    "amount": -486.0
+   },
+   {
+    "days_ago": 2,
+    "kind": "transaction",
+    "description": "CARREFOUR MARKET CAVAILLON FR",
+    "amount": -61.3
+   }
+  ]
+ },
+ {
+  "id": "travel_hurtigruten_cruise_nok",
+  "label": "travel_abroad",
+  "type": "paraphrase",
+  "note": "Norwegian coastal cruise balance, SAS flight to Bergen and a krone top-up",
+  "age": 66,
+  "balance": 18400.0,
+  "signals": [
+   {
+    "days_ago": 30,
+    "kind": "transaction",
+    "description": "Hurtigruten AS — saldo cruise Bergen-Kirkenes, buitenhut",
+    "amount": -3960.0
+   },
+   {
+    "days_ago": 21,
+    "kind": "transaction",
+    "description": "SAS Scandinavian Airlines — BRU-CPH-BGO 2 pers.",
+    "amount": -688.0
+   },
+   {
+    "days_ago": 8,
+    "kind": "transaction",
+    "description": "Wise Europe — omwisseling EUR naar NOK 4.000",
+    "amount": -345.6
+   },
+   {
+    "days_ago": 4,
+    "kind": "search",
+    "description": "noorderlicht kans oktober Tromsø thermokleding",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "trap_dealer_annual_service",
+  "label": "no_clear_moment",
+  "type": "trap",
+  "note": "'dealer' appears, but it is a routine annual service of the car already owned",
+  "age": 47,
+  "balance": 3840.0,
+  "signals": [
+   {
+    "days_ago": 12,
+    "kind": "transaction",
+    "description": "D'Ieteren Dealer Zaventem — onderhoud 60.000 km VW Golf + remblokken",
+    "amount": -486.3
+   },
+   {
+    "days_ago": 12,
+    "kind": "app_event",
+    "description": "Receipt scanned: service invoice, next maintenance due in 12 months",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "trap_ryanair_refund_cancelled",
+  "label": "no_clear_moment",
+  "type": "trap",
+  "note": "Airline keyword, but it is an incoming refund for a cancelled flight and no rebooking",
+  "age": 35,
+  "balance": 2110.6,
+  "signals": [
+   {
+    "days_ago": 9,
+    "kind": "transaction",
+    "description": "RYANAIR DAC — refund cancelled flight FR 2741 CRL-BCN",
+    "amount": 148.98
+   },
+   {
+    "days_ago": 8,
+    "kind": "search",
+    "description": "EU261 compensation cancelled flight how to claim 250 euro",
+    "amount": null
+   },
+   {
+    "days_ago": 2,
+    "kind": "transaction",
+    "description": "RYANAIR DAC — EU261 compensation",
+    "amount": 250.0
+   }
+  ]
+ },
+ {
+  "id": "trap_passport_kyc_update",
+  "label": "no_clear_moment",
+  "type": "trap",
+  "note": "Passport renewal only because the old one expired and the bank asked for a KYC ID update",
+  "age": 63,
+  "balance": 11240.0,
+  "signals": [
+   {
+    "days_ago": 20,
+    "kind": "app_event",
+    "description": "Notification: identity document on file has expired, please upload a valid ID",
+    "amount": null
+   },
+   {
+    "days_ago": 16,
+    "kind": "transaction",
+    "description": "Stad Brugge Burgerzaken — passport renewal, normal procedure",
+    "amount": -75.0
+   },
+   {
+    "days_ago": 3,
+    "kind": "app_event",
+    "description": "Uploaded new passport as ID document for KYC review",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "trap_car_insurance_quote_renewal",
+  "label": "no_clear_moment",
+  "type": "trap",
+  "note": "Car insurance quote searches are price-shopping at renewal for a 2019 car already owned",
+  "age": 42,
+  "balance": 2980.4,
+  "signals": [
+   {
+    "days_ago": 14,
+    "kind": "transaction",
+    "description": "P&V Verzekeringen — vervaldagbericht autopolis Renault Clio 2019",
+    "amount": -534.0
+   },
+   {
+    "days_ago": 10,
+    "kind": "search",
+    "description": "car insurance quote cheaper renewal same car Clio 2019",
+    "amount": null
+   },
+   {
+    "days_ago": 6,
+    "kind": "contact",
+    "description": "Chat: asked if bank insurer can beat renewal premium for current Clio",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "trap_airbnb_room_host_payouts",
+  "label": "no_clear_moment",
+  "type": "trap",
+  "note": "Airbnb credits are recurring host payouts for renting out a room, routine income",
+  "age": 30,
+  "balance": 3720.85,
+  "signals": [
+   {
+    "days_ago": 28,
+    "kind": "transaction",
+    "description": "AIRBNB PAYMENTS LUXEMBOURG — host payout, reservation HM3K9",
+    "amount": 212.4
+   },
+   {
+    "days_ago": 17,
+    "kind": "transaction",
+    "description": "AIRBNB PAYMENTS LUXEMBOURG — host payout, reservation HMQ7T",
+    "amount": 186.0
+   },
+   {
+    "days_ago": 6,
+    "kind": "transaction",
+    "description": "AIRBNB PAYMENTS LUXEMBOURG — host payout, reservation HMZ2P",
+    "amount": 241.75
+   },
+   {
+    "days_ago": 5,
+    "kind": "transaction",
+    "description": "Action Gent — beddengoed en handdoeken gastenkamer",
+    "amount": -34.9
+   }
+  ]
+ },
+ {
+  "id": "trap_car_loan_arrears",
+  "label": "financial_stress",
+  "type": "trap",
+  "note": "'car loan' is an existing loan going unpaid: failed instalment and a deferral request",
+  "age": 37,
+  "balance": -340.25,
+  "signals": [
+   {
+    "days_ago": 18,
+    "kind": "transaction",
+    "description": "Storno domiciliëring — car loan instalment 14/60, onvoldoende saldo",
+    "amount": 389.0
+   },
+   {
+    "days_ago": 11,
+    "kind": "contact",
+    "description": "Letter from lender: aanmaning, second instalment of car loan unpaid, costs added",
+    "amount": null
+   },
+   {
+    "days_ago": 7,
+    "kind": "contact",
+    "description": "Phone: asked to postpone car loan instalments 3 months after losing overtime income",
+    "amount": null
+   },
+   {
+    "days_ago": 3,
+    "kind": "transaction",
+    "description": "Cofidis — kredietopneming",
+    "amount": 500.0
+   }
+  ]
+ },
+ {
+  "id": "fs_bnpl_instalments_stacking",
+  "label": "financial_stress",
+  "type": "paraphrase",
+  "note": "Several buy-now-pay-later instalments at once, near-zero balance; no rule keyword present",
+  "age": 24,
+  "balance": 11.6,
+  "signals": [
+   {
+    "days_ago": 2,
+    "kind": "transaction",
+    "description": "Klarna — instalment 3/4 Zalando order",
+    "amount": -42.5
+   },
+   {
+    "days_ago": 4,
+    "kind": "transaction",
+    "description": "In3 — termijn 2/3 Coolblue bestelling",
+    "amount": -116.33
+   },
+   {
+    "days_ago": 7,
+    "kind": "transaction",
+    "description": "Klarna — instalment 2/4 Bol.com order",
+    "amount": -27.0
+   },
+   {
+    "days_ago": 9,
+    "kind": "transaction",
+    "description": "Riverty (AfterPay) — deferred invoice Wehkamp",
+    "amount": -64.99
+   },
+   {
+    "days_ago": 12,
+    "kind": "transaction",
+    "description": "Klarna — instalment 1/4 Zara order",
+    "amount": -38.75
+   },
+   {
+    "days_ago": 3,
+    "kind": "search",
+    "description": "klarna how many purchases can I split at the same time",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "fs_minicredit_payouts",
+  "label": "financial_stress",
+  "type": "paraphrase",
+  "note": "Two consumer mini-loan payouts in a week look like income but signal borrowing to cover costs",
+  "age": 37,
+  "balance": -128.4,
+  "signals": [
+   {
+    "days_ago": 3,
+    "kind": "transaction",
+    "description": "Cofidis Belgium — uitbetaling kredietopening",
+    "amount": 1000.0
+   },
+   {
+    "days_ago": 8,
+    "kind": "transaction",
+    "description": "Buy Way Personal Finance — transfer from credit line",
+    "amount": 750.0
+   },
+   {
+    "days_ago": 2,
+    "kind": "transaction",
+    "description": "Cofidis Belgium — monthly repayment",
+    "amount": -89.0
+   },
+   {
+    "days_ago": 1,
+    "kind": "transaction",
+    "description": "Transfer to landlord — rent August, paid late",
+    "amount": -820.0
+   },
+   {
+    "days_ago": 5,
+    "kind": "search",
+    "description": "lening zonder loonfiche snel op rekening",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "fs_card_refused_supermarket",
+  "label": "financial_stress",
+  "type": "paraphrase",
+  "note": "Card refused for lack of funds at a supermarket, split basket retry; no stress keyword used",
+  "age": 45,
+  "balance": 3.4,
+  "signals": [
+   {
+    "days_ago": 1,
+    "kind": "app_event",
+    "description": "Card payment refused — Delhaize Mechelen — insufficient funds (EUR 67.80)",
+    "amount": null
+   },
+   {
+    "days_ago": 1,
+    "kind": "transaction",
+    "description": "Delhaize Mechelen — Bancontact",
+    "amount": -21.35
+   },
+   {
+    "days_ago": 2,
+    "kind": "app_event",
+    "description": "Card payment refused — Total fuel station Boom — insufficient funds",
+    "amount": null
+   },
+   {
+    "days_ago": 2,
+    "kind": "search",
+    "description": "how to borrow 200 euro before payday",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "fs_bailiff_costs",
+  "label": "financial_stress",
+  "type": "paraphrase",
+  "note": "Bailiff (gerechtsdeurwaarder) fee payment; enforcement stage of debt, no English keyword",
+  "age": 52,
+  "balance": -212.0,
+  "signals": [
+   {
+    "days_ago": 4,
+    "kind": "transaction",
+    "description": "Gerechtsdeurwaarderskantoor Vermeulen & Co — kosten betekening vonnis dossier 2026/1187",
+    "amount": -386.45
+   },
+   {
+    "days_ago": 10,
+    "kind": "transaction",
+    "description": "Gerechtsdeurwaarderskantoor Vermeulen & Co — gedeeltelijke betaling hoofdsom",
+    "amount": -150.0
+   },
+   {
+    "days_ago": 6,
+    "kind": "search",
+    "description": "wat mag een deurwaarder in beslag nemen",
+    "amount": null
+   },
+   {
+    "days_ago": 5,
+    "kind": "contact",
+    "description": "Customer phoned asking whether the bank can block seizure of the child allowance on the account",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "fs_cpas_support_payment",
+  "label": "financial_stress",
+  "type": "paraphrase",
+  "note": "Incoming social-welfare aid from the CPAS looks like ordinary income",
+  "age": 31,
+  "balance": 46.2,
+  "signals": [
+   {
+    "days_ago": 3,
+    "kind": "transaction",
+    "description": "CPAS de Liège — revenu d'intégration septembre",
+    "amount": 1263.0
+   },
+   {
+    "days_ago": 14,
+    "kind": "transaction",
+    "description": "CPAS de Liège — aide sociale urgente, avance énergie",
+    "amount": 250.0
+   },
+   {
+    "days_ago": 2,
+    "kind": "transaction",
+    "description": "Restos du Coeur — contribution colis alimentaire",
+    "amount": -5.0
+   },
+   {
+    "days_ago": 6,
+    "kind": "search",
+    "description": "CPAS aide pour facture chauffage",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "fs_pawned_jewellery",
+  "label": "financial_stress",
+  "type": "paraphrase",
+  "note": "Cash from pawning jewellery at the Berg van Barmhartigheid, immediately spent on bills",
+  "age": 58,
+  "balance": 17.9,
+  "signals": [
+   {
+    "days_ago": 5,
+    "kind": "transaction",
+    "description": "Berg van Barmhartigheid Antwerpen — pand nr 44871, gouden ketting en ring",
+    "amount": 420.0
+   },
+   {
+    "days_ago": 4,
+    "kind": "transaction",
+    "description": "Engie Electrabel — achterstallige factuur juli",
+    "amount": -236.1
+   },
+   {
+    "days_ago": 4,
+    "kind": "transaction",
+    "description": "Proximus — openstaande factuur",
+    "amount": -74.99
+   },
+   {
+    "days_ago": 9,
+    "kind": "search",
+    "description": "hoeveel krijg je voor goud bij de berg van barmhartigheid",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "fs_salary_cut_temp_unemployment",
+  "label": "financial_stress",
+  "type": "paraphrase",
+  "note": "Salary roughly halved and replaced partly by temporary-unemployment benefit; account now negative",
+  "age": 41,
+  "balance": -347.8,
+  "signals": [
+   {
+    "days_ago": 5,
+    "kind": "transaction",
+    "description": "Metaalwerken Kempen NV — loon september (usual EUR 2,640)",
+    "amount": 1182.4
+   },
+   {
+    "days_ago": 8,
+    "kind": "transaction",
+    "description": "ABVV Werkloosheidsdienst — uitkering tijdelijke werkloosheid",
+    "amount": 614.0
+   },
+   {
+    "days_ago": 2,
+    "kind": "app_event",
+    "description": "Account balance dropped below zero for the first time in 3 years",
+    "amount": null
+   },
+   {
+    "days_ago": 3,
+    "kind": "search",
+    "description": "hoe lang duurt tijdelijke werkloosheid economische redenen",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "fs_sports_betting_negative",
+  "label": "financial_stress",
+  "type": "paraphrase",
+  "note": "Repeated betting deposits while the balance is negative; gambling spend, not entertainment",
+  "age": 27,
+  "balance": -265.3,
+  "signals": [
+   {
+    "days_ago": 1,
+    "kind": "transaction",
+    "description": "Napoleon Sports & Casino — storting account",
+    "amount": -100.0
+   },
+   {
+    "days_ago": 1,
+    "kind": "transaction",
+    "description": "Napoleon Sports & Casino — storting account",
+    "amount": -50.0
+   },
+   {
+    "days_ago": 3,
+    "kind": "transaction",
+    "description": "Unibet Belgium — deposit",
+    "amount": -150.0
+   },
+   {
+    "days_ago": 4,
+    "kind": "transaction",
+    "description": "Unibet Belgium — winnings withdrawal",
+    "amount": 35.0
+   },
+   {
+    "days_ago": 6,
+    "kind": "transaction",
+    "description": "Ladbrokes BE — deposit",
+    "amount": -200.0
+   },
+   {
+    "days_ago": 2,
+    "kind": "transaction",
+    "description": "Transfer from savings account — emptied",
+    "amount": 180.0
+   }
+  ]
+ },
+ {
+  "id": "fs_postpone_loan_instalment",
+  "label": "financial_stress",
+  "type": "paraphrase",
+  "note": "Only signal is a request to postpone a loan instalment; must not be read as loan interest",
+  "age": 49,
+  "balance": 62.0,
+  "signals": [
+   {
+    "days_ago": 2,
+    "kind": "contact",
+    "description": "Customer asked by phone to skip October's instalment on the personal loan and add it at the end of the term",
+    "amount": null
+   },
+   {
+    "days_ago": 3,
+    "kind": "app_event",
+    "description": "Opened loan details screen 6 times in one day",
+    "amount": null
+   },
+   {
+    "days_ago": 4,
+    "kind": "search",
+    "description": "can I pause my personal loan for two months",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "fs_budget_meter_request",
+  "label": "financial_stress",
+  "type": "paraphrase",
+  "note": "Energy supplier arrears leading to a prepaid budget meter; Belgian-specific stress signal",
+  "age": 34,
+  "balance": 22.15,
+  "signals": [
+   {
+    "days_ago": 6,
+    "kind": "transaction",
+    "description": "Fluvius — oplading budgetmeter elektriciteit",
+    "amount": -20.0
+   },
+   {
+    "days_ago": 2,
+    "kind": "transaction",
+    "description": "Fluvius — oplading budgetmeter elektriciteit",
+    "amount": -15.0
+   },
+   {
+    "days_ago": 12,
+    "kind": "search",
+    "description": "budgetmeter geplaatst na wanbetaling wat nu",
+    "amount": null
+   },
+   {
+    "days_ago": 9,
+    "kind": "transaction",
+    "description": "Luminus — ingebrekestelling, kosten aangetekende brief",
+    "amount": -15.0
+   }
+  ]
+ },
+ {
+  "id": "fs_debt_counselling_caw",
+  "label": "financial_stress",
+  "type": "paraphrase",
+  "note": "Customer seeks debt counselling at CAW; searches and appointment, no transactions",
+  "age": 39,
+  "balance": -58.7,
+  "signals": [
+   {
+    "days_ago": 7,
+    "kind": "search",
+    "description": "schuldbemiddeling CAW Oost-Vlaanderen afspraak",
+    "amount": null
+   },
+   {
+    "days_ago": 5,
+    "kind": "search",
+    "description": "collectieve schuldenregeling gevolgen voor bankrekening",
+    "amount": null
+   },
+   {
+    "days_ago": 3,
+    "kind": "contact",
+    "description": "Customer informed branch that a CAW debt counsellor will manage incoming and outgoing payments",
+    "amount": null
+   },
+   {
+    "days_ago": 2,
+    "kind": "transaction",
+    "description": "CAW Oost-Vlaanderen — budgetbeheer overschrijving leefgeld",
+    "amount": 120.0
+   }
+  ]
+ },
+ {
+  "id": "fs_standing_order_not_executed",
+  "label": "financial_stress",
+  "type": "paraphrase",
+  "note": "Rent standing order not executed for lack of funds plus selling belongings online",
+  "age": 29,
+  "balance": 8.05,
+  "signals": [
+   {
+    "days_ago": 1,
+    "kind": "app_event",
+    "description": "Standing order to landlord (EUR 745) not executed — insufficient funds",
+    "amount": null
+   },
+   {
+    "days_ago": 3,
+    "kind": "transaction",
+    "description": "2dehands — sale PlayStation 5",
+    "amount": 310.0
+   },
+   {
+    "days_ago": 5,
+    "kind": "transaction",
+    "description": "2dehands — sale e-bike",
+    "amount": 650.0
+   },
+   {
+    "days_ago": 6,
+    "kind": "transaction",
+    "description": "Vinted — sale winter coats",
+    "amount": 48.0
+   },
+   {
+    "days_ago": 2,
+    "kind": "transaction",
+    "description": "Transfer to landlord — partial rent September",
+    "amount": -400.0
+   }
+  ]
+ },
+ {
+  "id": "fs_family_bridging_card_limit",
+  "label": "financial_stress",
+  "type": "paraphrase",
+  "note": "Credit card maxed out and repeated small transfers from a parent to bridge until payday",
+  "age": 33,
+  "balance": -41.2,
+  "signals": [
+   {
+    "days_ago": 2,
+    "kind": "app_event",
+    "description": "Credit card limit of EUR 2,500 fully used — transaction refused at Colruyt",
+    "amount": null
+   },
+   {
+    "days_ago": 3,
+    "kind": "transaction",
+    "description": "Transfer from mother — lening tot einde maand",
+    "amount": 150.0
+   },
+   {
+    "days_ago": 10,
+    "kind": "transaction",
+    "description": "Transfer from mother — voor de huur, geef ik terug",
+    "amount": 300.0
+   },
+   {
+    "days_ago": 8,
+    "kind": "transaction",
+    "description": "Mastercard — minimum repayment 10%",
+    "amount": -250.0
+   },
+   {
+    "days_ago": 4,
+    "kind": "search",
+    "description": "credit card limit raise without income proof",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "fs_tax_arrears_instalments",
+  "label": "financial_stress",
+  "type": "paraphrase",
+  "note": "Tax bill the customer cannot pay, asks the tax office for spread payments in Dutch wording",
+  "age": 46,
+  "balance": -310.0,
+  "signals": [
+   {
+    "days_ago": 9,
+    "kind": "app_event",
+    "description": "Incoming request: FOD Financiën — aanslagbiljet personenbelasting, te betalen EUR 3,412",
+    "amount": null
+   },
+   {
+    "days_ago": 6,
+    "kind": "search",
+    "description": "afbetalingsregeling aanvragen FOD Financiën",
+    "amount": null
+   },
+   {
+    "days_ago": 4,
+    "kind": "transaction",
+    "description": "FOD Financiën — eerste afbetaling aanslag 2025",
+    "amount": -280.0
+   },
+   {
+    "days_ago": 2,
+    "kind": "contact",
+    "description": "Customer asked whether a temporary negative balance is allowed until the end-of-year bonus",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "nc_overdraft_renewal_healthy",
+  "label": "no_clear_moment",
+  "type": "trap",
+  "note": "Overdraft facility auto-renewed but never used; healthy balance means no stress",
+  "age": 44,
+  "balance": 8420.0,
+  "signals": [
+   {
+    "days_ago": 6,
+    "kind": "app_event",
+    "description": "Overdraft facility EUR 1,000 — annual renewal confirmed, not used in last 12 months",
+    "amount": null
+   },
+   {
+    "days_ago": 6,
+    "kind": "transaction",
+    "description": "Account package Comfort — annual fee",
+    "amount": -48.0
+   }
+  ]
+ },
+ {
+  "id": "nc_parking_fine_paid",
+  "label": "no_clear_moment",
+  "type": "trap",
+  "note": "'Missed' appears in a one-off parking fine already paid; otherwise routine",
+  "age": 36,
+  "balance": 3180.5,
+  "signals": [
+   {
+    "days_ago": 9,
+    "kind": "transaction",
+    "description": "Parking.brussels — retributie, missed parking ticket Louizalaan",
+    "amount": -35.0
+   },
+   {
+    "days_ago": 14,
+    "kind": "transaction",
+    "description": "Standaard Boekhandel — books",
+    "amount": -42.9
+   },
+   {
+    "days_ago": 5,
+    "kind": "transaction",
+    "description": "Kinepolis Brussel — tickets",
+    "amount": -26.0
+   }
+  ]
+ },
+ {
+  "id": "nc_friends_baby_gift",
+  "label": "no_clear_moment",
+  "type": "trap",
+  "note": "Gift to a friend's birth list at 61; the baby is not the customer's",
+  "age": 61,
+  "balance": 14250.0,
+  "signals": [
+   {
+    "days_ago": 4,
+    "kind": "transaction",
+    "description": "Dreambaby — birth list gift for friend's newborn",
+    "amount": -45.0
+   },
+   {
+    "days_ago": 4,
+    "kind": "transaction",
+    "description": "Hallmark — card",
+    "amount": -3.95
+   },
+   {
+    "days_ago": 11,
+    "kind": "transaction",
+    "description": "Golfclub Oudenaarde — green fee",
+    "amount": -65.0
+   }
+  ]
+ },
+ {
+  "id": "nc_gym_payment_plan",
+  "label": "no_clear_moment",
+  "type": "trap",
+  "note": "'Payment plan' is just a gym membership billing scheme, not debt",
+  "age": 26,
+  "balance": 2140.0,
+  "signals": [
+   {
+    "days_ago": 3,
+    "kind": "transaction",
+    "description": "Basic-Fit Belgium — Premium payment plan, monthly membership",
+    "amount": -29.99
+   },
+   {
+    "days_ago": 8,
+    "kind": "transaction",
+    "description": "Decathlon Gent — running shoes",
+    "amount": -89.99
+   },
+   {
+    "days_ago": 12,
+    "kind": "app_event",
+    "description": "Added Basic-Fit to favourite payees",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "nc_tyre_swap_dealer",
+  "label": "no_clear_moment",
+  "type": "trap",
+  "note": "Dealer invoice is seasonal tyre maintenance on an existing car, not a purchase",
+  "age": 50,
+  "balance": 6120.0,
+  "signals": [
+   {
+    "days_ago": 5,
+    "kind": "transaction",
+    "description": "Garage Peeters — official Toyota dealer, invoice winter tyre swap + storage",
+    "amount": -145.0
+   },
+   {
+    "days_ago": 20,
+    "kind": "transaction",
+    "description": "Shell Recharge — charging",
+    "amount": -18.4
+   }
+  ]
+ },
+ {
+  "id": "nc_pension_savings_age29",
+  "label": "no_clear_moment",
+  "type": "trap",
+  "note": "Tax-driven pension savings deposit at 29 is routine, not approaching retirement",
+  "age": 29,
+  "balance": 4870.0,
+  "signals": [
+   {
+    "days_ago": 2,
+    "kind": "transaction",
+    "description": "Pension savings fund — monthly deposit (pensioensparen)",
+    "amount": -87.5
+   },
+   {
+    "days_ago": 2,
+    "kind": "app_event",
+    "description": "Viewed tax certificate for pension savings 2025",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "nc_home_insurance_annual",
+  "label": "no_clear_moment",
+  "type": "trap",
+  "note": "Annual home insurance renewal at the same address for years; not moving",
+  "age": 55,
+  "balance": 9340.0,
+  "signals": [
+   {
+    "days_ago": 7,
+    "kind": "transaction",
+    "description": "Ethias — home insurance annual premium, policy since 2013, same address",
+    "amount": -412.8
+   },
+   {
+    "days_ago": 15,
+    "kind": "transaction",
+    "description": "Hubo Aalst — paint and brushes",
+    "amount": -64.3
+   }
+  ]
+ },
+ {
+  "id": "nc_domestic_business_hotel",
+  "label": "no_clear_moment",
+  "type": "trap",
+  "note": "Booking.com hotel in Antwerp for work, reimbursed by employer; not travel abroad",
+  "age": 38,
+  "balance": 3560.0,
+  "signals": [
+   {
+    "days_ago": 10,
+    "kind": "transaction",
+    "description": "Booking.com — Hotel Antwerpen Centraal, 1 night, business",
+    "amount": -139.0
+   },
+   {
+    "days_ago": 3,
+    "kind": "transaction",
+    "description": "Employer — expense reimbursement hotel Antwerpen",
+    "amount": 139.0
+   },
+   {
+    "days_ago": 10,
+    "kind": "transaction",
+    "description": "NMBS — train ticket Gent-Antwerpen",
+    "amount": -17.6
+   }
+  ]
+ },
+ {
+  "id": "nj_emigrating_for_job_travel_insurance",
+  "label": "new_job",
+  "type": "trap",
+  "note": "Travel insurance and one-way flight hide that a salary from a new German employer has started",
+  "age": 32,
+  "balance": 5230.0,
+  "signals": [
+   {
+    "days_ago": 18,
+    "kind": "transaction",
+    "description": "Brussels Airlines — one-way BRU-MUC",
+    "amount": -164.0
+   },
+   {
+    "days_ago": 17,
+    "kind": "transaction",
+    "description": "AXA Assistance — travel insurance annual",
+    "amount": -129.0
+   },
+   {
+    "days_ago": 2,
+    "kind": "transaction",
+    "description": "Nordhafen Logistik GmbH — Gehalt September",
+    "amount": 3980.0
+   },
+   {
+    "days_ago": 25,
+    "kind": "transaction",
+    "description": "Brugse Havenlogistiek NV — laatste loon + eindeloon vakantiegeld",
+    "amount": 2710.0
+   },
+   {
+    "days_ago": 6,
+    "kind": "contact",
+    "description": "Customer asked how to keep the Belgian account while being paid by a company in Munich",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "fs_notary_fee_with_collections",
+  "label": "financial_stress",
+  "type": "trap",
+  "note": "Notary fee is for a parent's estate; collection letters and negative balance show stress",
+  "age": 47,
+  "balance": -640.0,
+  "signals": [
+   {
+    "days_ago": 12,
+    "kind": "transaction",
+    "description": "Notaris Claes — voorschot erfenisaangifte moeder",
+    "amount": -250.0
+   },
+   {
+    "days_ago": 6,
+    "kind": "app_event",
+    "description": "Letter scanned: collection agency Intrum — second notice, telecom debt EUR 412",
+    "amount": null
+   },
+   {
+    "days_ago": 3,
+    "kind": "app_event",
+    "description": "Letter scanned: collection agency Fairpay — hospital invoice EUR 286",
+    "amount": null
+   },
+   {
+    "days_ago": 2,
+    "kind": "app_event",
+    "description": "Standing order for car insurance not executed — insufficient funds",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "fs_car_loan_search_salary_stopped",
+  "label": "financial_stress",
+  "type": "trap",
+  "note": "Car-loan simulator search, but salary stopped and card declined; must not push a car loan",
+  "age": 35,
+  "balance": -92.6,
+  "signals": [
+   {
+    "days_ago": 4,
+    "kind": "search",
+    "description": "car loan simulator 10000 euro 60 months",
+    "amount": null
+   },
+   {
+    "days_ago": 6,
+    "kind": "app_event",
+    "description": "Expected monthly salary from Dranken Verbeke BV not received (last 4 years on the 28th)",
+    "amount": null
+   },
+   {
+    "days_ago": 3,
+    "kind": "app_event",
+    "description": "Card payment refused — Aldi Kortrijk — insufficient funds",
+    "amount": null
+   },
+   {
+    "days_ago": 5,
+    "kind": "search",
+    "description": "werkgever failliet loon niet betaald wat nu",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "gf_newborn_passport",
+  "label": "growing_family",
+  "type": "trap",
+  "note": "Passport fee for a newborn looks like travel; birth allowance and maternity care make it family",
+  "age": 31,
+  "balance": 2890.0,
+  "signals": [
+   {
+    "days_ago": 3,
+    "kind": "transaction",
+    "description": "Stad Leuven — passport application fee, child 0 years",
+    "amount": -41.0
+   },
+   {
+    "days_ago": 9,
+    "kind": "transaction",
+    "description": "Groeipakket Fons — startbedrag geboorte",
+    "amount": 1214.0
+   },
+   {
+    "days_ago": 12,
+    "kind": "transaction",
+    "description": "Kraamzorg Vlaams-Brabant — thuisverpleging na bevalling",
+    "amount": -96.0
+   },
+   {
+    "days_ago": 14,
+    "kind": "transaction",
+    "description": "Dreambaby Leuven — luiers en flesjes",
+    "amount": -58.4
+   }
+  ]
+ },
+ {
+  "id": "ar_close_overdraft_before_stopping_work",
+  "label": "approaching_retirement",
+  "type": "trap",
+  "note": "Overdraft keyword but healthy savings; 64-year-old planning the end of his working life",
+  "age": 64,
+  "balance": 24800.0,
+  "signals": [
+   {
+    "days_ago": 8,
+    "kind": "app_event",
+    "description": "Overdraft facility cancelled at customer's request",
+    "amount": null
+   },
+   {
+    "days_ago": 6,
+    "kind": "search",
+    "description": "groepsverzekering uitbetaling op 65 belasting",
+    "amount": null
+   },
+   {
+    "days_ago": 5,
+    "kind": "contact",
+    "description": "Customer asked how his monthly income will change when he stops working next March at 65",
+    "amount": null
+   },
+   {
+    "days_ago": 3,
+    "kind": "app_event",
+    "description": "Opened end-of-career income simulator",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "mh_relocation_cash_advance",
+  "label": "moving_home",
+  "type": "trap",
+  "note": "'Cash advance' is an employer relocation advance; rental deposit and movers show a move",
+  "age": 28,
+  "balance": 3910.0,
+  "signals": [
+   {
+    "days_ago": 11,
+    "kind": "transaction",
+    "description": "Employer — relocation cash advance Ghent office",
+    "amount": 1500.0
+   },
+   {
+    "days_ago": 9,
+    "kind": "transaction",
+    "description": "Huurwaarborg — geblokkeerde rekening, Sleepstraat 14 Gent",
+    "amount": -2250.0
+   },
+   {
+    "days_ago": 4,
+    "kind": "transaction",
+    "description": "Verhuisbedrijf Snel & Zorg — verhuis 2 oktober",
+    "amount": -690.0
+   },
+   {
+    "days_ago": 2,
+    "kind": "app_event",
+    "description": "Address change requested in app — new postal code 9000",
+    "amount": null
+   }
+  ]
+ },
+ {
+  "id": "bc_used_car_payment_plan",
+  "label": "buying_car",
+  "type": "trap",
+  "note": "'Payment plan' is for financing a used car purchase with a large healthy balance",
+  "age": 42,
+  "balance": 12540.0,
+  "signals": [
+   {
+    "days_ago": 7,
+    "kind": "transaction",
+    "description": "Garage Van Hoof — voorschot Skoda Octavia Combi 2022",
+    "amount": -1500.0
+   },
+   {
+    "days_ago": 5,
+    "kind": "app_event",
+    "description": "Signed seller's payment plan: remaining EUR 9,000 over 24 months",
+    "amount": null
+   },
+   {
+    "days_ago": 4,
+    "kind": "search",
+    "description": "verkeersbelasting berekenen skoda octavia 2022",
+    "amount": null
+   },
+   {
+    "days_ago": 2,
+    "kind": "transaction",
+    "description": "DIV — kentekenplaat aanvraag",
+    "amount": -30.0
+   }
+  ]
+ },
+ {
+  "id": "ta_missed_connection_lisbon",
+  "label": "travel_abroad",
+  "type": "trap",
+  "note": "'Missed' refers to a flight connection; foreign card spend shows a trip abroad, not stress",
+  "age": 39,
+  "balance": 4380.0,
+  "signals": [
+   {
+    "days_ago": 6,
+    "kind": "transaction",
+    "description": "KLM — rebooking fee, missed connection AMS-LIS",
+    "amount": -75.0
+   },
+   {
+    "days_ago": 5,
+    "kind": "transaction",
+    "description": "Pingo Doce Lisboa — card payment EUR",
+    "amount": -32.4
+   },
+   {
+    "days_ago": 4,
+    "kind": "transaction",
+    "description": "Multibanco ATM Lisboa — cash withdrawal",
+    "amount": -100.0
+   },
+   {
+    "days_ago": 3,
+    "kind": "transaction",
+    "description": "Uber Portugal — ride",
+    "amount": -14.2
+   },
+   {
+    "days_ago": 7,
+    "kind": "transaction",
+    "description": "Airalo — eSIM Portugal 5GB",
+    "amount": -9.5
+   }
+  ]
+ }
+]

@@ -4,3 +4,6 @@ psycopg[binary]==3.2.*
 pydantic-settings==2.*
 alembic==1.*
 httpx==0.28.*
+google-genai==2.*
+PyJWT==2.*
+pytest==9.*

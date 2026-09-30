@@ -1,66 +1,56 @@
-from fastapi import Depends, FastAPI, HTTPException
+import logging
+from contextlib import asynccontextmanager
+
+from fastapi import Depends, FastAPI, Request
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy import select, text
+from sqlalchemy import text
 from sqlalchemy.orm import Session
 
-from app import jev
-from app.categories import CATEGORIES
 from app.config import settings
-from app.db import get_db
-from app.models import Item
-from app.schemas import ItemCreate, ItemRead
+from app.db import SessionLocal, get_db
+from app.detection import gemini
+from app.routers import advisor, auth, me
+from app.seed import seed
 
-app = FastAPI(title="Starter API")
+logging.basicConfig(level=logging.INFO)
+
+
+@asynccontextmanager
+async def lifespan(_: FastAPI):
+    with SessionLocal() as db:
+        seed(db)
+    yield
+
+
+app = FastAPI(title="KBC Foresight API", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT"],
+    allow_headers=["Content-Type"],
 )
 
+@app.exception_handler(RequestValidationError)
+async def validation_error(_: Request, exc: RequestValidationError):
+    # The contract promises {"detail": "<string>"} for every error, including 422.
+    parts = []
+    for err in exc.errors():
+        field = ".".join(str(p) for p in err.get("loc", []) if p not in ("body", "query", "path"))
+        message = str(err.get("msg", "invalid value")).removeprefix("Value error, ")
+        parts.append(f"{field}: {message}" if field else message)
+    return JSONResponse(status_code=422, content={"detail": "; ".join(parts) or "Invalid request"})
 
-def apply_category(item: Item) -> None:
-    result = jev.categorize(item.name)
-    if result:
-        item.category, item.category_confidence = result
+
+app.include_router(auth.router)
+app.include_router(me.router)
+app.include_router(advisor.router)
 
 
 @app.get("/health")
 def health(db: Session = Depends(get_db)):
     db.execute(text("SELECT 1"))
-    return {"status": "ok", "jev": bool(settings.openrouter_api_key)}
-
-
-@app.get("/categories")
-def list_categories():
-    return CATEGORIES
-
-
-@app.get("/items", response_model=list[ItemRead])
-def list_items(category: str | None = None, db: Session = Depends(get_db)):
-    query = select(Item).order_by(Item.id.desc())
-    if category:
-        query = query.where(Item.category == category)
-    return db.scalars(query).all()
-
-
-@app.post("/items", response_model=ItemRead, status_code=201)
-def create_item(payload: ItemCreate, db: Session = Depends(get_db)):
-    item = Item(name=payload.name)
-    apply_category(item)
-    db.add(item)
-    db.commit()
-    db.refresh(item)
-    return item
-
-
-@app.post("/items/{item_id}/categorize", response_model=ItemRead)
-def categorize_item(item_id: int, db: Session = Depends(get_db)):
-    item = db.get(Item, item_id)
-    if not item:
-        raise HTTPException(status_code=404, detail="Item not found")
-    apply_category(item)
-    db.commit()
-    db.refresh(item)
-    return item
+    return {"status": "ok", "ai": gemini.is_configured()}

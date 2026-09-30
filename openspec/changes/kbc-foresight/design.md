@@ -48,7 +48,7 @@
 
 - **Base URL:** `NEXT_PUBLIC_API_URL`, default `http://localhost:8000`.
 - **Requests:** the frontend always sends `credentials: "include"`, with JSON bodies.
-- **Errors:** `{"detail": "..."}` with status 401, 403, 404, 422 or 429.
+- **Errors:** `{"detail": "..."}` (always a string) with status 401, 403, 404, 409 (a decision on an intervention that isn't in review), 422 or 429.
 
 ### Auth
 | Method & path | Role | Body | Response |
@@ -169,13 +169,18 @@ Fixtures (`frontend/src/mocks/`): `me-customer.json`, `me-advisor.json`, `overvi
 |---|---|
 | `moving_home` | Notary €9,000 plus moving €2,500 at month +2; rent replaced by a mortgage of €1,150 from month +3 |
 | `growing_family` | Childcare -€550/month and child benefit +€170/month from month +4; baby gear -€1,200 at month +1 |
-| `new_job` | Salary uplift +€350/month from month +1 |
+| `new_job` | The recent first salary is projected monthly; if there's none, a salary uplift of +€350/month |
 | `approaching_retirement` | Income ×0.65 from month +6 |
 | `buying_car` | -€4,000 deposit at month +1; loan -€320/month from month +2 |
 | `travel_abroad` | -€1,800 at month +1 |
 | `financial_stress` | No adjustment (the history already shows it) |
 
-**3. The policy is an ordered rule list in one module.** It returns a status plus reasons, following the spec order exactly. That makes guardrails easy to demo and to audit.
+**3. The policy is an ordered rule list in one module.** It returns a status plus reasons, following the spec order exactly. That makes guardrails easy to demo and to audit. Implementation choices within the spec:
+- Pinch-point warnings count as a service message, not sales. They skip the consent and proactivity rules, so they stay under `minimal` (as the customer-app spec requires).
+- Under stress, the pinch warning becomes an advisor-routed `support` version.
+- A surplus nudge is sales. It's held without consent or under `minimal`.
+- A decision on an intervention that isn't in `review` returns 409.
+- "Not right" is remembered per customer (`customers.rejected_moment`): later detections never assign that moment again, even after new signals.
 
 **4. Sessions use a signed JWT in an HTTP-only cookie.**
 - *How:* PyJWT with HS256, the key from `SESSION_SECRET` (at least 32 characters), claims `sub` (user ID), `role` and `exp` (8 hours). Cookie flags: `HttpOnly` and `SameSite=Lax`, plus `Secure` when `COOKIE_SECURE=true`.
