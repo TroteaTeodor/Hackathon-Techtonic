@@ -6,7 +6,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app import schemas
-from app.detection import LABELS, Detection, detect
+from app.detection import LABELS, Detection, detect, normalize
 from app.interventions import plan
 from app.models import Customer, InterventionRecord, MomentRecord, Signal
 from app.twin import build_twin
@@ -91,14 +91,27 @@ def replan(db: Session, customer: Customer) -> None:
     db.flush()
 
 
+def respect_rejection(customer: Customer, detection: Detection) -> Detection:
+    """If detection lands on the moment the customer rejected, drop it and take the next most likely one."""
+    if not customer.rejected_moment or detection.key != customer.rejected_moment:
+        return detection
+    probs = normalize({k: (0.0 if k == customer.rejected_moment else v) for k, v in detection.probabilities.items()})
+    key = max(probs, key=probs.get)
+    detection.key, detection.confidence, detection.probabilities = key, probs[key], probs
+    detection.rationale = f"{detection.rationale} (The customer told us '{LABELS[customer.rejected_moment].lower()}' isn't right.)"
+    return detection
+
+
 def analyze(db: Session, customer: Customer, use_ai: bool = True) -> MomentRecord:
     signals = customer_signals(db, customer.id)
-    return persist(db, customer, signals, detect(customer, signals, use_ai=use_ai))
+    return persist(db, customer, signals, respect_rejection(customer, detect(customer, signals, use_ai=use_ai)))
 
 
 def reject_moment(db: Session, customer: Customer) -> MomentRecord:
     """The customer says the detected moment is wrong: record that and recompute."""
     previous = current_moment(db, customer.id)
+    if previous and previous.key not in ("no_clear_moment", "financial_stress"):
+        customer.rejected_moment = previous.key
     probabilities = {k: 0.0 for k in schemas.MOMENT_KEYS}
     probabilities["no_clear_moment"] = 1.0
     detection = Detection(
@@ -160,7 +173,7 @@ def overview(db: Session, customer: Customer) -> schemas.CustomerOverview:
     )
 
 
-SIGNALS_IN_DETAIL = 60
+SIGNALS_IN_DETAIL = 200
 
 
 def detail(db: Session, customer: Customer) -> schemas.CustomerDetail:

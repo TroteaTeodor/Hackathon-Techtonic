@@ -1,7 +1,9 @@
 import logging
 from contextlib import asynccontextmanager
 
-from fastapi import Depends, FastAPI
+from fastapi import Depends, FastAPI, Request
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
 from sqlalchemy.orm import Session
@@ -31,6 +33,17 @@ app.add_middleware(
     allow_methods=["GET", "POST", "PUT"],
     allow_headers=["Content-Type"],
 )
+
+@app.exception_handler(RequestValidationError)
+async def validation_error(_: Request, exc: RequestValidationError):
+    # The contract promises {"detail": "<string>"} for every error, including 422.
+    parts = []
+    for err in exc.errors():
+        field = ".".join(str(p) for p in err.get("loc", []) if p not in ("body", "query", "path"))
+        message = str(err.get("msg", "invalid value")).removeprefix("Value error, ")
+        parts.append(f"{field}: {message}" if field else message)
+    return JSONResponse(status_code=422, content={"detail": "; ".join(parts) or "Invalid request"})
+
 
 app.include_router(auth.router)
 app.include_router(me.router)

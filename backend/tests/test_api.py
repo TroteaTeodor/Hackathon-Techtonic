@@ -206,3 +206,21 @@ def test_future_deliveries_are_not_shown_yet(client):
     login(client, "sara")
     for item in client.get("/me/overview").json()["interventions"]:
         assert date.fromisoformat(item["deliver_at"]) <= date.today()
+
+
+def test_validation_errors_have_a_string_detail(client, db):
+    login(client, "advisor")
+    res = client.post(f"/customers/{customer_id(db, 'Jan')}/signals", json={"kind": "transaction", "description": "No amount"})
+    assert res.status_code == 422
+    assert isinstance(res.json()["detail"], str) and "amount" in res.json()["detail"]
+
+
+def test_rejected_moment_survives_a_new_signal(client, db):
+    login(client, "lien")
+    assert client.post("/me/moment/reject").json()["moment"]["key"] == "no_clear_moment"
+    login(client, "advisor")
+    lien = customer_id(db, "Lien")
+    body = client.post(f"/customers/{lien}/signals", json={
+        "kind": "transaction", "description": "Kruidvat — baby wipes", "amount": -12}).json()
+    assert body["moment"]["key"] != "growing_family"
+    assert "isn't right" in body["moment"]["rationale"]

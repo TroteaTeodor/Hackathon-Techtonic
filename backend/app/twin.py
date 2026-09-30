@@ -153,7 +153,7 @@ def build_twin(balance: float, signals, moment_key: str | None = None, confidenc
             if costs:
                 biggest = min(costs, key=lambda e: e.amount)
                 name = biggest.label.replace(" (estimate)", "")
-                reason = f"{name} ({euro(biggest.amount)[1:]}) pushes your balance below the €250 buffer."
+                reason = f"{name} ({euro(biggest.amount)[1:]}) will take your balance below the €250 buffer."
             else:
                 reason = "Your balance stays below the €250 buffer."
             pinches.append(PinchPoint(month=label, balance=running, reason=reason))

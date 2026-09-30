@@ -82,6 +82,10 @@ def pct(value: float) -> str:
     return f"{round(value * 100)}%"
 
 
+def month_label(month: str) -> str:
+    return f"{calendar.month_name[int(month[5:])]} {month[:4]}"
+
+
 def pinch_delivery(month: str, today: date) -> date:
     first = date(int(month[:4]), int(month[5:]), 1)
     return max(today, first - timedelta(days=PINCH_LEAD_DAYS))
@@ -117,7 +121,7 @@ def plan(customer, detection, twin, today: date | None = None) -> list[dict]:
     pinch_reasons = []
     if pinch:
         pinch_reasons = [
-            f"Forecast: balance of {euro(pinch.balance)} at the end of {pinch.month}, below the €250 buffer",
+            f"Forecast: balance of {euro(pinch.balance)} at the end of {month_label(pinch.month)}, below the €250 buffer",
             pinch.reason,
             "Sent 21 days before the month starts, so there is time to act",
         ]

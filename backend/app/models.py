@@ -18,6 +18,8 @@ class Customer(Base):
     proactivity: Mapped[str] = mapped_column(String(20), default="balanced")
     balance: Mapped[float] = mapped_column(Float)
     is_story: Mapped[bool] = mapped_column(Boolean, default=False)
+    # The moment this customer told us is wrong; detection never assigns it again.
+    rejected_moment: Mapped[str | None] = mapped_column(String(40))
 
 
 class User(Base):
