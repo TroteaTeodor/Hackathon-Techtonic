@@ -3,7 +3,8 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BrandMark, LogoutButton, MockBadge, Spinner, useSession } from "@/components/shell";
+import { BrandMark, LogoutButton, MockBadge, useSession } from "@/components/shell";
+import { CustomerDetailSkeleton, CustomerListSkeleton, ScaleSkeleton } from "@/components/skeletons";
 
 const TABS = [
   { href: "/advisor", label: "Customers" },
@@ -14,20 +15,21 @@ export default function AdvisorLayout({ children }: LayoutProps<"/advisor">) {
   const me = useSession("advisor");
   const pathname = usePathname();
 
-  if (!me) {
-    return (
-      <main className="flex flex-1 items-center justify-center bg-paper">
-        <Spinner className="text-navy-700" />
-      </main>
+  const pending =
+    pathname === "/advisor/scale" ? (
+      <ScaleSkeleton />
+    ) : pathname.startsWith("/advisor/customers/") ? (
+      <CustomerDetailSkeleton />
+    ) : (
+      <CustomerListSkeleton />
     );
-  }
 
   return (
     <div className="flex flex-1 flex-col">
       <header className="sticky top-0 z-20 bg-navy-900 pt-[env(safe-area-inset-top)] text-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
           <div className="flex items-center gap-3">
-            <BrandMark />
+            <BrandMark href="/advisor" />
             <span className="hidden text-sm text-ice/60 sm:inline">Advisor console</span>
           </div>
           <div className="flex items-center gap-2">
@@ -56,7 +58,7 @@ export default function AdvisorLayout({ children }: LayoutProps<"/advisor">) {
         </nav>
       </header>
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 pb-[max(2.5rem,env(safe-area-inset-bottom))] pt-6 sm:px-6">
-        {children}
+        {me ? children : pending}
       </main>
     </div>
   );

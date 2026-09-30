@@ -26,7 +26,7 @@ export function MomentChip({ moment, confidence }: { moment: MomentKey | null; c
 /** Stress as a five-segment meter: quick to scan down a column. */
 export function StressMeter({ value }: { value: number | null }) {
   if (value == null) return <span className="text-sm text-muted">–</span>;
-  const filled = Math.max(1, Math.round(value * 5));
+  const filled = Math.round(value * 5);
   const high = value >= 0.6;
   return (
     <span className="inline-flex items-center gap-2" title={`Stress ${percent(value)}`}>

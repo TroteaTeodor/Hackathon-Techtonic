@@ -2,16 +2,25 @@
 
 import clsx from "clsx";
 import { LogOut } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ApiError, getMe, logout, USE_MOCKS } from "@/lib/api";
 import type { Me, Role } from "@/lib/types";
 
-/** Our own mark: a horizon line with the sun rising over it. Not the KBC logo. */
-export function BrandMark({ className, tone = "light" }: { className?: string; tone?: "light" | "dark" }) {
-  return (
-    <span className={clsx("inline-flex items-center gap-2", className)}>
-      <svg viewBox="0 0 28 28" className="size-7" aria-hidden>
+/** Our own mark: a horizon line with the sun rising over it. Not the KBC logo. Links home. */
+export function BrandMark({
+  className,
+  tone = "light",
+  href = "/",
+}: {
+  className?: string;
+  tone?: "light" | "dark";
+  href?: string | null;
+}) {
+  const mark = (
+    <>
+      <svg viewBox="0 0 28 28" className="size-7 transition-transform duration-500 group-hover:-translate-y-0.5" aria-hidden>
         <circle cx="14" cy="16" r="7" fill="#1fb6e8" />
         <rect x="2" y="16" width="24" height="10" fill={tone === "light" ? "#06224a" : "#ffffff"} />
         <path d="M3 16.5h22" stroke={tone === "light" ? "#8fdcf5" : "#06224a"} strokeWidth="2" strokeLinecap="round" />
@@ -19,7 +28,13 @@ export function BrandMark({ className, tone = "light" }: { className?: string; t
       <span className={clsx("font-display text-lg font-semibold tracking-tight", tone === "light" ? "text-white" : "text-navy-900")}>
         Foresight
       </span>
-    </span>
+    </>
+  );
+  if (!href) return <span className={clsx("inline-flex items-center gap-2", className)}>{mark}</span>;
+  return (
+    <Link href={href} aria-label="Foresight home" className={clsx("press group -m-1.5 inline-flex items-center gap-2 rounded-xl p-1.5", className)}>
+      {mark}
+    </Link>
   );
 }
 

@@ -2,11 +2,12 @@
 
 import clsx from "clsx";
 import { ArrowLeft, ArrowRight, Baby, Car, FileSignature, Landmark, Sparkles, TriangleAlert } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { MomentChip, Panel, StatusBadge } from "@/components/advisor";
+import { Money, StreamText } from "@/components/motion";
+import { CustomerDetailSkeleton } from "@/components/skeletons";
 import { ErrorNote, errorMessage, Spinner } from "@/components/shell";
 import { TwinChart } from "@/components/TwinChart";
 import { decideIntervention, getCustomer, injectSignal } from "@/lib/api";
@@ -108,12 +109,7 @@ export default function CustomerDetailPage() {
   if (!validId)
     return <ErrorNote message="This customer link isn't valid. Go back to the list and pick a customer." />;
   if (error) return <ErrorNote message={error} onRetry={load} />;
-  if (!data)
-    return (
-      <div className="flex justify-center py-24">
-        <Spinner className="text-navy-700" />
-      </div>
-    );
+  if (!data) return <CustomerDetailSkeleton />;
 
   const { customer, moment, twin, interventions, signals } = data;
   const flash = (on: boolean) => flashKey > 0 && on;
@@ -134,7 +130,7 @@ export default function CustomerDetailPage() {
           </p>
         </div>
         <dl className="flex flex-wrap gap-2 text-sm">
-          <Fact label="Balance" value={money(customer.balance)} flash={flash(!!change?.balance)} k={flashKey} />
+          <Fact label="Balance" value={<Money value={customer.balance} />} flash={flash(!!change?.balance)} k={flashKey} />
           <Fact label="Proactivity" value={PROACTIVITY[customer.proactivity].label} />
           <Fact
             label="Marketing"
@@ -144,14 +140,10 @@ export default function CustomerDetailPage() {
         </dl>
       </div>
 
-      <AnimatePresence>
-        {change && (change.moment || change.balance || change.pinch || change.newInterventions.length > 0) && (
-          <motion.div
+      {change && (change.moment || change.balance || change.pinch || change.newInterventions.length > 0) && (
+          <div
             key={flashKey}
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            className="mt-5 rounded-[var(--radius-card)] bg-navy-900 p-4 text-white sm:p-5"
+            className="flash-change mt-5 rounded-[var(--radius-card)] bg-navy-900 p-4 text-white sm:p-5"
             role="status"
           >
             <p className="flex items-center gap-2 text-sm font-medium text-cyan-300">
@@ -194,9 +186,8 @@ export default function CustomerDetailPage() {
                 </li>
               )}
             </ul>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
 
       <div className="mt-6 grid gap-5 lg:grid-cols-[minmax(0,1fr)_340px]">
         <div className="flex min-w-0 flex-col gap-5">
@@ -259,7 +250,19 @@ export default function CustomerDetailPage() {
   );
 }
 
-function Fact({ label, value, tone, flash, k }: { label: string; value: string; tone?: string; flash?: boolean; k?: number }) {
+function Fact({
+  label,
+  value,
+  tone,
+  flash,
+  k,
+}: {
+  label: string;
+  value: React.ReactNode;
+  tone?: string;
+  flash?: boolean;
+  k?: number;
+}) {
   return (
     <div key={flash ? k : undefined} className={clsx("rounded-2xl border border-line bg-white px-3.5 py-2", flash && "flash-change")}>
       <dt className="text-xs text-muted">{label}</dt>
@@ -288,7 +291,19 @@ function MomentDetail({ moment }: { moment: NonNullable<CustomerDetail["moment"]
           Analyzed {new Date(moment.analyzed_at).toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" })}
         </span>
       </div>
-      <p className="mt-3 max-w-prose text-[15px] leading-relaxed text-ink/85">{moment.rationale}</p>
+      <div className="mt-3 flex items-start gap-4">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          key={moment.key}
+          src={MOMENTS[moment.key].image}
+          alt=""
+          className="hidden aspect-[4/3] w-32 shrink-0 rounded-xl object-cover sm:block"
+          onError={(e) => (e.currentTarget.style.visibility = "hidden")}
+        />
+        <p className="max-w-prose text-[15px] leading-relaxed text-ink/85">
+          <StreamText text={moment.rationale} id={moment.analyzed_at} />
+        </p>
+      </div>
 
       <div className="mt-4 grid gap-x-8 gap-y-4 sm:grid-cols-[minmax(0,1fr)_180px]">
         <ul className="space-y-2" aria-label="Probability per moment">
@@ -298,11 +313,12 @@ function MomentDetail({ moment }: { moment: NonNullable<CustomerDetail["moment"]
                 {MOMENTS[key].label}
               </span>
               <span className="h-2 overflow-hidden rounded-full bg-paper">
-                <motion.span
-                  className={clsx("block h-full rounded-full", key === moment.key ? "bg-cyan-500" : "bg-navy-500/35")}
-                  initial={{ width: 0 }}
-                  animate={{ width: `${Math.max(p * 100, 1)}%` }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
+                <span
+                  className={clsx(
+                    "block h-full rounded-full transition-[width] duration-700 ease-out",
+                    key === moment.key ? "bg-cyan-500" : "bg-navy-500/35",
+                  )}
+                  style={{ width: `${Math.max(p * 100, 1)}%` }}
                 />
               </span>
               <span className="tabular text-right text-muted">{percent(p)}</span>
@@ -460,6 +476,13 @@ function InjectPanel({ customerId, onUpdated }: { customerId: number; onUpdated:
         ))}
       </div>
 
+      {busy && (
+        <p role="status" className="mt-3 flex items-center gap-2 rounded-xl bg-cyan-500/15 px-3 py-2.5 text-sm text-cyan-300">
+          <Spinner className="size-4" />
+          Reading the new signal and re-running the forecast…
+        </p>
+      )}
+
       <form onSubmit={onSubmit} className="mt-4 space-y-2.5 border-t border-white/10 pt-4">
         <div className="grid grid-cols-[minmax(0,1fr)_7rem] gap-2">
           <label className="sr-only" htmlFor="sig-kind">
@@ -548,3 +571,4 @@ function SignalTimeline({ signals, highlight }: { signals: Signal[]; highlight?:
     </div>
   );
 }
+

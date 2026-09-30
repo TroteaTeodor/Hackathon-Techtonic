@@ -1,14 +1,16 @@
 "use client";
 
 import clsx from "clsx";
-import { motion } from "motion/react";
 import { useCallback, useEffect, useState } from "react";
 import { STATUS_TONE } from "@/components/advisor";
-import { ErrorNote, errorMessage, Spinner } from "@/components/shell";
+import { Num } from "@/components/motion";
+import { ScaleSkeleton } from "@/components/skeletons";
+import { ErrorNote, errorMessage } from "@/components/shell";
 import { getScale } from "@/lib/api";
 import { count, money, moneyCents, MOMENT_KEYS, MOMENTS, percent, STATUS_LABEL } from "@/lib/format";
 import type { Intervention, ScaleStats } from "@/lib/types";
 
+const EUR2 = { style: "currency", currency: "EUR", minimumFractionDigits: 2, maximumFractionDigits: 2 } as const;
 const STATUS_ORDER: Intervention["status"][] = ["delivered", "review", "held", "dismissed"];
 const STATUS_BAR: Record<Intervention["status"], string> = {
   delivered: "bg-mint",
@@ -32,12 +34,7 @@ export default function ScalePage() {
   useEffect(load, [load]);
 
   if (error) return <ErrorNote message={error} onRetry={load} />;
-  if (!data)
-    return (
-      <div className="flex justify-center py-24">
-        <Spinner className="text-navy-700" />
-      </div>
-    );
+  if (!data) return <ScaleSkeleton />;
 
   const a = data.assumptions;
   const analysesPerDay = a.customers * a.daily_reevaluation_rate;
@@ -55,13 +52,13 @@ export default function ScalePage() {
           <div>
             <p className="text-sm text-ice/65">Projected AI cost per day</p>
             <p className="font-display tabular mt-1 text-5xl font-semibold tracking-tight text-cyan-300 sm:text-6xl">
-              {moneyCents(data.projected_daily_cost_eur)}
+              <Num value={data.projected_daily_cost_eur} format={EUR2} />
             </p>
           </div>
           <div>
             <p className="text-sm text-ice/65">Per month</p>
             <p className="font-display tabular mt-1 text-5xl font-semibold tracking-tight sm:text-6xl">
-              {moneyCents(data.projected_monthly_cost_eur)}
+              <Num value={data.projected_monthly_cost_eur} format={EUR2} />
             </p>
           </div>
         </div>
@@ -90,14 +87,12 @@ export default function ScalePage() {
                 <li key={k} className="grid grid-cols-[9.5rem_minmax(0,1fr)_4.5rem] items-center gap-3 text-sm">
                   <span className={clsx("truncate", k === "financial_stress" ? "text-coral" : "text-ink")}>{MOMENTS[k].label}</span>
                   <span className="h-2.5 overflow-hidden rounded-full bg-paper">
-                    <motion.span
+                    <span
                       className={clsx(
                         "block h-full rounded-full",
                         k === "financial_stress" ? "bg-coral" : k === "no_clear_moment" ? "bg-navy-500/30" : "bg-cyan-500",
                       )}
-                      initial={{ width: 0 }}
-                      animate={{ width: `${(n / momentMax) * 100}%` }}
-                      transition={{ duration: 0.7, ease: "easeOut" }}
+                      style={{ width: `${(n / momentMax) * 100}%` }}
                     />
                   </span>
                   <span className="tabular text-right text-muted">
