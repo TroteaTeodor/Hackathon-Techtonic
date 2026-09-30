@@ -11,8 +11,12 @@ import {
   Fuel,
   House,
   Landmark,
+  PiggyBank,
   Plane,
   ReceiptText,
+  Repeat,
+  Ticket,
+  Tv,
   ShieldCheck,
   ShoppingBasket,
   Smartphone,
@@ -26,7 +30,7 @@ import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/motion";
 import { getTransactions } from "@/lib/api";
 import { signedMoney } from "@/lib/format";
-import type { Signal } from "@/lib/types";
+import type { Signal, TransactionCategory } from "@/lib/types";
 
 const CATEGORIES: [RegExp, LucideIcon, string][] = [
   [/salary|wage|payroll|holiday pay/i, Briefcase, "bg-mint-soft text-mint"],
@@ -47,9 +51,35 @@ const CATEGORIES: [RegExp, LucideIcon, string][] = [
   [/kbc|bank|transfer|savings/i, Landmark, "bg-ice text-navy-700"],
 ];
 
-function categorize(description: string) {
-  for (const [re, icon, tone] of CATEGORIES) if (re.test(description)) return { icon, tone };
-  return { icon: ReceiptText, tone: "bg-ice text-navy-700" };
+// The backend classifies every transaction; the regexes above are only a fallback for older data.
+const BY_CATEGORY: Record<TransactionCategory, [LucideIcon, string, string]> = {
+  income: [Briefcase, "bg-mint-soft text-mint", "Income"],
+  housing: [House, "bg-ice text-navy-700", "Housing"],
+  energy: [Zap, "bg-ice text-navy-700", "Energy & water"],
+  telecom: [Smartphone, "bg-ice text-navy-700", "Phone & internet"],
+  groceries: [ShoppingBasket, "bg-ice text-navy-700", "Groceries"],
+  transport: [TrainFront, "bg-ice text-navy-700", "Transport"],
+  subscriptions: [Tv, "bg-ice text-navy-700", "Subscription"],
+  entertainment: [Ticket, "bg-ice text-navy-700", "Entertainment"],
+  dining: [Utensils, "bg-ice text-navy-700", "Eating out"],
+  shopping: [CreditCard, "bg-ice text-navy-700", "Shopping"],
+  health: [Baby, "bg-ice text-navy-700", "Health"],
+  insurance: [ShieldCheck, "bg-ice text-navy-700", "Insurance"],
+  travel: [Plane, "bg-ice text-navy-700", "Travel"],
+  family: [Baby, "bg-ice text-navy-700", "Family & children"],
+  loans: [Landmark, "bg-ice text-navy-700", "Loans & credit"],
+  fees: [TriangleAlert, "bg-coral-soft text-coral", "Bank fees & interest"],
+  savings: [PiggyBank, "bg-ice text-navy-700", "Savings"],
+  other: [ReceiptText, "bg-ice text-navy-700", "Other"],
+};
+
+function categorize(t: Signal) {
+  if (t.category) {
+    const [icon, tone, label] = BY_CATEGORY[t.category];
+    return { icon, tone, label };
+  }
+  for (const [re, icon, tone] of CATEGORIES) if (re.test(t.description)) return { icon, tone, label: null };
+  return { icon: ReceiptText, tone: "bg-ice text-navy-700", label: null };
 }
 
 /** "Groceries — Aldi" reads best as the merchant on top and the category underneath. */
@@ -105,7 +135,7 @@ export function RecentActivity() {
         {rows && rows.length > 0 && <span className="text-sm text-muted">Current account</span>}
       </div>
 
-      <div className="mt-3 overflow-hidden rounded-[var(--radius-card)] bg-white">
+      <div className="elev-1 mt-3 overflow-hidden rounded-[var(--radius-card)] bg-white">
         {rows === undefined && !failed && (
           <ul aria-busy="true" aria-label="Loading transactions">
             {Array.from({ length: 4 }, (_, i) => (
@@ -130,7 +160,7 @@ export function RecentActivity() {
             <p className="bg-paper/70 px-4 pb-1.5 pt-3 text-xs font-medium text-muted">{g.label}</p>
             <ul>
               {g.items.map((t) => {
-                const { icon: Icon, tone } = categorize(t.description);
+                const { icon: Icon, tone, label } = categorize(t);
                 const { title, sub } = split(t.description);
                 const amount = t.amount ?? 0;
                 return (
@@ -140,7 +170,14 @@ export function RecentActivity() {
                     </span>
                     <span className="min-w-0 flex-1">
                       <span className="block truncate font-medium text-ink">{title}</span>
-                      {sub && <span className="block truncate text-[13px] text-muted">{sub}</span>}
+                      <span className="flex items-center gap-1.5 truncate text-[13px] text-muted">
+                        {label ?? sub}
+                        {t.recurring && (
+                          <span className="inline-flex items-center gap-0.5 rounded-full bg-ice px-1.5 py-px text-[11px] font-medium text-navy-700">
+                            <Repeat aria-hidden className="size-3" /> recurring
+                          </span>
+                        )}
+                      </span>
                     </span>
                     <span className={clsx("tabular shrink-0 font-semibold", amount > 0 ? "text-mint" : "text-ink")}>
                       {signedMoney(amount)}

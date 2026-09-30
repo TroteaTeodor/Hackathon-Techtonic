@@ -41,24 +41,25 @@ def test_recent_one_off_is_not_projected():
 
 def test_moving_home_changes_the_future():
     signals = story_signals("sara", TODAY)
-    plain = build_twin(9800, signals)
-    moved = build_twin(9800, signals, "moving_home", 0.87)
+    plain = build_twin(8000, signals)
+    moved = build_twin(8000, signals, "moving_home", 0.87)
     labels = {e.label for m in moved.months for e in m.events if e.source == "moment"}
-    assert {"Notary fees (estimate)", "Moving costs (estimate)", "Mortgage payment — KBC home loan (estimate)"} <= labels
+    for prefix in ("Notary and registration fees", "Moving costs", "Mortgage payment"):
+        assert any(label.startswith(prefix) for label in labels), prefix
     assert [m.balance for m in plain.months] != [m.balance for m in moved.months]
     # Rent is replaced by the mortgage from the third month on.
     assert not any(e.label.startswith("Rent") for e in moved.months[2].events)
 
 
 def test_low_confidence_adds_no_moment_events():
-    twin = build_twin(9800, story_signals("sara", TODAY), "moving_home", 0.4)
+    twin = build_twin(8000, story_signals("sara", TODAY), "moving_home", 0.4)
     assert not any(e.source == "moment" for m in twin.months for e in m.events)
 
 
 def test_pinch_point_names_the_notary_fees():
-    twin = build_twin(9800, story_signals("sara", TODAY), "moving_home", 0.87)
+    twin = build_twin(8000, story_signals("sara", TODAY), "moving_home", 0.87)
     assert [p.month for p in twin.pinch_points] == ["2026-11"]
-    assert "Notary fees" in twin.pinch_points[0].reason
+    assert "Notary and registration fees" in twin.pinch_points[0].reason
     assert twin.pinch_points[0].balance < 250
 
 

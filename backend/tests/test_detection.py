@@ -187,3 +187,10 @@ def test_unsure_jev_is_kept_when_gemini_is_down(cascade):
 def test_everything_down_uses_rules(cascade):
     cascade(jev_answer=None, gemini_answer=None)
     assert detect(customer(), story_signals("sara")).source == "rules"
+
+
+def test_model_confidence_is_capped_at_99():
+    from app.detection import normalize
+
+    probs = normalize({"moving_home": 1.0, "new_job": 0.0, "no_clear_moment": 0.0})
+    assert probs["moving_home"] == 0.99 and abs(sum(probs.values()) - 1) < 0.001

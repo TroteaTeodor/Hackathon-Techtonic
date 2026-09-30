@@ -5,8 +5,8 @@
     "age": 31,
     "city": "Leuven",
     "moment_key": "moving_home",
-    "moment_confidence": 0.87,
-    "stress": 0.08,
+    "moment_confidence": 0.99,
+    "stress": 0.29,
     "next_pinch_month": "2026-11",
     "review_count": 0
   },
@@ -16,9 +16,9 @@
     "age": 29,
     "city": "Gent",
     "moment_key": "growing_family",
-    "moment_confidence": 0.82,
-    "stress": 0.14,
-    "next_pinch_month": "2027-01",
+    "moment_confidence": 0.99,
+    "stress": 0.1,
+    "next_pinch_month": null,
     "review_count": 0
   },
   {
@@ -27,8 +27,8 @@
     "age": 23,
     "city": "Antwerpen",
     "moment_key": "new_job",
-    "moment_confidence": 0.79,
-    "stress": 0.1,
+    "moment_confidence": 0.99,
+    "stress": 0.09,
     "next_pinch_month": null,
     "review_count": 0
   },
@@ -38,10 +38,10 @@
     "age": 63,
     "city": "Namur",
     "moment_key": "approaching_retirement",
-    "moment_confidence": 0.74,
-    "stress": 0.06,
+    "moment_confidence": 0.99,
+    "stress": 0.09,
     "next_pinch_month": null,
-    "review_count": 1
+    "review_count": 0
   },
   {
     "id": 5,
@@ -49,10 +49,10 @@
     "age": 41,
     "city": "Hasselt",
     "moment_key": "financial_stress",
-    "moment_confidence": 0.71,
-    "stress": 0.83,
+    "moment_confidence": 0.99,
+    "stress": 0.98,
     "next_pinch_month": "2026-10",
-    "review_count": 1
+    "review_count": 3
   },
   {
     "id": 6,
@@ -60,9 +60,9 @@
     "age": 37,
     "city": "Brugge",
     "moment_key": "buying_car",
-    "moment_confidence": 0.77,
-    "stress": 0.11,
-    "next_pinch_month": "2026-10",
+    "moment_confidence": 0.99,
+    "stress": 0.1,
+    "next_pinch_month": null,
     "review_count": 0
   },
   {
@@ -71,42 +71,42 @@
     "age": 45,
     "city": "Mechelen",
     "moment_key": "no_clear_moment",
-    "moment_confidence": 0.81,
-    "stress": 0.05,
+    "moment_confidence": 0.99,
+    "stress": 0.08,
     "next_pinch_month": null,
     "review_count": 0
   },
   {
     "id": 8,
-    "name": "Elise Vermeulen",
-    "age": 52,
-    "city": "Kortrijk",
-    "moment_key": "no_clear_moment",
-    "moment_confidence": 0.77,
-    "stress": 0.09,
+    "name": "Louis Goossens",
+    "age": 35,
+    "city": "Brussel",
+    "moment_key": "moving_home",
+    "moment_confidence": 0.541,
+    "stress": 0.0,
     "next_pinch_month": null,
     "review_count": 0
   },
   {
     "id": 9,
-    "name": "Tom Lambert",
-    "age": 34,
-    "city": "Liège",
-    "moment_key": "travel_abroad",
-    "moment_confidence": 0.66,
-    "stress": 0.07,
-    "next_pinch_month": null,
-    "review_count": 0
+    "name": "Ines Goossens",
+    "age": 31,
+    "city": "Hasselt",
+    "moment_key": "financial_stress",
+    "moment_confidence": 0.868,
+    "stress": 0.91,
+    "next_pinch_month": "2026-10",
+    "review_count": 2
   },
   {
     "id": 10,
-    "name": "Nora Jacobs",
-    "age": 27,
-    "city": "Aalst",
-    "moment_key": "new_job",
-    "moment_confidence": 0.58,
-    "stress": 0.18,
+    "name": "Bram Peeters",
+    "age": 40,
+    "city": "Brugge",
+    "moment_key": "travel_abroad",
+    "moment_confidence": 0.704,
+    "stress": 0.0,
     "next_pinch_month": null,
-    "review_count": 1
+    "review_count": 0
   }
 ]

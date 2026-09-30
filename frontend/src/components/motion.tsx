@@ -4,7 +4,7 @@ import NumberFlow from "@number-flow/react";
 import clsx from "clsx";
 import Lenis from "lenis";
 import "lenis/dist/lenis.css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 /** Inertial wheel scrolling on desktop. Touch keeps native scrolling, and reduced motion turns it off. */
 export function SmoothScroll() {
@@ -65,12 +65,14 @@ export function Skeleton({ className }: { className?: string }) {
   return <span aria-hidden className={clsx("skeleton block rounded-lg", className)} />;
 }
 
-/** True once the element has scrolled into view (and stays true), so entrances start when they can be seen. */
+/**
+ * True once the element has scrolled into view (and stays true), so entrances start when they can be
+ * seen. Returns a callback ref, so it also works for elements that only appear after data loads.
+ */
 export function useInView<T extends Element>(threshold = 0.4) {
-  const ref = useRef<T>(null);
+  const [el, setEl] = useState<T | null>(null);
   const [inView, setInView] = useState(false);
   useEffect(() => {
-    const el = ref.current;
     if (!el || inView) return;
     const io = new IntersectionObserver(
       ([entry]) => {
@@ -83,8 +85,8 @@ export function useInView<T extends Element>(threshold = 0.4) {
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [inView, threshold]);
-  return [ref, inView] as const;
+  }, [el, inView, threshold]);
+  return [setEl, inView] as const;
 }
 
 /** A number that rolls up from zero the first time it scrolls into view. */

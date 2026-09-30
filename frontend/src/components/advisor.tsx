@@ -52,7 +52,7 @@ export const STATUS_TONE: Record<Intervention["status"], string> = {
 
 export function StatusBadge({ status }: { status: Intervention["status"] }) {
   return (
-    <span className={clsx("whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-medium", STATUS_TONE[status])}>
+    <span key={status} className={clsx("status-pop whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-medium", STATUS_TONE[status])}>
       {STATUS_LABEL[status]}
     </span>
   );
