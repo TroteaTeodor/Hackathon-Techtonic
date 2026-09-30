@@ -5,7 +5,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app import schemas
-from app.analysis import analyze, overview, reject_moment
+from app.analysis import overview, reject_moment, replan
 from app.auth import require_customer
 from app.db import get_db
 from app.models import Customer, InterventionRecord
@@ -21,7 +21,7 @@ def get_overview(customer: Customer = Depends(require_customer), db: Session = D
 @router.put("/preferences", response_model=schemas.CustomerOverview)
 def update_preferences(body: schemas.PreferencesUpdate, customer: Customer = Depends(require_customer), db: Session = Depends(get_db)):
     customer.proactivity = body.proactivity
-    analyze(db, customer)
+    replan(db, customer)  # proactivity only affects the policy, so the detected moment is kept
     db.commit()
     return overview(db, customer)
 

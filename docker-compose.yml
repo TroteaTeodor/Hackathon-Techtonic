@@ -17,17 +17,13 @@ services:
 
   backend:
     build: ./backend
+    # Every setting in the root .env (see .env.example and backend/app/config.py) reaches the backend.
+    env_file:
+      - path: .env
+        required: false
     environment:
       DATABASE_URL: postgresql+psycopg://app:app@db:5432/app
-      GOOGLE_GENAI_USE_VERTEXAI: ${GOOGLE_GENAI_USE_VERTEXAI:-true}
-      GOOGLE_CLOUD_PROJECT: ${GOOGLE_CLOUD_PROJECT:-}
-      GOOGLE_CLOUD_LOCATION: ${GOOGLE_CLOUD_LOCATION:-global}
       GOOGLE_APPLICATION_CREDENTIALS: /secrets/gcp-sa.json
-      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-3.8-flash}
-      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
-      SESSION_SECRET: ${SESSION_SECRET:-}
-      DEMO_PASSWORD: ${DEMO_PASSWORD:-}
-      COOKIE_SECURE: ${COOKIE_SECURE:-false}
     ports:
       - "8000:8000"
     volumes:

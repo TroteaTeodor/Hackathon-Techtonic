@@ -68,20 +68,28 @@ class LoginRateLimiter:
         self._failures: dict[tuple[str, str], deque] = defaultdict(deque)
         self._lock = threading.Lock()
 
-    def _prune(self, key, now):
-        q = self._failures[key]
+    def _prune(self, key, now) -> deque | None:
+        q = self._failures.get(key)
+        if q is None:
+            return None
         while q and now - q[0] > self.window:
             q.popleft()
+        if not q:
+            del self._failures[key]
+            return None
         return q
 
     def blocked(self, username: str, ip: str) -> bool:
         with self._lock:
-            return len(self._prune((username.lower(), ip), time.monotonic())) >= self.max_failures
+            q = self._prune((username.lower(), ip), time.monotonic())
+            return q is not None and len(q) >= self.max_failures
 
     def record_failure(self, username: str, ip: str) -> None:
         with self._lock:
             now = time.monotonic()
-            self._prune((username.lower(), ip), now).append(now)
+            key = (username.lower(), ip)
+            self._prune(key, now)
+            self._failures[key].append(now)
 
     def reset(self) -> None:
         with self._lock:

@@ -122,9 +122,10 @@ def plan(customer, detection, twin, today: date | None = None) -> list[dict]:
             "Sent 21 days before the month starts, so there is time to act",
         ]
 
-    # Rule 1: financial stress -> support only, via an advisor; all sales are held.
-    if detection.stress >= STRESS_THRESHOLD:
-        guard = f"Guardrail: signs of financial difficulty (stress {pct(detection.stress)}), so support only, never sales"
+    # Rule 1: financial stress (by score or by detected moment) -> support only, via an advisor; all sales held.
+    if detection.stress >= STRESS_THRESHOLD or detection.key == "financial_stress":
+        level = max(detection.stress, detection.confidence if detection.key == "financial_stress" else 0)
+        guard = f"Guardrail: signs of financial difficulty ({pct(level)}), so support only, never sales"
         add("stress_budget_coach", "review", [guard, evidence, "An advisor reviews before anyone reaches out"])
         if pinch:
             add("pinch_point_support", "review", pinch_reasons + [guard],

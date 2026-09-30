@@ -12,7 +12,7 @@ KINDS = {"transaction", "app_event", "search", "contact"}
 
 def hits(text):
     t = text.lower()
-    return {m for m, words in KEYWORDS.items() for w in words if w in t}
+    return {m for m, words in KEYWORDS.items() for w in words if w.rstrip("*") in t}
 
 
 def check(path):

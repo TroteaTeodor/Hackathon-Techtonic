@@ -13,6 +13,10 @@ RECURRING_TOLERANCE = 0.35  # monthly totals within ±35% of the median count as
 RECURRING_MAX_GAP_DAYS = 45  # must still be happening
 YEARLY_MIN_AGE_DAYS = 60  # recent one-offs (a notary deposit) are not yearly payments
 YEARLY_MIN_AMOUNT = 100
+# A single payment is only projected as yearly when it looks periodic; other one-offs (a notary deposit,
+# a car deposit, flight tickets) are not repeated.
+YEARLY_HINTS = ("insurance", "premium", "tax", "holiday pay", "vakantiegeld", "subscription", "membership",
+                "annual", "yearly", "contribution", "road tax", "verzekering", "assurance")
 
 
 def month_key(d: date) -> str:
@@ -62,7 +66,8 @@ def analyse_history(signals):
                 recurring.append((label[key], round(mid, 2)))
         elif len(months) == 1:
             (month, amount), = months.items()
-            if (latest - last_seen[key]).days >= YEARLY_MIN_AGE_DAYS and abs(amount) >= YEARLY_MIN_AMOUNT:
+            periodic = any(h in key for h in YEARLY_HINTS)
+            if periodic and (latest - last_seen[key]).days >= YEARLY_MIN_AGE_DAYS and abs(amount) >= YEARLY_MIN_AMOUNT:
                 yearly.append((label[key], round(amount, 2), int(month[5:])))
     return latest, recurring, yearly
 
@@ -96,6 +101,8 @@ def moment_adjustments(key: str, index: int, recurring, signals, latest) -> tupl
         new = _new_salary(signals, {lbl for lbl, _ in recurring}, latest)
         if new is not None:
             events.append((f"{new.description} (expected monthly)", round(new.amount, 2)))
+            # The new salary replaces the previous employer's salary instead of adding to it.
+            removed |= {lbl for lbl, amount in recurring if amount > 0 and "salary" in lbl.lower()}
         else:
             events.append(("Salary increase (estimate)", 350))
     elif key == "approaching_retirement":

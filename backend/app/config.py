@@ -26,6 +26,10 @@ class Settings(BaseSettings):
     # "" = model default; "minimal" | "low" | "medium" | "high". Chosen from the evals (backend/evals/REPORT.md).
     gemini_thinking_level: str = ""
 
+    # Jev via OpenRouter's Decisions API (eval variant).
+    openrouter_api_key: str | None = None
+    jev_model: str = "~typesafe/jev-latest"
+
     # Scale-view assumptions (shown in the UI next to the projection).
     price_per_million_input_tokens_eur: float = 0.30
     price_per_million_output_tokens_eur: float = 2.50

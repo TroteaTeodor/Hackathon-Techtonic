@@ -60,3 +60,21 @@ def test_pinch_point_names_the_notary_fees():
     assert [p.month for p in twin.pinch_points] == ["2026-11"]
     assert "Notary fees" in twin.pinch_points[0].reason
     assert twin.pinch_points[0].balance < 250
+
+
+def test_old_one_off_is_not_treated_as_yearly():
+    """Review finding: a notary deposit older than 60 days must not come back next year."""
+    signals = [tx(date(2026, m, 1), "Salary — Acme", 3000, m) for m in range(1, 10)]
+    signals.append(tx(date(2026, 5, 20), "Notary deposit — Notaris Peeters", -15000, 99))
+    twin = build_twin(20000, signals)
+    assert not any("Notary deposit" in e.label for m in twin.months for e in m.events)
+
+
+def test_new_salary_replaces_the_old_one():
+    """Review finding: the old employer's salary must not be double-counted."""
+    signals = [tx(date(2026, m, 1), "Salary — Old Corp", 2800, m) for m in range(1, 10)]
+    signals.append(tx(date(2026, 9, 25), "Salary — Accenture Belgium", 3200, 99))
+    twin = build_twin(1000, signals, "new_job", 0.9)
+    first = twin.months[0]
+    assert first.income == 3200
+    assert not any(e.label == "Salary — Old Corp" for e in first.events)

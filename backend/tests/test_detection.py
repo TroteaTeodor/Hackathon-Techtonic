@@ -81,3 +81,15 @@ def test_prompt_contains_only_this_customer():
     assert "Notaris Peeters" in prompt
     assert "Julie" not in prompt and "Fairway" not in prompt
     assert "password" not in prompt.lower() and "secret" not in prompt.lower()
+
+
+@pytest.mark.parametrize("text", ["Birthday gift — Fnac", "Suspension repair — Garage Peeters", "Dealership newsletter"])
+def test_keywords_match_whole_words_only(text):
+    signal = SimpleNamespace(id=1, date=__import__("datetime").date(2026, 9, 1), kind="transaction", description=text, amount=-50)
+    assert rules.detect(customer(), [signal]).key == "no_clear_moment"
+
+
+def test_keyword_stems_still_match():
+    from datetime import date
+    signals = [SimpleNamespace(id=1, date=date(2026, 9, 1), kind="search", description="Retirement planning calculator", amount=None)]
+    assert rules.detect(customer(), signals).key == "approaching_retirement"

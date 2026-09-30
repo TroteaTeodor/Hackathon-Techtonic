@@ -170,3 +170,39 @@ def test_missing_or_short_session_secret_fails_startup(monkeypatch):
         Settings()
     with pytest.raises(ValidationError):
         Settings(session_secret="too-short")
+
+
+def test_login_limiter_does_not_grow_on_checks():
+    from app.auth import LoginRateLimiter
+
+    limiter = LoginRateLimiter()
+    for n in range(100):
+        limiter.blocked(f"user{n}", "1.2.3.4")
+    assert len(limiter._failures) == 0
+
+
+def test_preferences_keep_a_rejected_moment_and_ids(client):
+    login(client, "ahmed")
+    rejected = client.post("/me/moment/reject").json()
+    assert rejected["moment"]["key"] == "no_clear_moment"
+    after = client.put("/me/preferences", json={"proactivity": "proactive"}).json()
+    assert after["moment"]["key"] == "no_clear_moment" and after["moment"]["source"] == "customer"
+
+
+def test_intervention_ids_are_stable_across_replans(client, db):
+    login(client, "advisor")
+    julie = customer_id(db, "Julie")
+    before = {i["key"]: i["id"] for i in client.get(f"/customers/{julie}").json()["interventions"]}
+    login(client, "julie")
+    client.put("/me/preferences", json={"proactivity": "proactive"})
+    login(client, "advisor")
+    after = {i["key"]: i["id"] for i in client.get(f"/customers/{julie}").json()["interventions"]}
+    assert before == after
+
+
+def test_future_deliveries_are_not_shown_yet(client):
+    from datetime import date
+
+    login(client, "sara")
+    for item in client.get("/me/overview").json()["interventions"]:
+        assert date.fromisoformat(item["deliver_at"]) <= date.today()

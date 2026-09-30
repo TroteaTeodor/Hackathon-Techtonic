@@ -22,7 +22,13 @@ def current_moment(db: Session, customer_id: int) -> MomentRecord | None:
     )
 
 
+def _lock(db: Session, customer: Customer) -> None:
+    # Serialise analyses of the same customer so concurrent requests can't interleave intervention updates.
+    db.execute(select(Customer.id).where(Customer.id == customer.id).with_for_update())
+
+
 def persist(db: Session, customer: Customer, signals: list[Signal], detection: Detection) -> MomentRecord:
+    _lock(db, customer)
     twin = build_twin(customer.balance, signals, detection.key, detection.confidence)
     record = MomentRecord(
         customer_id=customer.id,
@@ -38,26 +44,51 @@ def persist(db: Session, customer: Customer, signals: list[Signal], detection: D
         next_pinch_month=twin.pinch_points[0].month if twin.pinch_points else None,
     )
     db.add(record)
+    _apply_plan(db, customer, detection, twin)
+    db.flush()
+    return record
 
-    # Replace interventions, keeping customer feedback and advisor decisions for the same key.
-    previous = {i.key: i for i in db.scalars(select(InterventionRecord).where(InterventionRecord.customer_id == customer.id))}
-    for old in previous.values():
-        db.delete(old)
-    for item in plan(customer, detection, twin, date.today()):
-        old = previous.get(item["key"])
+
+def _apply_plan(db: Session, customer: Customer, detection, twin) -> None:
+    """Upsert interventions by key so IDs stay stable; keep customer feedback and advisor decisions."""
+    existing = {i.key: i for i in db.scalars(select(InterventionRecord).where(InterventionRecord.customer_id == customer.id))}
+    planned = plan(customer, detection, twin, date.today())
+    for item in planned:
+        row = existing.get(item["key"])
         status = item["status"]
-        decision = old.decision if old else None
+        decision = row.decision if row else None
         if decision == "dismissed":
             status = "dismissed"
         elif decision == "approved" and status == "review":
             status = "delivered"
-        db.add(InterventionRecord(
-            customer_id=customer.id, status=status, decision=decision,
-            feedback=old.feedback if old else None,
-            **{k: v for k, v in item.items() if k != "status"},
-        ))
+        fields = {k: v for k, v in item.items() if k not in ("key", "status")}
+        if row is None:
+            db.add(InterventionRecord(customer_id=customer.id, key=item["key"], status=status, **fields))
+        else:
+            row.status = status
+            for name, value in fields.items():
+                setattr(row, name, value)
+    for key in existing.keys() - {i["key"] for i in planned}:
+        db.delete(existing[key])
+
+
+def _detection_from(record: MomentRecord) -> Detection:
+    return Detection(
+        key=record.key, confidence=record.confidence, probabilities=record.probabilities, stress=record.stress,
+        receptiveness=record.receptiveness, rationale=record.rationale, source=record.source,
+    )
+
+
+def replan(db: Session, customer: Customer) -> None:
+    """Re-run only the policy against the current moment (e.g. after a proactivity change). No new detection."""
+    moment = current_moment(db, customer.id)
+    if moment is None:
+        analyze(db, customer)
+        return
+    _lock(db, customer)
+    signals = customer_signals(db, customer.id)
+    _apply_plan(db, customer, _detection_from(moment), build_twin(customer.balance, signals, moment.key, moment.confidence))
     db.flush()
-    return record
 
 
 def analyze(db: Session, customer: Customer, use_ai: bool = True) -> MomentRecord:
@@ -118,9 +149,10 @@ def interventions_of(db: Session, customer_id: int) -> list[InterventionRecord]:
 def overview(db: Session, customer: Customer) -> schemas.CustomerOverview:
     signals = customer_signals(db, customer.id)
     moment = current_moment(db, customer.id)
+    today = date.today()
     visible = [
         intervention_view(i) for i in interventions_of(db, customer.id)
-        if i.status == "delivered" and i.feedback != "not_relevant"
+        if i.status == "delivered" and i.feedback != "not_relevant" and i.deliver_at <= today
     ]
     return schemas.CustomerOverview(
         customer=profile_view(customer), moment=moment_view(moment),

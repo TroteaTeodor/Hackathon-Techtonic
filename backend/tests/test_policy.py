@@ -82,3 +82,14 @@ def test_every_intervention_has_reasons():
     twin = build_twin(9800, signals, "moving_home", 0.9)
     for item in plan(customer(), detection("moving_home", 0.9), twin, TODAY):
         assert item["reasons"]
+
+
+def test_stress_moment_with_low_score_still_gets_support_only():
+    """Review finding: key=financial_stress with stress < 0.6 must still trigger the guardrail."""
+    signals = story_signals("sara", TODAY)
+    twin = build_twin(9800, signals, "moving_home", 0.9)  # has a pinch point
+    items = plan(customer(), detection("financial_stress", 0.64, stress=0.45), twin, TODAY)
+    keys = {i["key"]: i for i in items}
+    assert keys["stress_budget_coach"]["status"] == "review"
+    assert "pinch_point_bridge" not in keys  # no bridge-loan offer
+    assert not [i for i in items if i["line"] != "support" and i["status"] == "delivered"]

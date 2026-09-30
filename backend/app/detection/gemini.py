@@ -8,7 +8,7 @@ import threading
 from pydantic import BaseModel, Field, ValidationError
 
 from app.config import settings
-from app.detection import LABELS, Detection
+from app.detection import LABELS, Detection, normalize
 from app.schemas import MOMENT_KEYS
 
 logger = logging.getLogger(__name__)
@@ -108,9 +108,8 @@ def parse(raw: str) -> Detection | None:
     if not 0.9 <= total <= 1.1 or any(p < 0 for p in probs.values()):
         logger.warning("Gemini probabilities don't form a distribution (sum=%.2f)", total)
         return None
-    probs = {k: round(v / total, 3) for k, v in probs.items()}
+    probs = normalize(probs)
     key = max(probs, key=probs.get)
-    probs[key] = round(probs[key] + 1 - sum(probs.values()), 3)
     assert set(probs) == set(MOMENT_KEYS)
     return Detection(
         key=key,

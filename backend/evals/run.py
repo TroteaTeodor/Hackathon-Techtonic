@@ -3,7 +3,8 @@
     docker compose exec backend python -m evals.run                      # all variants
     docker compose exec backend python -m evals.run --variants rules,gemini:gemini-3.8-flash:low --limit 40
 
-Variants: "rules", or "gemini:<model>[:<thinking level>]". Writes evals/results/<timestamp>.json and evals/REPORT.md.
+Variants: "rules", "jev" (OpenRouter Decisions API), or "gemini:<model>[:<thinking level>]".
+Add variants to an earlier run with --append evals/results/<file>.json. Writes evals/results/<timestamp>.json and evals/REPORT.md.
 """
 
 import argparse
@@ -14,7 +15,7 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 
 from app.config import settings
-from app.detection import gemini, recent, rules
+from app.detection import gemini, jev, recent, rules
 from app.interventions import plan
 from app.twin import build_twin
 from evals import metrics
@@ -32,6 +33,20 @@ def run_case(variant: str, case) -> dict:
     error = None
     if variant == "rules":
         det = rules.detect(case.customer, signals)
+    elif variant == "jev":
+        det = None
+        for attempt in range(3):
+            try:
+                det = jev.detect(case.customer, signals, timeout_seconds=EVAL_TIMEOUT_S)
+                error = None
+                break
+            except Exception as err:
+                error = type(err).__name__ + ": " + str(err)[:120]
+                if "429" not in str(err) and "50" not in str(err):
+                    break
+                time.sleep(2 * (attempt + 1))
+        if det is None:
+            det = rules.detect(case.customer, signals)
     else:
         _, model, *rest = variant.split(":")
         thinking = rest[0] if rest else ""
@@ -58,7 +73,7 @@ def run_case(variant: str, case) -> dict:
         "pred": det.key, "confidence": det.confidence, "stress": det.stress, "source": det.source,
         "correct": det.key == case.label, "error": error,
         "latency_s": elapsed if variant != "rules" else None,
-        "input_tokens": det.input_tokens, "output_tokens": det.output_tokens,
+        "input_tokens": det.input_tokens, "output_tokens": det.output_tokens, "cost_usd": det.cost_usd,
         "consent": case.customer.marketing_consent,
         "interventions": [{"key": i["key"], "line": i["line"], "status": i["status"], "reasons": len(i["reasons"])} for i in items],
     }
@@ -98,10 +113,14 @@ def guardrails(rows) -> dict:
 
 def summarize(variant, rows) -> dict:
     by_group = {g: metrics.accuracy([r for r in rows if r["group"] == g]) for g in ("story", "population", "hard")}
-    ai = [r for r in rows if r["source"] == "gemini"]
+    ai = [r for r in rows if r["source"] in ("gemini", "jev")]
     tin = sum(r["input_tokens"] for r in ai) / len(ai) if ai else 0
     tout = sum(r["output_tokens"] for r in ai) / len(ai) if ai else 0
-    cost = (tin * settings.price_per_million_input_tokens_eur + tout * settings.price_per_million_output_tokens_eur) / 1e6
+    reported = [r["cost_usd"] for r in ai if r.get("cost_usd") is not None]
+    if reported:  # Jev reports its real cost (USD); treated as EUR at ~parity for the projection
+        cost = sum(reported) / len(reported)
+    else:
+        cost = (tin * settings.price_per_million_input_tokens_eur + tout * settings.price_per_million_output_tokens_eur) / 1e6
     return {
         "variant": variant, "n": len(rows),
         "accuracy": metrics.accuracy(rows), "accuracy_by_group": by_group, "macro_f1": metrics.macro_f1(rows),
@@ -176,6 +195,7 @@ def main():
     parser.add_argument("--variants", default=",".join(DEFAULT_VARIANTS))
     parser.add_argument("--limit", type=int, default=0, help="population cases to include (0 = all)")
     parser.add_argument("--workers", type=int, default=8)
+    parser.add_argument("--append", help="results JSON from an earlier run: keep its variants and add these")
     args = parser.parse_args()
 
     cases = build(TODAY)
@@ -183,10 +203,16 @@ def main():
         pop = [c for c in cases if c.group == "population"][: args.limit]
         cases = [c for c in cases if c.group != "population"] + pop
     variants = args.variants.split(",")
-    if any(v != "rules" for v in variants) and not gemini.is_configured():
-        raise SystemExit("Gemini is not configured; run with --variants rules")
+    if any(v.startswith("gemini") for v in variants) and not gemini.is_configured():
+        raise SystemExit("Gemini is not configured")
+    if "jev" in variants and not jev.is_configured():
+        raise SystemExit("OPENROUTER_API_KEY is not set")
 
     rows_by_variant, summaries = {}, []
+    if args.append:
+        previous = json.loads(Path(args.append).read_text())
+        rows_by_variant = previous["rows"]
+        summaries = [s for s in previous["summaries"] if s["variant"] not in variants]
     for variant in variants:
         started = time.perf_counter()
         with ThreadPoolExecutor(max_workers=1 if variant == "rules" else args.workers) as pool:
@@ -195,7 +221,8 @@ def main():
         summaries.append(summarize(variant, rows))
         print(f"{variant}: accuracy {pct(summaries[-1]['accuracy'])} in {time.perf_counter() - started:.0f}s", flush=True)
 
-    pairs = {v: metrics.mcnemar(rows_by_variant["rules"], rows_by_variant[v]) for v in variants if v != "rules"} if "rules" in variants else {}
+    all_variants = [s["variant"] for s in summaries]
+    pairs = {v: metrics.mcnemar(rows_by_variant["rules"], rows_by_variant[v]) for v in all_variants if v != "rules"} if "rules" in rows_by_variant else {}
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     (OUT / "results").mkdir(exist_ok=True)
     (OUT / "results" / f"{stamp}.json").write_text(json.dumps(

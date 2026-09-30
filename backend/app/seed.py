@@ -15,7 +15,7 @@ from sqlalchemy.orm import Session
 from app.analysis import persist
 from app.auth import hash_password
 from app.config import settings
-from app.detection import detect, rules
+from app.detection import detect
 from app.models import Customer, Signal, User
 
 logger = logging.getLogger(__name__)
@@ -244,7 +244,7 @@ def seed(db: Session, use_ai: bool = True) -> None:
         for n in range(POPULATION_SIZE):
             story = _population_story(rng, n)
             customer, signals = _insert(db, story, False, rng)
-            persist(db, customer, signals, rules.detect(customer, sorted(signals, key=lambda s: s.date, reverse=True)[:40]))
+            persist(db, customer, signals, detect(customer, signals, use_ai=False))
         db.commit()
 
     _seed_users(db)
