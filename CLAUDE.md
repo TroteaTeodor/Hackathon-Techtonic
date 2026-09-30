@@ -16,8 +16,8 @@
 ```bash
 cp .env.example .env            # then fill in GOOGLE_CLOUD_PROJECT, SESSION_SECRET, DEMO_PASSWORD
 # put the GCP service-account key at secrets/gcp-sa.json (git-ignored)
-docker compose up -d --build    # Postgres :5432, FastAPI :8000 (hot reload); migrates + seeds on start
-cd frontend && pnpm install && pnpm dev   # Next.js on :3000
+./scripts/dev.sh               # API (migrate + auto-seed if empty) and frontend; --reset wipes the DB first
+# or by hand: docker compose up -d --build && cd frontend && pnpm install && pnpm dev
 ```
 - API docs: http://localhost:8000/docs · health: http://localhost:8000/health (`"ai": true` when Gemini is configured)
 - Postgres isn't published to the host. Open a shell with `docker compose exec db psql -U app -d app`. The backend listens

@@ -272,8 +272,15 @@ def _insert(db: Session, story: Story, is_story: bool, rng: random.Random) -> tu
 
 
 def seed(db: Session, use_ai: bool = True) -> None:
-    """Idempotent: story customers, population and demo users are only created when missing."""
-    if not db.scalar(select(func.count()).select_from(Customer).where(Customer.is_story)):
+    """Runs on every backend start (see main.py). Idempotent: an empty database is filled with the story customers,
+    the generated population and the demo users; anything that already exists is left alone."""
+    story_count = db.scalar(select(func.count()).select_from(Customer).where(Customer.is_story))
+    population_count = db.scalar(select(func.count()).select_from(Customer).where(~Customer.is_story))
+    if story_count and population_count >= POPULATION_SIZE:
+        logger.info("Database already seeded (%d story + %d generated customers): skipping", story_count, population_count)
+    else:
+        logger.info("Seeding the database (empty or incomplete)…")
+    if not story_count:
         created = [(story, *_insert(db, story, True, random.Random(story.username))) for story in STORIES]
         # Story customers are analysed with Gemini when configured (in parallel), else with rules.
         with ThreadPoolExecutor(max_workers=7) as pool:
@@ -293,6 +300,8 @@ def seed(db: Session, use_ai: bool = True) -> None:
         db.commit()
 
     _seed_users(db)
+    logger.info("Seed check done: %d customers, %d demo users",
+                db.scalar(select(func.count()).select_from(Customer)), db.scalar(select(func.count()).select_from(User)))
 
 
 def _seed_users(db: Session) -> None:

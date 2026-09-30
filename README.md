@@ -157,11 +157,11 @@ cp .env.example .env
 mkdir -p secrets && cp ~/Downloads/<your-key>.json secrets/gcp-sa-<name>.json
 ./scripts/use-gcp.sh <name>       # activates the key, sets the project, tests one Gemini call
 
-docker compose up -d --build      # Postgres + FastAPI on :8000; migrates and seeds on start
-cd frontend && pnpm install
-printf 'NEXT_PUBLIC_API_URL=http://localhost:8000\nNEXT_PUBLIC_USE_MOCKS=false\n' > .env.local
-pnpm dev                          # http://localhost:3000
+./scripts/dev.sh                  # everything: Postgres + API on :8000 and the frontend on :3000
+./scripts/dev.sh --reset          # same, but wipe the database first so it's re-seeded from scratch
 ```
+
+The database **seeds itself**. On every start, the backend runs the migrations, then fills an empty database with the 7 story customers, 200 generated customers and the demo logins. If the data is already there, it's left alone. By hand, the steps are `docker compose up -d --build`, then `cd frontend && pnpm install && pnpm dev`.
 
 Without AI credentials everything still works on the rule-based fallback. `NEXT_PUBLIC_USE_MOCKS=true` runs the frontend on its own, with mock data.
 
