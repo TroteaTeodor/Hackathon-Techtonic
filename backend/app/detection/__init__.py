@@ -33,13 +33,29 @@ class Detection:
     cost_eur: float | None = None  # cost of the whole analysis, including an escalation
 
 
+# No model is ever certain: a detected moment is capped at 99%, the rest goes to the runner-up.
+# (Only the customer telling us "Not right" is recorded as certain.)
+MAX_CONFIDENCE = 0.99
+
+
+def cap_confidence(probs: dict[str, float]) -> dict[str, float]:
+    top = max(probs, key=probs.get)
+    if probs[top] <= MAX_CONFIDENCE:
+        return probs
+    probs = dict(probs)
+    runner_up = max((k for k in probs if k != top), key=probs.get)
+    probs[runner_up] = round(probs[runner_up] + probs[top] - MAX_CONFIDENCE, 3)
+    probs[top] = MAX_CONFIDENCE
+    return probs
+
+
 def normalize(scores: dict[str, float]) -> dict[str, float]:
-    """Scale to a distribution rounded to 3 decimals; the rounding residual goes to the top key."""
+    """Scale to a distribution rounded to 3 decimals, capped at 99%; the rounding residual goes to the top key."""
     total = sum(scores.values()) or 1.0
     probs = {k: round(v / total, 3) for k, v in scores.items()}
     top = max(probs, key=probs.get)
     probs[top] = round(probs[top] + 1 - sum(probs.values()), 3)
-    return probs
+    return cap_confidence(probs)
 
 
 def recent(signals, limit: int = MAX_SIGNALS):

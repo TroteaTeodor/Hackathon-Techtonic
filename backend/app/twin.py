@@ -12,6 +12,7 @@ MIN_MOMENT_CONFIDENCE = 0.5
 RECURRING_MIN_MONTHS = 3
 RECURRING_TOLERANCE = 0.35  # monthly totals within ±35% of the median count as "similar"
 RECURRING_MAX_GAP_DAYS = 45  # must still be happening
+RECURRING_RECENT_MONTHS = (4, 3)  # ...and be seen in at least 3 of the last 4 months
 YEARLY_MIN_AGE_DAYS = 60  # recent one-offs (a notary deposit) are not yearly payments
 YEARLY_MIN_AMOUNT = 100
 # A single payment is only projected as yearly when it looks periodic; other one-offs (a notary deposit,
@@ -66,7 +67,10 @@ def analyse_history(signals, with_keys: bool = False):
     keys: set[str] = set()
     for key, months in per_month.items():
         totals = list(months.values())
-        if len(months) >= RECURRING_MIN_MONTHS and (latest - last_seen[key]).days <= RECURRING_MAX_GAP_DAYS:
+        window, needed = RECURRING_RECENT_MONTHS
+        recent_months = {f"{y:04d}-{m:02d}" for y, m in (add_months(latest.year, latest.month, -i) for i in range(window))}
+        steady = len(recent_months & months.keys()) >= needed
+        if len(months) >= RECURRING_MIN_MONTHS and steady and (latest - last_seen[key]).days <= RECURRING_MAX_GAP_DAYS:
             mid = median(totals)
             similar = [v for v in totals if abs(v - mid) <= RECURRING_TOLERANCE * abs(mid)]
             if len(similar) >= RECURRING_MIN_MONTHS:

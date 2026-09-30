@@ -75,7 +75,9 @@ def classify(description: str, amount: float | None) -> str:
 
 
 def merchant(description: str) -> str:
-    return re.split(r"\s+[—–-]\s+", description, maxsplit=1)[0].strip()
+    """'Streaming — Netflix' -> 'Netflix': descriptions read 'What — Merchant', like the app shows them."""
+    parts = re.split(r"\s+[—–]\s+", description, maxsplit=1)
+    return parts[-1].strip()
 
 
 def _norm(description: str) -> str:

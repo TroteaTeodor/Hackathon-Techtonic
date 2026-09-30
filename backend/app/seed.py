@@ -55,14 +55,14 @@ def _months_back(today: date, n: int = 12):
 
 # One-off everyday spending, so transaction categories have something to show. None of these match a moment keyword.
 EVERYDAY = [
-    ("Deliveroo — dinner", 18, 45), ("Restaurant — Brasserie De Markt", 35, 90), ("Kinepolis — tickets", 12, 30),
-    ("Zalando — order", 25, 95), ("Kruidvat — toiletries", 8, 30), ("Apotheek — pharmacy", 6, 35),
-    ("Fnac — books", 12, 40), ("Takeaway — pizza", 15, 35), ("Decathlon — sports gear", 15, 80), ("Café — De Zwaan", 8, 25),
+    ("Dinner — Deliveroo", 18, 45), ("Restaurant — Brasserie De Markt", 35, 90), ("Cinema — Kinepolis", 12, 30),
+    ("Clothes — Zalando", 25, 95), ("Toiletries — Kruidvat", 8, 30), ("Pharmacy — Apotheek Centrum", 6, 35),
+    ("Books — Fnac", 12, 40), ("Takeaway — Pizza Hut", 15, 35), ("Sports gear — Decathlon", 15, 80), ("Coffee — Café De Zwaan", 8, 25),
 ]
 POPULATION_SUBSCRIPTIONS = [
-    ("Netflix — Standard", 13.99), ("Spotify — Premium", 11.99), ("Disney+ — monthly", 8.99), ("Streamz — basis", 11.95),
-    ("Basic-Fit — membership", 29.99), ("YouTube Premium — individual", 12.99), ("iCloud+ — 200 GB", 2.99),
-    ("Prime Video — monthly", 5.99), ("De Standaard — digital", 21.99), ("Xbox Game Pass — Ultimate", 12.99),
+    ("Streaming — Netflix", 13.99), ("Music — Spotify", 11.99), ("Streaming — Disney+", 8.99), ("Streaming — Streamz", 11.95),
+    ("Gym — Basic-Fit", 29.99), ("Streaming — YouTube Premium", 12.99), ("Storage — iCloud+", 2.99),
+    ("Streaming — Prime Video", 5.99), ("News — De Standaard", 21.99), ("Games — Xbox Game Pass", 12.99),
 ]
 NOTARIES = ["Notaris Verbeke", "Notaris Claeys", "Notaris De Wilde", "Notaris Van Damme", "Notaire Lambert",
             "Notaris Wouters", "Notaire Dubois", "Notaris Peeters & Mertens"]
@@ -112,7 +112,7 @@ def _base(salary_desc, salary, rent_desc, rent, energy_desc, energy, telecom_des
 
 STORIES = [
     Story(
-        "sara", "Sara", "Janssens", 31, "Leuven", 8000, True, "balanced",
+        "sara", "Sara", "Janssens", 31, "Leuven", 7800, True, "balanced",
         _base("Salary — Barco NV", 3100, "Rent — Immo Vandenberghe", 950, "Energy — Engie", 140,
               "Telecom — Proximus", 55, "Groceries — Colruyt", 520, 600) + [("Transport — NMBS", -70, 5, 1)],
         yearly=[("Home contents insurance — KBC", -180, 1, 10), ("Holiday pay — Barco NV", 2300, 5, 28)],
@@ -123,7 +123,7 @@ STORIES = [
             (15, "contact", "Asked the chatbot: 'How long does a mortgage approval take?'", None),
             (20, "search", "Immoweb — 2-bedroom apartments in Leuven", None),
         ],
-        subscriptions=[("Netflix — Standard", 13.99, 12, 15.99, 2), ("Spotify — Premium", 11.99, 5, None, 0), ("Basic-Fit — membership", 29.99, 1, None, 0)],
+        subscriptions=[("Streaming — Netflix", 13.99, 12, 15.99, 2), ("Music — Spotify", 11.99, 5, None, 0), ("Gym — Basic-Fit", 29.99, 1, None, 0)],
     ),
     Story(
         "lien", "Lien", "Wouters", 29, "Gent", 2600, True, "balanced",
@@ -137,7 +137,7 @@ STORIES = [
             (13, "app_event", "Opened the child savings account page", None),
             (25, "transaction", "Prenatal — maternity clothes", -89),
         ],
-        subscriptions=[("Disney+ — monthly", 8.99, 9, None, 0), ("Spotify — Duo", 16.99, 5, None, 0), ("Streamz — basis", 11.95, 20, None, 0)],
+        subscriptions=[("Streaming — Disney+", 8.99, 9, None, 0), ("Music — Spotify Duo", 16.99, 5, None, 0), ("Streaming — Streamz", 11.95, 20, None, 0)],
     ),
     Story(
         "ahmed", "Ahmed", "El Amrani", 23, "Antwerpen", 1450, False, "balanced",
@@ -149,7 +149,7 @@ STORIES = [
             (6, "search", "Searched 'first salary taxes'", None),
             (4, "contact", "Asked about salary account switching", None),
         ],
-        subscriptions=[("Spotify — Student", 5.99, 5, None, 0), ("Xbox Game Pass — Ultimate", 12.99, 14, None, 0)],
+        subscriptions=[("Music — Spotify", 5.99, 5, None, 0), ("Games — Xbox Game Pass", 12.99, 14, None, 0)],
     ),
     Story(
         "marc", "Marc", "Dubois", 63, "Namur", 21000, True, "proactive",
@@ -160,7 +160,7 @@ STORIES = [
             (5, "search", "Searched 'pension calculation mypension.be'", None),
             (10, "contact", "Asked an advisor about early retirement options", None),
         ],
-        subscriptions=[("De Standaard — digital", 21.99, 3, None, 0), ("Netflix — Premium", 17.99, 12, None, 0)],
+        subscriptions=[("News — De Standaard", 21.99, 3, None, 0), ("Streaming — Netflix", 17.99, 12, None, 0)],
     ),
     Story(
         "julie", "Julie", "Maes", 41, "Hasselt", -420, True, "balanced",
@@ -174,7 +174,7 @@ STORIES = [
             (10, "transaction", "Collection agency — Fairway", -120),
             (14, "transaction", "Cash advance — credit card", -300),
         ],
-        subscriptions=[("Netflix — Standard", 13.99, 12, 15.99, 2), ("Spotify — Premium", 11.99, 5, None, 0), ("Disney+ — monthly", 8.99, 9, None, 0), ("Streamz — basis", 11.95, 20, None, 0), ("Basic-Fit — membership", 29.99, 1, None, 0)],
+        subscriptions=[("Streaming — Netflix", 13.99, 12, 15.99, 2), ("Music — Spotify", 11.99, 5, None, 0), ("Streaming — Disney+", 8.99, 9, None, 0), ("Streaming — Streamz", 11.95, 20, None, 0), ("Gym — Basic-Fit", 29.99, 1, None, 0)],
     ),
     Story(
         "pieter", "Pieter", "De Smet", 37, "Brugge", 3900, True, "balanced",
@@ -186,7 +186,7 @@ STORIES = [
             (6, "search", "Autoscout24 — used Volvo XC40", None),
             (9, "contact", "Dealer quote received — Volvo Brugge", None),
         ],
-        subscriptions=[("Spotify — Premium", 11.99, 5, None, 0), ("Prime Video — monthly", 5.99, 18, None, 0)],
+        subscriptions=[("Music — Spotify", 11.99, 5, None, 0), ("Streaming — Prime Video", 5.99, 18, None, 0)],
     ),
     Story(
         "jan", "Jan", "Claes", 45, "Mechelen", 32500, True, "proactive",
@@ -194,7 +194,7 @@ STORIES = [
               "Telecom — Telenet", 65, "Groceries — Aldi", 610, 700) + [("Fuel — TotalEnergies", -70, 8, 2)],
         yearly=[("Car insurance — KBC", -640, 3, 14), ("Holiday pay — Telenet", 2500, 5, 28)],
         recent=[(5, "app_event", "Checked account balance", None)],
-        subscriptions=[("Netflix — Standard", 15.99, 12, None, 0), ("YouTube Premium — family", 17.99, 7, None, 0), ("iCloud+ — 200 GB", 2.99, 22, None, 0)],
+        subscriptions=[("Streaming — Netflix", 15.99, 12, None, 0), ("Streaming — YouTube Premium", 17.99, 7, None, 0), ("Storage — iCloud+", 2.99, 22, None, 0)],
     ),
 ]
 

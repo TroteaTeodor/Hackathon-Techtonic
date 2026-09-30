@@ -1,5 +1,6 @@
 """Run detection -> twin -> policy for one customer, persist it, and build API views."""
 
+import re
 from datetime import date
 
 from sqlalchemy import select
@@ -7,7 +8,7 @@ from sqlalchemy.orm import Session
 
 from app import insights, personalize, schemas
 from app.detection import gemini as gemini_detector
-from app.detection import LABELS, Detection, detect, normalize
+from app.detection import LABELS, Detection, cap_confidence, detect, normalize
 from app.interventions import STRESS_THRESHOLD, plan
 from app.models import Customer, InterventionRecord, MomentRecord, Signal
 from app.twin import analyse_history, build_twin, monthly_income
@@ -115,6 +116,17 @@ def _apply_plan(db: Session, customer: Customer, detection, twin, signals) -> No
         db.delete(existing[key])
 
 
+def keep_evidence(template: str, message: str) -> str:
+    """The 'We noticed …' sentence names the real signal (the notary); it stays word for word."""
+    if not template.startswith("We noticed"):
+        return message
+    first = re.split(r"(?<=[.!?])\s+", template, maxsplit=1)[0]
+    if first in message:
+        return message
+    rest = re.sub(r"^We noticed[^.?!]*[.?!]\s*", "", message)
+    return f"{first} {rest}".strip()
+
+
 def personalize_customer(customer_id: int) -> bool:
     """Background step: Gemini Flash rewrites the visible cards and picks the best spending suggestions.
 
@@ -136,8 +148,12 @@ def personalize_customer(customer_id: int) -> bool:
         ctx, candidates = _suggestion_candidates(customer, detection, twin, signals)
         showable = [c["key"] for c in candidates if c["status"] == "delivered"]
         rows = {i.key: i for i in interventions_of(db, customer_id)}
-        visible = [{"key": r.key, "title": r.title, "message": r.message, "cta": r.cta} for r in rows.values()
-                   if r.status in ("delivered", "review") and not r.key.startswith("suggest_")]
+        income = monthly_income(analyse_history(signals)[1])
+        templates = {i["key"]: i for i in plan(customer, detection, twin, date.today(), subs=insights.subscriptions(signals),
+                                                income=income, signals=signals)}
+        visible = [{"key": r.key, "title": templates[r.key]["title"], "message": templates[r.key]["message"], "cta": r.cta}
+                   for r in rows.values()
+                   if r.status in ("delivered", "review") and r.key in templates and not r.key.startswith("suggest_")]
         copy, tin, tout = personalize.write(ctx, visible, showable)
         if copy is None:
             return False
@@ -147,8 +163,8 @@ def personalize_customer(customer_id: int) -> bool:
         for card in copy.cards:
             row = rows.get(card.key)
             if row is not None:
-                row.title, row.message = card.title, card.message
-                row.reasons = [*row.reasons, note]
+                row.title, row.message = card.title, keep_evidence(templates[card.key]["message"], card.message)
+                row.reasons = [*templates[card.key]["reasons"], note]
                 row.personalized = True
         if copy.suggestions:
             chosen = {s.key: s for s in copy.suggestions}
@@ -227,9 +243,13 @@ def reject_moment(db: Session, customer: Customer) -> MomentRecord:
 def moment_view(record: MomentRecord | None) -> schemas.Moment | None:
     if record is None:
         return None
+    probs, confidence = record.probabilities, record.confidence
+    if record.source != "customer":  # a model is never 100% sure; older rows may still say 1.0
+        probs = cap_confidence(probs)
+        confidence = min(confidence, probs[record.key])
     return schemas.Moment(
-        key=record.key, label=LABELS[record.key], confidence=record.confidence,
-        probabilities=record.probabilities, stress=record.stress, receptiveness=record.receptiveness,
+        key=record.key, label=LABELS[record.key], confidence=confidence,
+        probabilities=probs, stress=record.stress, receptiveness=record.receptiveness,
         rationale=record.rationale, source=record.source, analyzed_at=record.analyzed_at,
     )
 

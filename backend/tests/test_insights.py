@@ -35,7 +35,7 @@ def test_classify(description, amount, category):
 
 def test_subscriptions_with_price_rise():
     subs = {s.name: s for s in insights.subscriptions(story_signals("sara", TODAY))}
-    assert set(subs) == {"Netflix", "Spotify", "Basic-Fit"}
+    assert set(subs) == {"Netflix", "Spotify", "Basic-Fit"}  # merchant after the dash
     assert subs["Netflix"].monthly_amount == 15.99
     assert subs["Netflix"].price_change.before == 13.99 and subs["Netflix"].price_change.after == 15.99
     assert subs["Spotify"].price_change is None

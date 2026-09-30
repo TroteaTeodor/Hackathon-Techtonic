@@ -183,7 +183,8 @@ def plan(customer, detection, twin, today: date | None = None, subs=None, income
     from app.detection import rules  # local import: rules imports nothing from here, but keep the module light
     moment_signal = rules.evidence(detection.key, sorted(signals or [], key=lambda x: x.date, reverse=True)[:40])
     pinch = twin.pinch_points[0] if twin.pinch_points else None
-    moment_reason = f"Detected life moment: {LABELS[detection.key].lower()} ({pct(detection.confidence)} confidence)"
+    shown = detection.confidence if getattr(detection, "source", "") == "customer" else min(detection.confidence, 0.99)
+    moment_reason = f"Detected life moment: {LABELS[detection.key].lower()} ({pct(shown)} confidence)"
     evidence = f"Signals: {detection.rationale}"
 
     def add(key, status, reasons, deliver_at=today, **fields):

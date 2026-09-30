@@ -8,6 +8,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { FluidBackdrop } from "@/components/FluidBackdrop";
 import { RecentActivity } from "@/components/RecentActivity";
+import { SpendingBreakdown, SubscriptionList } from "@/components/MoneyInsights";
 import { TwinChart } from "@/components/TwinChart";
 import { Money, Skeleton, StreamText } from "@/components/motion";
 import { BrandMark, ErrorNote, errorMessage, LogoutButton, MockBadge, useSession } from "@/components/shell";
@@ -132,6 +133,10 @@ function Overview({ data, onChange }: { data: CustomerOverview; onChange: (d: Cu
           </div>
         </section>
 
+        <SubscriptionList subscriptions={data.subscriptions ?? []} />
+
+        <SpendingBreakdown spending={data.spending ?? []} />
+
         <RecentActivity />
 
         <UpcomingEvents months={twin.months.slice(0, 3)} pinchMonths={twin.pinch_points.map((p) => p.month)} />
@@ -211,14 +216,15 @@ function InterventionCard({ item, onChange }: { item: Intervention; onChange: (d
   const support = item.line === "support";
   const warning = item.key.startsWith("pinch_point");
 
-  async function give(feedback: "helpful" | "not_relevant") {
+  async function give(feedback: "helpful" | "not_relevant", silent = false) {
     setBusy(feedback);
     try {
       onChange(await sendFeedback(item.id, feedback));
       buzz();
-      toast(feedback === "helpful" ? "Glad it helped" : "Hidden. We’ll show fewer like this", {
-        description: feedback === "helpful" ? "We’ll keep suggestions like this coming." : undefined,
-      });
+      if (!silent)
+        toast(feedback === "helpful" ? "Glad it helped" : "Hidden. We’ll show fewer like this", {
+          description: feedback === "helpful" ? "We’ll keep suggestions like this coming." : undefined,
+        });
     } catch (err) {
       toast.error(errorMessage(err));
     } finally {
@@ -254,6 +260,20 @@ function InterventionCard({ item, onChange }: { item: Intervention; onChange: (d
         {item.title}
       </h3>
       <p className="mt-1.5 text-[15px] leading-relaxed text-ink/80">{item.message}</p>
+      {item.cta && (
+        <Button
+          size="sm"
+          className="mt-3"
+          loading={busy === "helpful"}
+          disabled={busy !== null || item.feedback === "helpful"}
+          onClick={() => {
+            toast(item.cta ?? "", { description: "Demo: in the real app this opens the product flow." });
+            if (item.feedback !== "helpful") void give("helpful", true);
+          }}
+        >
+          {item.cta}
+        </Button>
+      )}
 
       <button
         type="button"
