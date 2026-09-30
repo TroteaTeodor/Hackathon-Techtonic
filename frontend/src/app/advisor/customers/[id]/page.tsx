@@ -250,13 +250,13 @@ export default function CustomerDetailPage() {
           </Panel>
         </div>
 
-        <div className="flex min-w-0 flex-col gap-5 lg:sticky lg:top-32 lg:self-start">
+        <div className="flex min-w-0 flex-col gap-5 lg:self-start">
           <InjectPanel customerId={customer.id} onUpdated={applyUpdate} onBusy={setAnalyzing} />
           {(data.subscriptions?.length > 0 || data.spending?.length > 0) && (
             <Panel title="Money" aside={<span className="text-sm text-muted">Categorised transactions</span>}>
               <div className="flex flex-col gap-6">
-                <SubscriptionList subscriptions={data.subscriptions ?? []} />
-                <SpendingBreakdown spending={data.spending ?? []} />
+                <SubscriptionList subscriptions={data.subscriptions ?? []} compact />
+                <SpendingBreakdown spending={data.spending ?? []} compact />
               </div>
             </Panel>
           )}
