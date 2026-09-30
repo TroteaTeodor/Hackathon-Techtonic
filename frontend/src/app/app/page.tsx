@@ -69,7 +69,7 @@ function Overview({ data, onChange }: { data: CustomerOverview; onChange: (d: Cu
       <CompactBar show={compact} name={customer.first_name} balance={customer.balance} tight={pinch} />
       <header
         ref={headerRef}
-        className="relative isolate overflow-hidden bg-navy-900 px-5 pb-12 pt-[max(1.25rem,env(safe-area-inset-top))] text-white"
+        className="relative isolate overflow-hidden bg-navy-900 px-5 pb-16 pt-[max(1.25rem,env(safe-area-inset-top))] text-white"
       >
         <FluidBackdrop calm />
         <div className="flex items-center justify-between">
@@ -98,7 +98,7 @@ function Overview({ data, onChange }: { data: CustomerOverview; onChange: (d: Cu
         <TwinChart twin={twin} variant="dark" height={190} className="mt-2" />
       </header>
 
-      <div className="stagger -mt-6 flex flex-col gap-8 rounded-t-[1.75rem] bg-paper px-4 pb-[max(2rem,env(safe-area-inset-bottom))] pt-5">
+      <div className="stagger relative -mt-6 flex flex-col gap-8 rounded-t-[1.75rem] bg-paper px-4 pb-[max(2rem,env(safe-area-inset-bottom))] pt-7">
         <AnimatePresence initial={false}>
           {showMoment && (
             <motion.div key="moment" exit={{ opacity: 0, height: 0, marginBottom: -32 }} transition={{ duration: 0.3 }}>
@@ -380,14 +380,14 @@ function UpcomingEvents({ months, pinchMonths }: { months: TwinMonth[]; pinchMon
 function OverviewSkeleton() {
   return (
     <div aria-busy="true" aria-label="Loading your overview">
-      <div className="bg-navy-900 px-5 pb-12 pt-[max(1.25rem,env(safe-area-inset-top))]">
+      <div className="bg-navy-900 px-5 pb-16 pt-[max(1.25rem,env(safe-area-inset-top))]">
         <BrandMark href={null} />
         <Skeleton className="skeleton-dark mt-7 h-4 w-44" />
         <Skeleton className="skeleton-dark mt-3 h-11 w-40" />
         <Skeleton className="skeleton-dark mt-4 h-7 w-52 rounded-full" />
         <Skeleton className="skeleton-dark mt-9 h-[190px] w-full rounded-2xl" />
       </div>
-      <div className="-mt-6 space-y-4 rounded-t-[1.75rem] bg-paper px-4 pt-5">
+      <div className="-mt-6 space-y-4 rounded-t-[1.75rem] bg-paper px-4 pt-7">
         <Skeleton className="h-60 w-full rounded-[var(--radius-card)]" />
         <Skeleton className="h-6 w-28" />
         <Skeleton className="h-44 w-full rounded-[var(--radius-card)]" />
