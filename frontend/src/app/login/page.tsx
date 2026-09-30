@@ -2,7 +2,8 @@
 
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
-import { BrandMark, MockBadge, Spinner } from "@/components/shell";
+import { Button } from "@/components/Button";
+import { BrandMark, MockBadge } from "@/components/shell";
 import { ApiError, login, USE_MOCKS } from "@/lib/api";
 
 export default function LoginPage() {
@@ -89,14 +90,9 @@ export default function LoginPage() {
               {error}
             </p>
           )}
-          <button
-            type="submit"
-            disabled={busy || !username || !password}
-            className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-navy-900 px-4 py-3.5 text-base font-semibold text-white transition hover:bg-navy-800 disabled:opacity-50"
-          >
-            {busy && <Spinner className="size-4 text-cyan-300" />}
-            Log in
-          </button>
+          <Button type="submit" size="lg" block loading={busy} disabled={!username || !password} className="mt-6">
+            {busy ? "Logging in…" : "Log in"}
+          </Button>
           <p className="mt-5 text-sm leading-relaxed text-muted">
             Demo accounts: <span className="font-medium text-ink">sara</span>,{" "}
             <span className="font-medium text-ink">julie</span> or <span className="font-medium text-ink">jan</span> for

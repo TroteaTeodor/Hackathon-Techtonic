@@ -1,7 +1,8 @@
 "use client";
 
 import clsx from "clsx";
-import { ArrowLeft, ArrowRight, Baby, Car, FileSignature, Landmark, Sparkles, TriangleAlert } from "lucide-react";
+import { ArrowLeft, ArrowRight, Baby, Car, Check, FileSignature, Landmark, Plus, Sparkles, TriangleAlert, X } from "lucide-react";
+import { Button } from "@/components/Button";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
@@ -398,22 +399,27 @@ function InterventionRow({
       </ul>
       {item.status === "review" && (
         <div className="mt-3.5 flex gap-2">
-          <button
-            type="button"
+          <Button
+            size="sm"
+            icon={Check}
+            loading={busy === "approve"}
             disabled={busy !== null}
             onClick={() => decide("approve")}
-            className="flex-1 rounded-full bg-navy-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-navy-800 disabled:opacity-50 sm:flex-none"
+            className="flex-1 sm:flex-none"
           >
             {busy === "approve" ? "Approving…" : "Approve"}
-          </button>
-          <button
-            type="button"
+          </Button>
+          <Button
+            variant="secondary"
+            size="sm"
+            icon={X}
+            loading={busy === "dismiss"}
             disabled={busy !== null}
             onClick={() => decide("dismiss")}
-            className="flex-1 rounded-full border border-line bg-white px-4 py-2 text-sm font-medium text-navy-900 transition hover:border-navy-500 disabled:opacity-50 sm:flex-none"
+            className="flex-1 sm:flex-none"
           >
             {busy === "dismiss" ? "Dismissing…" : "Dismiss"}
-          </button>
+          </Button>
         </div>
       )}
       {error && <p className="mt-2 text-sm text-coral">{error}</p>}
@@ -467,10 +473,17 @@ function InjectPanel({ customerId, onUpdated }: { customerId: number; onUpdated:
             type="button"
             disabled={busy !== null}
             onClick={() => send(p.signal, p.label)}
-            className="flex flex-col items-start gap-2 rounded-2xl bg-white/[0.07] p-3 text-left text-sm transition hover:bg-white/[0.13] disabled:opacity-50"
+            className={clsx(
+              "group flex min-h-[5.5rem] flex-col items-start gap-2.5 rounded-2xl border p-3 text-left text-sm transition-[background-color,border-color,box-shadow] duration-200",
+              "border-white/10 bg-white/[0.06] shadow-[inset_0_1px_0_rgb(255_255_255/0.06)]",
+              "hover:border-cyan-400/40 hover:bg-white/[0.11] focus-visible:ring-4 focus-visible:ring-cyan-300/30 disabled:cursor-not-allowed",
+              busy === p.label ? "border-cyan-400/60 bg-cyan-500/15" : busy !== null && "opacity-45",
+            )}
           >
-            {busy === p.label ? <Spinner className="size-4 text-cyan-300" /> : <p.icon className="size-4 text-cyan-300" aria-hidden />}
-            <span className="font-medium leading-tight">{p.label}</span>
+            <span className="grid size-8 place-items-center rounded-lg bg-cyan-500/15 text-cyan-300 transition-colors group-hover:bg-cyan-500/25">
+              {busy === p.label ? <Spinner className="size-4" /> : <p.icon className="size-4" aria-hidden strokeWidth={2.25} />}
+            </span>
+            <span className="font-semibold leading-tight">{p.label}</span>
             {p.signal.amount != null && <span className="tabular text-xs text-ice/60">{signedMoney(p.signal.amount)}</span>}
           </button>
         ))}
@@ -492,7 +505,7 @@ function InjectPanel({ customerId, onUpdated }: { customerId: number; onUpdated:
             id="sig-kind"
             value={kind}
             onChange={(e) => setKind(e.target.value as Signal["kind"])}
-            className="rounded-xl border border-white/15 bg-navy-800 px-3 py-2.5 text-sm text-white"
+            className="rounded-xl min-h-11 border border-white/15 bg-navy-800 px-3 text-sm text-white outline-none transition focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/20"
           >
             {(Object.keys(SIGNAL_KIND_LABEL) as Signal["kind"][]).map((k) => (
               <option key={k} value={k}>
@@ -509,7 +522,7 @@ function InjectPanel({ customerId, onUpdated }: { customerId: number; onUpdated:
             placeholder="€ amount"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            className="tabular rounded-xl border border-white/15 bg-navy-800 px-3 py-2.5 text-sm text-white placeholder:text-ice/40"
+            className="tabular rounded-xl min-h-11 border border-white/15 bg-navy-800 px-3 text-sm text-white outline-none transition focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/20 placeholder:text-ice/40"
           />
         </div>
         <label className="sr-only" htmlFor="sig-desc">
@@ -521,16 +534,18 @@ function InjectPanel({ customerId, onUpdated }: { customerId: number; onUpdated:
           placeholder="Description, e.g. Deposit — Immo Vandenberghe"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full rounded-xl border border-white/15 bg-navy-800 px-3 py-2.5 text-sm text-white placeholder:text-ice/40"
+          className="w-full rounded-xl min-h-11 border border-white/15 bg-navy-800 px-3 text-sm text-white outline-none transition focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/20 placeholder:text-ice/40"
         />
-        <button
+        <Button
           type="submit"
+          variant="accent"
+          block
+          icon={Plus}
+          loading={busy === "custom"}
           disabled={busy !== null || !description.trim()}
-          className="flex w-full items-center justify-center gap-2 rounded-xl bg-cyan-500 px-4 py-2.5 text-sm font-semibold text-navy-950 transition hover:bg-cyan-400 disabled:opacity-40"
         >
-          {busy === "custom" && <Spinner className="size-4" />}
           Add signal
-        </button>
+        </Button>
       </form>
       {error && <p className="mt-3 rounded-xl bg-coral/20 px-3 py-2 text-sm text-[#ffc7b5]">{error}</p>}
     </section>
@@ -564,9 +579,9 @@ function SignalTimeline({ signals, highlight }: { signals: Signal[]; highlight?:
         ))}
       </ol>
       {signals.length > 8 && (
-        <button type="button" onClick={() => setShowAll((v) => !v)} className="mt-3 text-sm font-medium text-navy-700">
+        <Button variant="ghost" size="sm" onClick={() => setShowAll((v) => !v)} className="-ml-3 mt-2 text-navy-700">
           {showAll ? "Show fewer" : `Show all ${signals.length}`}
-        </button>
+        </Button>
       )}
     </div>
   );
