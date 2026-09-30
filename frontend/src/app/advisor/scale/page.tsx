@@ -3,7 +3,7 @@
 import clsx from "clsx";
 import { useCallback, useEffect, useState } from "react";
 import { STATUS_TONE } from "@/components/advisor";
-import { RollIn } from "@/components/motion";
+import { RollIn, useInView } from "@/components/motion";
 import { ScaleSkeleton } from "@/components/skeletons";
 import { ErrorNote, errorMessage } from "@/components/shell";
 import { getScale } from "@/lib/api";
@@ -22,6 +22,8 @@ const STATUS_BAR: Record<Intervention["status"], string> = {
 export default function ScalePage() {
   const [data, setData] = useState<ScaleStats | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [barsRef, barsIn] = useInView<HTMLUListElement>(0.3);
+  const [statusRef, statusIn] = useInView<HTMLDivElement>(0.5);
 
   const load = useCallback(() => {
     getScale()
@@ -80,7 +82,7 @@ export default function ScalePage() {
             <h2 className="font-display text-lg font-semibold tracking-tight text-navy-900">Moments in the pilot</h2>
             <span className="tabular text-sm text-muted">{count(data.population)} customers</span>
           </div>
-          <ul className="mt-4 space-y-2.5">
+          <ul ref={barsRef} className="mt-4 space-y-2.5">
             {MOMENT_KEYS.map((k) => {
               const n = data.moments[k] ?? 0;
               return (
@@ -89,10 +91,10 @@ export default function ScalePage() {
                   <span className="h-2.5 overflow-hidden rounded-full bg-paper">
                     <span
                       className={clsx(
-                        "block h-full rounded-full",
+                        "block h-full rounded-full transition-[width] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]",
                         k === "financial_stress" ? "bg-coral" : k === "no_clear_moment" ? "bg-navy-500/30" : "bg-cyan-500",
                       )}
-                      style={{ width: `${(n / momentMax) * 100}%` }}
+                      style={{ width: barsIn ? `${(n / momentMax) * 100}%` : "0%", transitionDelay: `${MOMENT_KEYS.indexOf(k) * 45}ms` }}
                     />
                   </span>
                   <span className="tabular text-right text-muted">
@@ -111,9 +113,13 @@ export default function ScalePage() {
             sent automatically. The other {percent(1 - data.automation_rate)} wait for an advisor, because the customer is
             stressed or we aren’t sure enough.
           </p>
-          <div className="mt-5 flex h-3 overflow-hidden rounded-full" aria-hidden>
+          <div ref={statusRef} className="mt-5 flex h-3 overflow-hidden rounded-full bg-paper" aria-hidden>
             {STATUS_ORDER.map((s) => (
-              <span key={s} className={STATUS_BAR[s]} style={{ width: `${(data.interventions[s] / statusTotal) * 100}%` }} />
+              <span
+                key={s}
+                className={clsx(STATUS_BAR[s], "transition-[width] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]")}
+                style={{ width: statusIn ? `${(data.interventions[s] / statusTotal) * 100}%` : "0%" }}
+              />
             ))}
           </div>
           <ul className="mt-4 grid grid-cols-2 gap-2 text-sm">

@@ -1,6 +1,7 @@
 "use client";
 
 import clsx from "clsx";
+import { motion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CommandPalette } from "@/components/CommandPalette";
@@ -53,7 +54,13 @@ export default function AdvisorLayout({ children }: LayoutProps<"/advisor">) {
                 )}
               >
                 {t.label}
-                {active && <span className="absolute inset-x-3 bottom-0 h-[3px] rounded-t bg-cyan-500" />}
+                {active && (
+                  <motion.span
+                    layoutId="console-tab"
+                    className="absolute inset-x-3 bottom-0 h-[3px] rounded-t bg-cyan-500"
+                    transition={{ type: "spring", stiffness: 520, damping: 40 }}
+                  />
+                )}
               </Link>
             );
           })}

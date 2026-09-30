@@ -340,6 +340,17 @@ a[href].press:active {
     0 32px 56px -28px rgb(6 34 74 / 0.3);
 }
 
+/* List rows settle in with a short stagger the first time they render. */
+@keyframes row-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+.row-in {
+  animation: row-in 420ms var(--ease-out-expo) both;
+}
+
 /* Loading placeholders shimmer in the shape of what is coming. */
 @keyframes shimmer {
   from {
@@ -379,4 +390,19 @@ a[href].press:active {
   outline: 2px solid var(--color-cyan-500);
   outline-offset: 4px;
   border-radius: 14px;
+}
+
+/* A status that changes (review → delivered) pops once so the eye catches it. */
+@keyframes status-pop {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.4;
+  }
+  60% {
+    transform: scale(1.06);
+  }
+}
+.status-pop {
+  display: inline-block;
+  animation: status-pop 380ms var(--ease-out-expo) both;
 }
