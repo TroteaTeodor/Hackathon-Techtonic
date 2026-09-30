@@ -6,6 +6,18 @@ import Lenis from "lenis";
 import "lenis/dist/lenis.css";
 import { useEffect, useState } from "react";
 
+declare global {
+  interface Window {
+    __lenis?: Lenis;
+  }
+}
+
+/** Smoothly back to the top, through Lenis when it runs so the two never fight. */
+export function scrollToTop() {
+  if (window.__lenis) window.__lenis.scrollTo(0, { duration: 0.9 });
+  else window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
 /**
  * Inertial wheel scrolling on desktop. Touch keeps native scrolling, and reduced motion turns it off.
  * It pauses while a dialog locks the page (Radix sets data-scroll-locked on <body>), so the wheel
@@ -16,11 +28,13 @@ export function SmoothScroll() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const lenis = new Lenis({ autoRaf: true, lerp: 0.11, wheelMultiplier: 0.95 });
+    window.__lenis = lenis;
     const sync = () => (document.body.hasAttribute("data-scroll-locked") ? lenis.stop() : lenis.start());
     const mo = new MutationObserver(sync);
     mo.observe(document.body, { attributes: true, attributeFilter: ["data-scroll-locked"] });
     return () => {
       mo.disconnect();
+      window.__lenis = undefined;
       lenis.destroy();
     };
   }, []);

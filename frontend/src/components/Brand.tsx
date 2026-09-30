@@ -1,6 +1,9 @@
+"use client";
+
 import clsx from "clsx";
 import Link from "next/link";
 import { useId } from "react";
+import { scrollToTop } from "@/components/motion";
 
 /**
  * KBC's logo, drawn from the official SVG (Wikimedia Commons "KBC logo.svg"): the cyan sun over the
@@ -99,7 +102,18 @@ export function CoBrand({
   const cls = clsx("inline-flex items-center", s.gap, className);
   if (!href) return <span className={cls}>{body}</span>;
   return (
-    <Link href={href} aria-label="KBC Foresight home" className={clsx("press -m-1.5 rounded-xl p-1.5", cls)}>
+    <Link
+      href={href}
+      aria-label="KBC Foresight home"
+      className={clsx("press -m-1.5 rounded-xl p-1.5", cls)}
+      onClick={(e) => {
+        // Already on the home page: glide to the top instead of doing nothing.
+        if (window.location.pathname === href) {
+          e.preventDefault();
+          scrollToTop();
+        }
+      }}
+    >
       {body}
     </Link>
   );

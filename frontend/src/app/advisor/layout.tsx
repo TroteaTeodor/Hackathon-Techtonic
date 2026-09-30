@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useRef } from "react";
 import { CommandPalette } from "@/components/CommandPalette";
 import { CoBrand } from "@/components/Brand";
 import { LogoutButton, MockBadge, useSession } from "@/components/shell";
@@ -17,6 +18,18 @@ const TABS = [
 export default function AdvisorLayout({ children }: LayoutProps<"/advisor">) {
   const me = useSession("advisor");
   const pathname = usePathname();
+  const headerRef = useRef<HTMLElement>(null);
+
+  // Publish the header's real height so sticky elements below (the table head) sit right under it.
+  useEffect(() => {
+    const el = headerRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() =>
+      document.documentElement.style.setProperty("--console-header-h", `${Math.round(el.getBoundingClientRect().height)}px`),
+    );
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   const pending =
     pathname === "/advisor/scale" ? (
@@ -29,7 +42,7 @@ export default function AdvisorLayout({ children }: LayoutProps<"/advisor">) {
 
   return (
     <div className="flex flex-1 flex-col">
-      <header className="sticky top-0 z-20 bg-navy-900 pt-[env(safe-area-inset-top)] text-white">
+      <header ref={headerRef} className="sticky top-0 z-20 bg-navy-900 pt-[env(safe-area-inset-top)] text-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
           <div className="flex items-center gap-3">
             <CoBrand href="/advisor" label="Advisor console" />
