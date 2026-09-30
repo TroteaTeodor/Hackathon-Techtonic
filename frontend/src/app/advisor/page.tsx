@@ -56,7 +56,7 @@ export default function CustomersPage() {
         </button>
       </div>
 
-      <div className="scrollbar-none -mx-4 mt-5 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0" role="group" aria-label="Filter by moment">
+      <div className="scrollbar-none -mx-4 mt-4 flex gap-2 overflow-x-auto px-4 py-1.5 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0" role="group" aria-label="Filter by moment">
         {(["", ...MOMENT_KEYS] as const).map((key) => (
           <button
             key={key || "all"}
