@@ -25,15 +25,22 @@ cd frontend && pnpm install && pnpm dev   # Next.js on :3000
 - Demo logins (password = `DEMO_PASSWORD`): `advisor`, and customers `sara` (moving home), `lien` (baby),
   `ahmed` (new job, no marketing consent), `marc` (retirement), `julie` (financial stress), `pieter` (car), `jan` (routine).
 
+### Gemini service account
+- Gemini is called only through Vertex AI with a service-account key (no API keys).
+- Keys live in `secrets/gcp-sa-<name>.json` (git-ignored). Switch with `./scripts/use-gcp.sh <name>`: it copies the key
+  to `secrets/gcp-sa.json`, sets `GOOGLE_CLOUD_PROJECT` in `.env`, recreates the backend and makes one test call.
+  - `hackathon`: `qwiklabs-gcp-02-7084aced4e5c`, the organizers' project. Its `vertexai.allowedModels` org policy
+    currently denies every model, so detection falls back to rules until the organizers allow Gemini.
+  - `billem`: `billem-499113`, a working fallback with Gemini 3.8 Flash.
+
 ### Environment variables (root `.env`, see `.env.example`)
 | Variable | Purpose |
 |---|---|
 | `SESSION_SECRET` | Signs session cookies. Required, ≥32 chars; the backend refuses to start without it. |
 | `DEMO_PASSWORD` | Password for all demo accounts. Without it no demo users are created. |
 | `COOKIE_SECURE` | `true` only when served over HTTPS. |
-| `GOOGLE_GENAI_USE_VERTEXAI`, `GOOGLE_CLOUD_PROJECT`, `GOOGLE_CLOUD_LOCATION` | Gemini via Vertex AI (location `global` for Gemini 3.x). Key file mounted from `secrets/gcp-sa.json`. |
+| `GOOGLE_GENAI_USE_VERTEXAI`, `GOOGLE_CLOUD_PROJECT`, `GOOGLE_CLOUD_LOCATION` | Gemini via Vertex AI with the service-account key mounted from `secrets/gcp-sa.json` (location `global` for Gemini 3.x). This is the only way Gemini is called: API keys are disabled on the hackathon projects. |
 | `GEMINI_MODEL` | Default `gemini-3.8-flash`. |
-| `GEMINI_API_KEY` | AI Studio key, used only when Vertex is off. |
 
 ## Backend
 - Python deps in `backend/requirements.txt`; rebuild with `docker compose up -d --build backend`.

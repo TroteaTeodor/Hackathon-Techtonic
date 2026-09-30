@@ -26,17 +26,17 @@ For a customer, the system SHALL produce a moment assessment containing:
 - **THEN** the moment is `no_clear_moment`, or any other moment has a confidence below 0.5
 
 ### Requirement: AI-based detection
-When an AI key is configured, the system SHALL detect moments with Gemini, using only the customer's profile and their most recent signals (at most 40) as input. It SHALL validate the structured response before using it.
+When Gemini credentials are configured (a Vertex AI service account), the system SHALL detect moments with Gemini, using only the customer's profile and their most recent signals (at most 40) as input. It SHALL validate the structured response before using it.
 
 #### Scenario: Malformed AI response
 - **WHEN** Gemini returns a response that is missing fields or uses an unknown moment key
 - **THEN** the system uses the rule-based result for that customer and records the source as `rules`
 
 ### Requirement: Rule-based fallback
-The system SHALL produce a moment assessment without any AI service, using deterministic rules over signal descriptions and amounts. It SHALL do so whenever no AI key is configured, the AI call fails, or the AI call takes longer than 10 seconds.
+The system SHALL produce a moment assessment without any AI service, using deterministic rules over signal descriptions and amounts. It SHALL do so whenever no Gemini credentials are configured, the AI call fails, or the AI call takes longer than 10 seconds.
 
-#### Scenario: No AI key configured
-- **WHEN** the backend runs without `GEMINI_API_KEY` and a customer is analyzed
+#### Scenario: No Gemini credentials configured
+- **WHEN** the backend runs without Vertex AI credentials and a customer is analyzed
 - **THEN** a complete assessment is returned with source `rules`, and no request is made to an external service
 
 ### Requirement: Detection stays within the customer's data

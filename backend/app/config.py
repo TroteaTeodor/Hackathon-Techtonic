@@ -14,13 +14,12 @@ class Settings(BaseSettings):
     cookie_secure: bool = False
     demo_password: str | None = None
 
-    # Gemini: Vertex AI (service account) when GOOGLE_GENAI_USE_VERTEXAI=true, else an AI Studio key.
+    # Gemini runs only through Vertex AI with a service account (API keys are disabled on the hackathon projects).
     ai_enabled: bool = True
     google_genai_use_vertexai: bool = False
     google_cloud_project: str | None = None
     google_cloud_location: str = "global"
     google_application_credentials: str | None = None
-    gemini_api_key: str | None = None
     gemini_model: str = "gemini-3.8-flash"
     gemini_timeout_seconds: float = 10
     # "" = model default; "minimal" | "low" | "medium" | "high". Chosen from the evals (backend/evals/REPORT.md).
