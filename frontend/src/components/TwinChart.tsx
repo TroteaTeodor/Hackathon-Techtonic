@@ -1,7 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import { useId, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import {
   Area,
   ComposedChart,
@@ -101,8 +101,6 @@ export function TwinChart({
       };
 
   const selectedMonth = twin.months.find((m) => m.month === shown);
-  const selectedPinch = twin.pinch_points.find((p) => p.month === shown);
-  const notable = selectedMonth?.events.filter((e) => e.source !== "recurring") ?? [];
 
   return (
     <div className={clsx("w-full select-none", className)}>
@@ -246,44 +244,104 @@ export function TwinChart({
         <span className="ml-auto hidden sm:inline">Hover or tap a month</span>
       </div>
 
-      {selectedMonth && (
+      {/* The box is exactly as tall as the chosen month and eases to the next month's height, so a
+          month with more lines expands smoothly instead of jumping. Only the chosen month is in flow;
+          the others wait out of flow, invisible, ready to crossfade in. */}
+      <MonthBox dark={dark}>
         <div
-          key={selectedMonth.month}
           className={clsx(
-            "fade-up mt-3 rounded-2xl p-3.5 text-sm",
-            dark ? "bg-white/[0.07] text-ice" : "border border-line bg-white",
+            "min-w-0 transition-opacity duration-200",
+            selectedMonth ? "invisible absolute inset-x-3.5 top-3.5 opacity-0" : "relative opacity-100",
+            dark ? "text-ice/60" : "text-muted",
           )}
         >
-          <div className="flex items-baseline justify-between gap-3">
-            <span className="font-semibold">{monthLong(selectedMonth.month)}</span>
-            <span className={clsx("tabular font-semibold", selectedMonth.balance < BUFFER && "text-coral")}>
-              {money(selectedMonth.balance)}
-            </span>
-          </div>
-          {selectedPinch && (
-            <p className={clsx("mt-1.5 leading-snug", dark ? "text-ice/80" : "text-muted")}>{selectedPinch.reason}</p>
-          )}
-          {notable.length > 0 && (
-            <ul className="mt-2 space-y-1">
-              {notable.map((e) => (
-                <li key={e.label} className="flex items-center justify-between gap-3">
-                  <span className="flex min-w-0 items-center gap-2">
-                    {e.source === "moment" ? (
-                      <span className="size-1.5 shrink-0 rotate-45 border-[1.5px] border-cyan-500" />
-                    ) : (
-                      <span className={clsx("size-1.5 shrink-0 rounded-full", dark ? "bg-ice/50" : "bg-muted/60")} />
-                    )}
-                    <span className="truncate">{e.label}</span>
-                  </span>
-                  <span className="tabular shrink-0">{signedMoney(e.amount)}</span>
-                </li>
-              ))}
-            </ul>
-          )}
-          {!selectedPinch && notable.length === 0 && (
-            <p className={clsx("mt-1", dark ? "text-ice/60" : "text-muted")}>Only your usual income and bills.</p>
-          )}
+          Hover or tap a month to see what happens in it.
         </div>
+        {twin.months.map((m) => (
+          <MonthDetails
+            key={m.month}
+            month={m}
+            pinch={twin.pinch_points.find((p) => p.month === m.month)}
+            dark={dark}
+            active={m.month === shown}
+          />
+        ))}
+      </MonthBox>
+    </div>
+  );
+}
+
+/** A panel whose height follows its content with an eased transition. */
+function MonthBox({ dark, children }: { dark: boolean; children: React.ReactNode }) {
+  const inner = useRef<HTMLDivElement>(null);
+  const [height, setHeight] = useState<number | null>(null);
+  useEffect(() => {
+    const el = inner.current;
+    if (!el) return;
+    const ro = new ResizeObserver(([entry]) => setHeight(Math.ceil(entry.borderBoxSize[0]?.blockSize ?? el.offsetHeight)));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  return (
+    <div
+      aria-live="polite"
+      style={height == null ? undefined : { height }}
+      className={clsx(
+        "month-box mt-3 overflow-hidden rounded-2xl text-sm transition-[height] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
+        dark ? "bg-white/[0.07] text-ice" : "border border-line bg-white",
+      )}
+    >
+      <div ref={inner} className="relative p-3.5">
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function MonthDetails({
+  month,
+  pinch,
+  dark,
+  active,
+}: {
+  month: Twin["months"][number];
+  pinch?: Twin["pinch_points"][number];
+  dark: boolean;
+  active: boolean;
+}) {
+  const notable = month.events.filter((e) => e.source !== "recurring");
+  return (
+    <div
+      aria-hidden={!active}
+      className={clsx(
+        "min-w-0 transition-[opacity,transform] duration-200 ease-out",
+        active ? "relative translate-y-0 opacity-100" : "invisible absolute inset-x-3.5 top-3.5 translate-y-0.5 opacity-0",
+      )}
+    >
+      <div className="flex items-baseline justify-between gap-3">
+        <span className="font-semibold">{monthLong(month.month)}</span>
+        <span className={clsx("tabular font-semibold", month.balance < BUFFER && "text-coral")}>{money(month.balance)}</span>
+      </div>
+      {pinch && <p className={clsx("mt-1.5 leading-snug", dark ? "text-ice/80" : "text-muted")}>{pinch.reason}</p>}
+      {notable.length > 0 && (
+        <ul className="mt-2 space-y-1">
+          {notable.map((e) => (
+            <li key={e.label} className="flex items-center justify-between gap-3">
+              <span className="flex min-w-0 items-center gap-2">
+                {e.source === "moment" ? (
+                  <span className="size-1.5 shrink-0 rotate-45 border-[1.5px] border-cyan-500" />
+                ) : (
+                  <span className={clsx("size-1.5 shrink-0 rounded-full", dark ? "bg-ice/50" : "bg-muted/60")} />
+                )}
+                <span className="truncate">{e.label}</span>
+              </span>
+              <span className="tabular shrink-0">{signedMoney(e.amount)}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+      {!pinch && notable.length === 0 && (
+        <p className={clsx("mt-1", dark ? "text-ice/60" : "text-muted")}>Only your usual income and bills.</p>
       )}
     </div>
   );

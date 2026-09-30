@@ -69,7 +69,7 @@ function Overview({ data, onChange }: { data: CustomerOverview; onChange: (d: Cu
       <CompactBar show={compact} name={customer.first_name} balance={customer.balance} tight={pinch} />
       <header
         ref={headerRef}
-        className="relative isolate overflow-hidden bg-navy-900 px-5 pb-12 pt-[max(1.25rem,env(safe-area-inset-top))] text-white"
+        className="relative isolate overflow-hidden bg-navy-900 px-5 pb-16 pt-[max(1.25rem,env(safe-area-inset-top))] text-white"
       >
         <FluidBackdrop calm />
         <div className="flex items-center justify-between">
@@ -98,7 +98,7 @@ function Overview({ data, onChange }: { data: CustomerOverview; onChange: (d: Cu
         <TwinChart twin={twin} variant="dark" height={190} className="mt-2" />
       </header>
 
-      <div className="stagger -mt-6 flex flex-col gap-8 rounded-t-[1.75rem] bg-paper px-4 pb-[max(2rem,env(safe-area-inset-bottom))] pt-5">
+      <div className="stagger relative -mt-6 flex flex-col gap-8 rounded-t-[1.75rem] bg-paper px-4 pb-[max(2rem,env(safe-area-inset-bottom))] pt-7">
         <AnimatePresence initial={false}>
           {showMoment && (
             <motion.div key="moment" exit={{ opacity: 0, height: 0, marginBottom: -32 }} transition={{ duration: 0.3 }}>
@@ -157,11 +157,17 @@ function MomentBanner({ overview, onChange }: { overview: CustomerOverview; onCh
   return (
     <section
       aria-label="What we noticed"
-      className="overflow-hidden rounded-[var(--radius-card)] bg-white shadow-[0_12px_32px_-18px_rgba(6,34,74,0.35)]"
+      className="elev-2 overflow-hidden rounded-[var(--radius-card)] bg-white"
     >
       {imgOk && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={meta.image} alt="" className="aspect-[16/8] w-full object-cover" onError={() => setImgOk(false)} />
+        <div className="p-2 pb-0">
+          {/* Inset photo with its own corners and a hairline, instead of being clipped by the card's edge. */}
+          <div className="relative overflow-hidden rounded-[1.05rem]">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={meta.image} alt="" className="aspect-[16/8] w-full object-cover" onError={() => setImgOk(false)} />
+            <div aria-hidden className="pointer-events-none absolute inset-0 rounded-[1.05rem] ring-1 ring-inset ring-navy-950/10 shadow-[inset_0_-24px_40px_-28px_rgb(4_24_51/0.45)]" />
+          </div>
+        </div>
       )}
       <div className="p-4">
         <p className="font-display text-lg font-semibold leading-snug tracking-tight text-navy-900">
@@ -223,8 +229,8 @@ function InterventionCard({ item, onChange }: { item: Intervention; onChange: (d
   return (
     <article
       className={clsx(
-        "rounded-[var(--radius-card)] border bg-white p-4",
-        warning ? "border-coral/35" : support ? "border-mint/35" : "border-line",
+        "elev-1 rounded-[var(--radius-card)] border bg-white p-4",
+        warning ? "border-coral/35" : support ? "border-mint/35" : "border-transparent",
       )}
     >
       <div className="flex items-center justify-between gap-3 text-xs">
@@ -321,7 +327,7 @@ function UpcomingEvents({ months, pinchMonths }: { months: TwinMonth[]; pinchMon
       <h2 id="coming-up" className="font-display px-1 text-xl font-semibold tracking-tight text-navy-900">
         Coming up
       </h2>
-      <ol className="relative mt-3 rounded-[var(--radius-card)] bg-white px-4 py-1">
+      <ol className="elev-1 relative mt-3 rounded-[var(--radius-card)] bg-white px-4 py-1">
         {months.map((m, idx) => {
           const special = m.events.filter((e) => e.source !== "recurring");
           const usual = m.events.filter((e) => e.source === "recurring");
@@ -374,14 +380,14 @@ function UpcomingEvents({ months, pinchMonths }: { months: TwinMonth[]; pinchMon
 function OverviewSkeleton() {
   return (
     <div aria-busy="true" aria-label="Loading your overview">
-      <div className="bg-navy-900 px-5 pb-12 pt-[max(1.25rem,env(safe-area-inset-top))]">
+      <div className="bg-navy-900 px-5 pb-16 pt-[max(1.25rem,env(safe-area-inset-top))]">
         <BrandMark href={null} />
         <Skeleton className="skeleton-dark mt-7 h-4 w-44" />
         <Skeleton className="skeleton-dark mt-3 h-11 w-40" />
         <Skeleton className="skeleton-dark mt-4 h-7 w-52 rounded-full" />
         <Skeleton className="skeleton-dark mt-9 h-[190px] w-full rounded-2xl" />
       </div>
-      <div className="-mt-6 space-y-4 rounded-t-[1.75rem] bg-paper px-4 pt-5">
+      <div className="-mt-6 space-y-4 rounded-t-[1.75rem] bg-paper px-4 pt-7">
         <Skeleton className="h-60 w-full rounded-[var(--radius-card)]" />
         <Skeleton className="h-6 w-28" />
         <Skeleton className="h-44 w-full rounded-[var(--radius-card)]" />
